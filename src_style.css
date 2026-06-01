@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 自訂動畫與遮罩 */
+.fade-in {
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
