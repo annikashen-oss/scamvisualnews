@@ -1,1 +1,1 @@
-# scamvisualnews
+# 視覺化專題
