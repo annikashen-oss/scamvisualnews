@@ -1,0 +1,22 @@
+# 依賴目錄
+node_modules/
+
+# 打包輸出目錄
+dist/
+dist-ssr/
+
+# 本地環境檔案
+.DS_Store
+*.log
+.env
+.env.local
+.env.*.local
+
+# 編輯器或 IDE 設定（可依個人習慣增減）
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 系統檔案
+Thumbs.db
