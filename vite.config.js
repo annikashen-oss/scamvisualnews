@@ -1,5 +1,7 @@
-js
 import { defineConfig } from 'vite'
+
 export default defineConfig({
-  base: '/scamvisualnews/'   // 如果使用 username.github.io 則設為 '/'
+  // 這是 GitHub Pages 部署必備的設定
+  // 您的專案名稱是 scamvisualnews，所以這裡必須這樣設定，網頁才不會破圖
+  base: '/scamvisualnews/', 
 })
