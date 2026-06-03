@@ -17,3 +17,56 @@ html, body {
 #bg-container {
   background: red !important;
 }
+/* 1. 設定文字容器相對位置 */
+.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+
+/* 2. 利用偽元素 (pseudo-elements) 複製出兩個一模一樣的文字疊在上面 */
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text); /* 抓取 HTML 中的 data-text 屬性 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+/* 3. 製作紅色殘影與裁切動畫 */
+.glitch-text::before {
+  left: 3px;
+  text-shadow: -2px 0 #ef4444; /* Tailwind 的警示紅 */
+  /* 使用 clip-path 隨機裁切文字的一部分，創造破碎感 */
+  clip-path: polygon(0 0, 100% 0, 100% 30%, 0 30%);
+  animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+/* 4. 製作藍色殘影與裁切動畫 */
+.glitch-text::after {
+  left: -3px;
+  text-shadow: -2px 0 #3b82f6; /* Tailwind 的科技藍 */
+  clip-path: polygon(0 70%, 100% 70%, 100% 100%, 0 100%);
+  animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
+}
+
+/* 5. 讓裁切範圍與位置瘋狂閃爍的 Keyframes 動畫 */
+@keyframes glitch-anim-1 {
+  0% { clip-path: polygon(0 20%, 100% 20%, 100% 21%, 0 21%); transform: translate(-2px, 1px); }
+  20% { clip-path: polygon(0 33%, 100% 33%, 100% 33%, 0 33%); transform: translate(2px, -1px); }
+  40% { clip-path: polygon(0 44%, 100% 44%, 100% 44%, 0 44%); transform: translate(-2px, 2px); }
+  60% { clip-path: polygon(0 50%, 100% 50%, 100% 20%, 0 20%); transform: translate(2px, -2px); }
+  80% { clip-path: polygon(0 70%, 100% 70%, 100% 70%, 0 70%); transform: translate(-1px, 1px); }
+  100% { clip-path: polygon(0 80%, 100% 80%, 100% 80%, 0 80%); transform: translate(1px, -1px); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip-path: polygon(0 10%, 100% 10%, 100% 20%, 0 20%); transform: translate(2px, -1px); }
+  20% { clip-path: polygon(0 25%, 100% 25%, 100% 35%, 0 35%); transform: translate(-2px, 1px); }
+  40% { clip-path: polygon(0 45%, 100% 45%, 100% 50%, 0 50%); transform: translate(2px, -2px); }
+  60% { clip-path: polygon(0 60%, 100% 60%, 100% 70%, 0 70%); transform: translate(-2px, 2px); }
+  80% { clip-path: polygon(0 75%, 100% 75%, 100% 80%, 0 80%); transform: translate(1px, -1px); }
+  100% { clip-path: polygon(0 85%, 100% 85%, 100% 90%, 0 90%); transform: translate(-1px, 1px); }
+}
