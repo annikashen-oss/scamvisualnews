@@ -27,10 +27,16 @@
     </section>
 
 <!-- ========== 面向一：詐騙現況開場 ========== -->
-<!-- 圖表一：詐騙儀表板（自製累計金額） -->
-<section class="step min-h-screen flex flex-col justify-center items-center p-6">
+<section id="scene-fraud" class="step min-h-screen flex flex-col justify-center items-center p-6 relative">
+  <!-- 底色層（半透明青綠色） -->
+  <div class="absolute inset-0 rounded-2xl" style="background-color: rgba(52, 145, 163, 0.7); z-index: 1;"></div>
+  
+  <!-- 毛玻璃層（初始模糊 0px，隨滾動增強） -->
+  <div id="glass-layer" class="absolute inset-0 rounded-2xl" style="backdrop-filter: blur(0px); pointer-events: none; z-index: 2;"></div>
+
+  <!-- 內容區塊（圖表、文字等，需在圖層上方） -->
+  <div class="relative w-full max-w-3xl p-6 z-10">
     <h2 class="text-4xl font-bold mb-8 text-center">📊 詐騙金額逐年攀升</h2>
-    <div class="w-full max-w-3xl p-6 rounded-2xl" style="background-color: #3491a3; backdrop-filter: blur(8px);">
     <canvas id="fraudChart" width="800" height="400"></canvas>
     <div class="flourish-embed flourish-chart" data-src="visualisation/29175490">
       <script src="https://public.flourish.studio/resources/embed.js"></script>
@@ -38,74 +44,9 @@
         <img src="https://public.flourish.studio/visualisation/29175490/thumbnail" width="100%" alt="chart visualization" />
       </noscript>
     </div>
-    <p class="text-center text-gray-300 mt-4">資料來源：警政署統計（單位：億元）</p>
+    <p class="text-center text-gray-300 mt-4">資料來源：內政部警政署165打詐儀錶板，民國113年8月至115年5月全國詐騙財產損失金額（單位：億元）、圖表製作／孟沛蓁</p>
   </div>
 </section>
-        <!-- Chart.js 圖表 -->
-        <canvas id="fraudChart" width="800" height="400"></canvas>
-        <!-- Flourish 圖表嵌入 -->
-        <div class="flourish-embed flourish-chart" data-src="visualisation/29175490">
-            <script src="https://public.flourish.studio/resources/embed.js"></script>
-            <noscript>
-                <img src="https://public.flourish.studio/visualisation/29175490/thumbnail" width="100%" alt="chart visualization" />
-            </noscript>
-        </div>
-        <p class="text-center text-gray-300 mt-4">資料來源：警政署統計（單位：億元）</p>
-    </div>
-</section>
-
-<script>
-    // --- Chart.js 圖表渲染（加入實例管理與事件監聽）---
-    (function() {
-        // 建立一個 Map 來管理 Chart.js 實例
-        const chartRegistry = new Map();
-
-        function initFraudChart() {
-            const canvas = document.getElementById('fraudChart');
-            if (!canvas) return;
-
-            // 確保在建立新圖表前，銷毀舊的實例以避免衝突
-            if (chartRegistry.has('fraudChart')) {
-                chartRegistry.get('fraudChart').destroy();
-                chartRegistry.delete('fraudChart');
-            }
-
-            const ctx = canvas.getContext('2d');
-            const newChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['114/1-114/5', '115/1-115/5'],
-                    datasets: [{
-                        label: '累計詐騙金額（億元）',
-                        data: [78.3, 102.6],
-                        backgroundColor: ['#ef4444', '#b91c1c'],
-                        borderRadius: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { labels: { color: 'white' } }
-                    }
-                }
-            });
-            chartRegistry.set('fraudChart', newChart);
-        }
-
-        // 確保 DOM 完全載入後才初始化圖表
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initFraudChart);
-        } else {
-            initFraudChart();
-        }
-    })();
-
-    // (可選) 針對進階 SPA 應用，若 Flourish 圖表未自動載入，可手動觸發
-    // if (window.Flourish && typeof window.Flourish.reload === 'function') {
-    //     window.Flourish.reload();
-    // }
-</script>
 
     <!-- 圖表二：時間軸－詐騙三階段 -->
     <section class="step min-h-screen flex flex-col justify-center items-center p-6">
