@@ -5,20 +5,21 @@ import Chart from 'chart.js/auto'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// ================== 1. 遮罩動態加深（背景已改為漸層，無需切換圖片） ==================
+// ================== 1. 遮罩動態加深 ==================
 const mask = document.getElementById('global-mask')
-// 確保初始為透明
-mask.classList.add('bg-black/0')
+if (mask) {
+  mask.classList.add('bg-black/0')
+  ScrollTrigger.create({
+    trigger: '.step:nth-child(5)',  // 請依實際段落調整
+    start: 'top center',
+    onEnter: () => mask.classList.replace('bg-black/0', 'bg-black/80'),
+    onLeaveBack: () => mask.classList.replace('bg-black/80', 'bg-black/0')
+  })
+}
 
-ScrollTrigger.create({
-  trigger: '.step:nth-child(5)',  // 請依實際段落調整
-  start: 'top center',
-  onEnter: () => mask.classList.replace('bg-black/0', 'bg-black/80'),
-  onLeaveBack: () => mask.classList.replace('bg-black/80', 'bg-black/0')
-})
-
-// ================== 2. 動態毛玻璃強度（作用於實際卡片） ==================
-const fraudCard = document.getElementById('fraud-glass-card')
+// ================== 2. 動態毛玻璃強度 ==================
+// 請確認 HTML 中的目標元素 id 是 'glass-layer' 或 'fraud-glass-card'
+const fraudCard = document.getElementById('glass-layer')  // 修正 ID
 if (fraudCard) {
   ScrollTrigger.create({
     trigger: '#scene-fraud',
@@ -26,7 +27,7 @@ if (fraudCard) {
     end: 'bottom top',
     scrub: 1.5,
     onUpdate: (self) => {
-      const blurAmount = self.progress * 20  // 0 → 20px
+      const blurAmount = self.progress * 20
       fraudCard.style.backdropFilter = `blur(${blurAmount}px)`
     }
   })
@@ -49,8 +50,9 @@ bubbles.forEach(bubble => {
     }
   )
 })
+
 // ================== 故事段落滾動動畫 ==================
-const storyParagraphs = document.querySelectorAll('.story-paragraph');
+const storyParagraphs = document.querySelectorAll('.story-paragraph')
 storyParagraphs.forEach(paragraph => {
   gsap.fromTo(paragraph,
     { opacity: 0, y: 40 },
@@ -64,8 +66,9 @@ storyParagraphs.forEach(paragraph => {
         scrub: 0.8
       }
     }
-  );
-});
+  )
+})
+
 // ================== 4. 圖表一：詐騙金額儀表板 ==================
 const fraudCanvas = document.getElementById('fraudChart')
 if (fraudCanvas) {
