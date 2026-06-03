@@ -1,19 +1,37 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>危機伺服還四伏? 網路詐騙帶來年輕人的信任危機</title>
-  <!-- 預載關鍵圖片 -->
-  <link rel="preload" as="image" href="/images/hero-bg.webp">
-  <!-- 引入 Chart.js 與 GSAP (Vite 會打包) -->
-</head>
-<body class="bg-black text-white font-sans antialiased">
+<body class="text-white">
+  <!-- 固定背景漸層 -->
+  <div id="bg-container" class="fixed top-0 left-0 w-full h-full -z-10" 
+       style="background: linear-gradient(180deg, #001881, #62495f, #c0bd00);">
+  </div>
 
-<!-- 固定背景層（漸層） -->
-<div id="bg-container" class="fixed top-0 left-0 w-full h-full -z-10" 
-     style="background: linear-gradient(180deg, #001881, #62495f, #c0bd00);">
-</div>
+  <!-- 動態遮罩層 -->
+  <div id="global-mask" class="fixed top-0 left-0 w-full h-full bg-black/0 transition-all duration-700 z-0"></div>
+
+  <!-- ========== 固定標題列 ========== -->
+  <header class="fixed top-0 left-0 w-full z-30 py-3 md:py-4 px-6 text-center 
+                 bg-black/50 backdrop-blur-md border-b border-white/20 shadow-lg">
+    <h1 class="text-base md:text-2xl font-bold tracking-tight">
+      危機伺服還四伏？ 網路詐騙帶來年輕人的信任危機
+    </h1>
+    <p class="text-[10px] md:text-xs text-gray-300 mt-0.5 md:mt-1">詐騙數據深度調查｜融媒體專題</p>
+  </header>
+  </div>
+</body>
+
+<body class="text-white">
+  <!-- 固定背景漸層（第一層） -->
+  <div id="bg-container" class="fixed top-0 left-0 w-full h-full -z-10" 
+       style="background: linear-gradient(180deg, #001881, #62495f, #c0bd00);">
+  </div>
+  <!-- 動態遮罩層（透明，後續可加深） -->
+  <div id="global-mask" class="fixed top-0 left-0 w-full h-full bg-black/0 transition-all duration-700 z-0"></div>
+  <!-- 主要內容（z-index 高於遮罩） -->
+  <div class="relative z-10">
+    <!-- 您的 step 區塊... -->
+  </div>
+</body>
 
 <!-- 動態遮罩層（初始透明，後續可透過 JS 加深） -->
 <div id="global-mask" class="fixed top-0 left-0 w-full h-full bg-black/0 transition-all duration-700 z-0"></div>
