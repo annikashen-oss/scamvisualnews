@@ -40,33 +40,38 @@ tl.to("#gate-top", { y: "0%", duration: 1, ease: "power2.inOut" }, 0)
 // 帶有 #62495F 底色的正文區塊浮現
   .to("#story-section", { opacity: 1, duration: 0.5 }, 0.8);
 
+// ====== 以下是升級後的「群組交錯捲動浮現 (Stagger Reveal)」特效 ======
 
-// 抓取網頁中所有的群組容器 (控制正文依序浮現)
+// 抓取網頁中所有的群組容器
 const revealGroups = gsap.utils.toArray('.reveal-group');
 
 revealGroups.forEach((group) => {
+  // 找出這個群組裡面所有需要排隊的子元素 (.reveal-item)
   const items = group.querySelectorAll('.reveal-item');
+  
   if (items.length === 0) return;
 
+  // 先把該群組內的所有子元素隱藏起來
   gsap.set(items, { y: 40, autoAlpha: 0 });
 
+  // 監聽當這個「群組區塊」滾動到畫面時，觸發排隊起動動畫
   ScrollTrigger.create({
     trigger: group,
-    start: "top 82%", 
+    start: "top 82%", // 當群組頂部到達螢幕下方 82% 處時觸發
     onEnter: () => {
       gsap.to(items, {
         y: 0,
         autoAlpha: 1,
         duration: 0.8,
         ease: "power2.out",
-        stagger: 0.25, 
+        stagger: 0.25, // 【關鍵核心】每個元素之間交錯 0.25 秒依序出現！
         overwrite: "auto"
       });
     }
   });
 });
 
-// 防呆機制：處理沒有被群組包住的單一物件
+// 防呆機制：如果有些單一的 .reveal-item 沒有被任何群組包住，讓它們也能正常單獨浮現
 gsap.utils.toArray('.reveal-item').forEach((item) => {
   if (!item.closest('.reveal-group')) {
     gsap.set(item, { y: 40, autoAlpha: 0 });
