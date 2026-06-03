@@ -1,4 +1,4 @@
-import './style.css'
+import './style.css';
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 import Chart from 'chart.js/auto'
