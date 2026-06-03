@@ -51,3 +51,25 @@
 - **託管**：GitHub Pages
 
 ## 📁 專案結構
+.
+├── index.html # 主頁面（所有章節、圖表、對話框）
+├── src/
+│ ├── main.js # GSAP 動畫、Chart.js 初始化、文字雲生成
+│ └── style.css # Tailwind 指令與自訂樣式（含背景強制覆蓋）
+├── public/
+│ └── images/ # 背景圖片（可選，目前使用純漸層）
+├── package.json # 依賴與部署腳本
+├── vite.config.js # Vite 設定（base 路徑）
+├── tailwind.config.js # Tailwind 設定（字體擴展）
+├── postcss.config.js # PostCSS 設定
+└── README.md
+## 📄 授權
+本專案僅供教育與非商業用途使用。數據來源請參考頁面底部標註。
+
+## 🙏 致謝
+所有接受我們訪問的受訪者們。
+資料來源：內政部警政署165打詐儀錶板
+問卷參與者：所有填寫問卷的年輕朋友
+
+製作團隊：記者 / 新聞與媒體實驗室
+最後更新：2026 年 6 月
