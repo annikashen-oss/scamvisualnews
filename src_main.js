@@ -49,7 +49,23 @@ bubbles.forEach(bubble => {
     }
   )
 })
-
+// ================== 故事段落滾動動畫 ==================
+const storyParagraphs = document.querySelectorAll('.story-paragraph');
+storyParagraphs.forEach(paragraph => {
+  gsap.fromTo(paragraph,
+    { opacity: 0, y: 40 },
+    {
+      opacity: 1, y: 0,
+      duration: 1,
+      scrollTrigger: {
+        trigger: paragraph.closest('.step'),
+        start: 'top 80%',
+        end: 'top 30%',
+        scrub: 0.8
+      }
+    }
+  );
+});
 // ================== 4. 圖表一：詐騙金額儀表板 ==================
 const fraudCanvas = document.getElementById('fraudChart')
 if (fraudCanvas) {
