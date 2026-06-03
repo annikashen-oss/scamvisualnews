@@ -10,5 +10,10 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background: transparent;
+  background: transparent !important;
+}
+
+/* 確保任何容器都不會蓋住固定背景 */
+#bg-container {
+  background: linear-gradient(180deg, #001881, #62495f, #c0bd00) !important;
 }
