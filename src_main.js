@@ -7,22 +7,17 @@ gsap.registerPlugin(ScrollTrigger)
 
 // ================== 1. 背景與遮罩動態切換 ==================
 const bgImage = document.getElementById('bg-image')
-const mask = document.getElementById('global-mask')
 // 動態毛玻璃強度：隨著 section 被滾動時，模糊值從 0px 增加到 20px
-const glassLayer = document.getElementById('glass-layer');
-if (glassLayer) {
-  ScrollTrigger.create({
-    trigger: '#scene-fraud',
-    start: 'top bottom',    // 當 section 頂部剛進入視窗底部時開始
-    end: 'bottom top',      // 當 section 底部離開視窗頂部時結束
-    scrub: 1.5,             // 平滑跟隨滾動，數值越大越延遲
-    onUpdate: (self) => {
-      // progress 範圍 0 → 1，對應模糊 0px → 20px
-      const blurAmount = self.progress * 20;
-      glassLayer.style.backdropFilter = `blur(${blurAmount}px)`;
-    }
-  });
-}
+const mask = document.getElementById('global-mask');
+// 例如當進入特定段落時加深遮罩
+ScrollTrigger.create({
+  trigger: '.step:nth-child(5)',
+  start: 'top center',
+  onEnter: () => mask.classList.remove('bg-black/0', 'bg-black/80'),
+  onEnter: () => mask.classList.add('bg-black/80'),
+  onLeaveBack: () => mask.classList.remove('bg-black/80', 'bg-black/0'),
+  onLeaveBack: () => mask.classList.add('bg-black/0')
+});
 
 // 定義每個章節對應的背景圖（請將圖片放入 /public/images/）
 const bgScenes = [
