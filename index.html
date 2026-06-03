@@ -7,8 +7,8 @@
   <!-- 載入 GSAP 動畫套件 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script type="module" crossorigin src="/scamvisualnews/assets/index-C67nw5IV.js"></script>
-  <link rel="stylesheet" crossorigin href="/scamvisualnews/assets/index-9QWBCSLH.css">
+  <script type="module" crossorigin src="/scamvisualnews/assets/index-C5iJDuym.js"></script>
+  <link rel="stylesheet" crossorigin href="/scamvisualnews/assets/index-CHzEFxrd.css">
 </head>
 <!-- 全局背景設定為 #62495F，預設文字為白色 -->
 <body class="bg-[#62495F] overflow-x-hidden text-white">
@@ -239,28 +239,94 @@
       </div>
     </section>
 
-    <!-- KOL 呼籲 -->
-    <section class="step min-h-screen flex flex-col justify-center items-center p-6">
-      <div class="dialogue-bubble bg-white/10 backdrop-blur-md p-8 rounded-2xl max-w-2xl text-center">
-        <p class="text-2xl font-bold">「給自己保留思考的空間，多一分鐘查證，就能降低受騙風險。」</p>
-        <p class="mt-4 text-gray-300">—— 網紅 XX 的親身呼籲</p>
+   <!-- 【第三幕：詐騙世界正文】 -->
+  <main id="story-section" class="relative z-30 opacity-0 bg-[#62495F] min-h-screen pt-24 pb-32 text-gray-100 overflow-hidden">
+    
+    <!-- 導言與個案故事 -->
+    <article class="max-w-3xl mx-auto px-6 space-y-8 text-lg md:text-xl leading-loose font-serif mb-24">
+      <header class="reveal-item mb-16">
+        <h2 class="text-3xl md:text-4xl font-black mb-6 text-white tracking-wide">
+          危機伺服還四伏？網路詐騙帶來年輕人的信任危機
+        </h2>
+        <p class="text-[#3b82f6] font-bold tracking-widest border-l-4 border-[#3b82f6] pl-3">
+          詐騙數據深度調查 | 融媒體專題
+        </p>
+      </header>
+      
+      <p class="reveal-item">「我想不到台灣還有這麼多詐騙層出不窮。」—— 從事自媒體 YouTube 頻道經營將近七年的創作者彥儒，無奈地笑了笑。</p>
+      <p class="reveal-item">四年多前，正值師範大學研究所碩士班的他，剛經歷了一場嚴重的感情挫敗...在對方的手把手教學下，彥儒下載了正常的交易所「幣安」，將台幣換成虛擬貨幣，隨後轉入對方架設的第三方假交易平台。</p>
+      <blockquote class="reveal-item bg-black/30 p-6 rounded-lg border-l-4 border-[#10b981] text-[#10b981] font-sans my-10 shadow-xl">
+        「如果是詐騙，有可能每天傳超過100則訊息、連續泡了三、四個禮拜嗎？我那時候覺得成本太高了，他不可能騙我。」
+      </blockquote>
+    </article>
+
+    <!-- 面向一：詐騙現況與數據 -->
+    <section class="max-w-4xl mx-auto px-6 mb-24">
+      <div class="reveal-item flex items-center mb-8">
+        <div class="w-2 h-8 bg-[#c0bd00] mr-4"></div>
+        <h3 class="text-2xl font-bold font-sans text-white">01. 詐騙現況：無法忽視的數據黑洞</h3>
+      </div>
+      
+      <!-- 圖表一：詐騙儀表板 -->
+      <div class="reveal-item bg-white/5 rounded-xl p-6 mb-12 shadow-2xl border border-white/10">
+        <h4 class="text-lg font-bold text-gray-300 mb-4 font-sans">📌 114-115年 詐騙金額單月累計儀表板</h4>
+        <div class="w-full aspect-video bg-black/40 flex items-center justify-center rounded">
+          <span class="text-gray-500 font-mono">[請在此貼上 Flourish 儀表板嵌入碼]</span>
+        </div>
+      </div>
+
+      <!-- 圖表四：網路使用習慣 -->
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="reveal-item bg-white/5 p-6 rounded-xl border border-white/10">
+          <h4 class="font-bold text-gray-300 mb-4 font-sans">上網時間分布</h4>
+          <div class="aspect-square bg-black/40 flex items-center justify-center rounded">
+            <span class="text-gray-500">[JASP 圖表]</span>
+          </div>
+        </div>
+        <div class="reveal-item flex flex-col justify-center font-serif text-lg leading-relaxed">
+          <p>根據 JASP 數據交叉比對顯示，年輕族群每日在線時間的延長，與接觸高風險詐騙資訊的頻率呈現高度正相關...</p>
+        </div>
       </div>
     </section>
 
-    <!-- 圖表十：文字雲 -->
-    <section class="step min-h-screen flex flex-col justify-center items-center p-6">
-      <h2 class="text-3xl font-bold mb-6">💬 網友怎麼說？減少詐騙的方法</h2>
-      <div id="wordcloud" class="w-full max-w-4xl h-96 bg-black/40 rounded-2xl flex flex-wrap justify-center items-center gap-4 p-6 relative">
-        <!-- 動態產生文字雲，由 JS 生成 -->
+    <!-- 面向三：防護網 -->
+    <section class="max-w-4xl mx-auto px-6 mb-24">
+      <div class="reveal-item flex items-center mb-8">
+        <div class="w-2 h-8 bg-[#ef4444] mr-4"></div>
+        <h3 class="text-2xl font-bold font-sans text-white">02. 防護網：打詐四法與預警機制</h3>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-6 font-sans">
+        <!-- 圖卡 -->
+        <div class="reveal-item bg-gradient-to-br from-[#1e1e1e] to-[#0a0a0a] p-8 rounded-2xl border-t-4 border-[#3b82f6] hover:scale-[1.02] transition-transform">
+          <h4 class="text-xl font-bold text-[#3b82f6] mb-3">🛡️ 可疑帳戶預警中心</h4>
+          <p class="text-gray-400 text-base leading-relaxed">當金流出現異常匯出入，系統將啟動預警機制，凍結可疑帳戶，為受害者爭取黃金攔截時間。</p>
+        </div>
+        <div class="reveal-item bg-gradient-to-br from-[#1e1e1e] to-[#0a0a0a] p-8 rounded-2xl border-t-4 border-[#10b981] hover:scale-[1.02] transition-transform delay-100">
+          <h4 class="text-xl font-bold text-[#10b981] mb-3">⚖️ 打詐新四法</h4>
+          <p class="text-gray-400 text-base leading-relaxed">加重刑責並強化社群平台的連帶責任，從源頭阻斷詐騙廣告的投放途徑。</p>
+        </div>
       </div>
     </section>
 
-    <!-- 結尾 Footer -->
-    <footer class="py-10 text-center text-gray-400 border-t border-white/10">
-      <p>資料來源：問卷調查、警政統計、學者訪談 | 融媒體製作</p>
-    </footer>
+    <!-- 面向四：結尾 -->
+    <section class="max-w-3xl mx-auto px-6 mb-16 text-center">
+      <h3 class="reveal-item text-2xl font-bold font-sans text-white mb-8">我們該如何減少詐騙？</h3>
+      
+      <div class="reveal-item w-full h-64 bg-black/30 rounded-xl mb-16 flex items-center justify-center">
+        <span class="text-gray-500 font-mono">[互動文字雲嵌入處]</span>
+      </div>
 
-  </div> <!-- 結束主要內容 relative z-10 -->
-
+      <p class="reveal-item font-serif text-lg leading-loose mb-12 text-left">
+        最後，給自己保留思考的空間，多一些時間察覺不對勁，就能降低受騙風險。面對這場信任危機，您準備好辨識陷阱了嗎？
+      </p>
+
+      <div class="reveal-item max-w-sm mx-auto bg-black rounded-3xl shadow-[0_0_40px_rgba(0,0,0,0.5)] border-4 border-gray-800 overflow-hidden aspect-[9/16]">
+        <div class="w-full h-full flex items-center justify-center text-gray-500">
+          [OOOPEN Lab 遊戲 iframe]
+        </div>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
