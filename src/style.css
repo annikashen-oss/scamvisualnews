@@ -2,31 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 自訂動畫與遮罩 */
-.fade-in {
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background: transparent !important;
-}
-
-/* 確保任何容器都不會蓋住固定背景 */
-#bg-container {
-  background: red !important;
-}
-/* 1. 設定文字容器相對位置 */
+/* 以下是雜訊特效的 CSS */
 .glitch-text {
   position: relative;
   display: inline-block;
 }
 
-/* 2. 利用偽元素 (pseudo-elements) 複製出兩個一模一樣的文字疊在上面 */
 .glitch-text::before,
 .glitch-text::after {
-  content: attr(data-text); /* 抓取 HTML 中的 data-text 屬性 */
+  content: attr(data-text); 
   position: absolute;
   top: 0;
   left: 0;
@@ -35,24 +19,20 @@ html, body {
   background: transparent;
 }
 
-/* 3. 製作紅色殘影與裁切動畫 */
 .glitch-text::before {
   left: 3px;
-  text-shadow: -2px 0 #ef4444; /* Tailwind 的警示紅 */
-  /* 使用 clip-path 隨機裁切文字的一部分，創造破碎感 */
+  text-shadow: -2px 0 #ef4444; 
   clip-path: polygon(0 0, 100% 0, 100% 30%, 0 30%);
   animation: glitch-anim-1 2s infinite linear alternate-reverse;
 }
 
-/* 4. 製作藍色殘影與裁切動畫 */
 .glitch-text::after {
   left: -3px;
-  text-shadow: -2px 0 #3b82f6; /* Tailwind 的科技藍 */
+  text-shadow: -2px 0 #3b82f6; 
   clip-path: polygon(0 70%, 100% 70%, 100% 100%, 0 100%);
   animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
 }
 
-/* 5. 讓裁切範圍與位置瘋狂閃爍的 Keyframes 動畫 */
 @keyframes glitch-anim-1 {
   0% { clip-path: polygon(0 20%, 100% 20%, 100% 21%, 0 21%); transform: translate(-2px, 1px); }
   20% { clip-path: polygon(0 33%, 100% 33%, 100% 33%, 0 33%); transform: translate(2px, -1px); }
