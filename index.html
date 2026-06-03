@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>危機伺服還四伏？網路詐騙帶來年輕人的信任危機</title>
+  <!-- 預載關鍵圖片（如有需要再啟用） -->
+  <!-- <link rel="preload" as="image" href="/images/hero-bg.webp"> -->
+</head>
 <body class="text-white">
-  <!-- 固定背景漸層 -->
+
+  <!-- 固定背景漸層（唯一） -->
   <div id="bg-container" class="fixed top-0 left-0 w-full h-full -z-10" 
        style="background: linear-gradient(180deg, #001881, #62495f, #c0bd00);">
   </div>
 
-  <!-- 動態遮罩層 -->
+  <!-- 動態遮罩層（唯一、初始透明） -->
   <div id="global-mask" class="fixed top-0 left-0 w-full h-full bg-black/0 transition-all duration-700 z-0"></div>
 
-  <!-- ========== 固定標題列 ========== -->
+  <!-- 固定標題列 -->
   <header class="fixed top-0 left-0 w-full z-30 py-3 md:py-4 px-6 text-center 
                  bg-black/50 backdrop-blur-md border-b border-white/20 shadow-lg">
     <h1 class="text-base md:text-2xl font-bold tracking-tight">
@@ -17,56 +25,36 @@
     </h1>
     <p class="text-[10px] md:text-xs text-gray-300 mt-0.5 md:mt-1">詐騙數據深度調查｜融媒體專題</p>
   </header>
-  </div>
-</body>
 
-<body class="text-white">
-  <!-- 固定背景漸層（第一層） -->
-  <div id="bg-container" class="fixed top-0 left-0 w-full h-full -z-10" 
-       style="background: linear-gradient(180deg, #001881, #62495f, #c0bd00);">
-  </div>
-  <!-- 動態遮罩層（透明，後續可加深） -->
-  <div id="global-mask" class="fixed top-0 left-0 w-full h-full bg-black/0 transition-all duration-700 z-0"></div>
   <!-- 主要內容（z-index 高於遮罩） -->
   <div class="relative z-10">
-    <!-- 您的 step 區塊... -->
-  </div>
-</body>
 
-<!-- 動態遮罩層（初始透明，後續可透過 JS 加深） -->
-<div id="global-mask" class="fixed top-0 left-0 w-full h-full bg-black/0 transition-all duration-700 z-0"></div>
-
-  <!-- 主要內容（滾動觸發動畫） -->
-  <div class="relative z-10">
-
-    <!-- ========== 導言：個案故事（彥儒） ========== -->
-    <section class="step min-h-screen flex items-center justify-center p-6">
+    <!-- ========== 導言：個案故事（彥儒）加上 pt-24 避免被標題遮擋 ========== -->
+    <section class="step min-h-screen flex items-center justify-center p-6 pt-24">
       <div class="dialogue-bubble bg-white/10 backdrop-blur-md p-8 rounded-2xl max-w-2xl border border-white/20">
         <p class="text-xl leading-relaxed">「我想不到台灣還有這麼多詐騙層出不窮。」—— 從事自媒體YouTube頻道經營將近七年的創作者彥儒，無奈地笑了笑。</p>
       </div>
     </section>
 
-<!-- ========== 面向一：詐騙現況開場 ========== -->
-<section id="scene-fraud" class="step min-h-screen flex flex-col justify-center items-center p-6 relative">
-  <!-- 底色層（半透明青綠色） -->
-  <div class="absolute inset-0 rounded-2xl" style="background-color: rgba(52, 145, 163, 0.7); z-index: 1;"></div>
-  
-  <!-- 毛玻璃層（初始模糊 0px，隨滾動增強） -->
-  <div id="glass-layer" class="absolute inset-0 rounded-2xl" style="backdrop-filter: blur(0px); pointer-events: none; z-index: 2;"></div>
-
-  <!-- 內容區塊（圖表、文字等，需在圖層上方） -->
-  <div class="relative w-full max-w-3xl p-6 z-10">
-    <h2 class="text-4xl font-bold mb-8 text-center">📊 詐騙金額逐年攀升</h2>
-    <canvas id="fraudChart" width="800" height="400"></canvas>
-    <div class="flourish-embed flourish-chart" data-src="visualisation/29175490">
-      <script src="https://public.flourish.studio/resources/embed.js"></script>
-      <noscript>
-        <img src="https://public.flourish.studio/visualisation/29175490/thumbnail" width="100%" alt="chart visualization" />
-      </noscript>
-    </div>
-    <p class="text-center text-gray-300 mt-4">資料來源：內政部警政署165打詐儀錶板，民國113年8月至115年5月全國詐騙財產損失金額（單位：億元）、圖表製作／孟沛蓁</p>
-  </div>
-</section>
+    <!-- ========== 面向一：詐騙現況開場 ========== -->
+    <section id="scene-fraud" class="step min-h-screen flex flex-col justify-center items-center p-6 relative">
+      <!-- 底色層（半透明青綠色） -->
+      <div class="absolute inset-0 rounded-2xl" style="background-color: rgba(52, 145, 163, 0.7); z-index: 1;"></div>
+      <!-- 毛玻璃層（初始模糊 0px，隨滾動增強） -->
+      <div id="glass-layer" class="absolute inset-0 rounded-2xl" style="backdrop-filter: blur(0px); pointer-events: none; z-index: 2;"></div>
+      <!-- 內容區塊 -->
+      <div class="relative w-full max-w-3xl p-6 z-10">
+        <h2 class="text-4xl font-bold mb-8 text-center">📊 詐騙金額逐年攀升</h2>
+        <canvas id="fraudChart" width="800" height="400"></canvas>
+        <div class="flourish-embed flourish-chart" data-src="visualisation/29175490">
+          <script src="https://public.flourish.studio/resources/embed.js"></script>
+          <noscript>
+            <img src="https://public.flourish.studio/visualisation/29175490/thumbnail" width="100%" alt="chart visualization" />
+          </noscript>
+        </div>
+        <p class="text-center text-gray-300 mt-4">資料來源：內政部警政署165打詐儀錶板，民國113年8月至115年5月全國詐騙財產損失金額（單位：億元）、圖表製作／孟沛蓁</p>
+      </div>
+    </section>
 
     <!-- 圖表二：時間軸－詐騙三階段 -->
     <section class="step min-h-screen flex flex-col justify-center items-center p-6">
@@ -114,17 +102,17 @@
     </section>
 
     <!-- ========== 面向二：年輕世代的被詐騙經驗 ========== -->
-    <!-- 圖表五：受騙情況 Flourish 佔位符 -->
+    <!-- 圖表五：受騙情況 Flourish 佔位符（請替換真實嵌入碼） -->
     <section class="step min-h-screen flex flex-col justify-center items-center p-6">
       <h2 class="text-3xl font-bold mb-6">😱 你曾被詐騙過嗎？</h2>
       <div class="w-full max-w-3xl h-96 bg-black/40 rounded-2xl flex items-center justify-center">
-        <!-- 嵌入 Flourish 圖表（可替換為真實 iframe） -->
-        <iframe class="w-full h-full" src="https://public.flourish.studio/visualisation/your-id/iframe" frameborder="0"></iframe>
+        <!-- 請將 src 替換為您的 Flourish 圖表真實 iframe 網址 -->
+        <iframe class="w-full h-full" src="https://public.flourish.studio/visualisation/你的圖表ID/iframe" frameborder="0"></iframe>
       </div>
       <p class="mt-4 text-gray-300">* 問卷結果顯示：每3人就有1人曾被詐騙損失金錢</p>
     </section>
 
-    <!-- 圖表六：人格特質分析（雷達圖或長條圖） -->
+    <!-- 圖表六：人格特質分析（雷達圖） -->
     <section class="step min-h-screen flex flex-col justify-center items-center p-6">
       <h2 class="text-3xl font-bold mb-6">🧠 哪些人格特質容易受騙？</h2>
       <div class="w-full max-w-3xl bg-black/40 p-6 rounded-2xl">
@@ -133,7 +121,7 @@
       </div>
     </section>
 
-    <!-- 個案分析：彥儒與同學（圖表七：詐騙類型+報警+追回） -->
+    <!-- 個案分析：彥儒與同學 -->
     <section class="step min-h-screen flex flex-col justify-center items-center p-6">
       <h2 class="text-3xl font-bold mb-6">🔍 個案分析：彥儒 & 同學</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
@@ -152,7 +140,7 @@
       </div>
     </section>
 
-    <!-- 圖表八：被騙後是否影響使用習慣（左右互搏） -->
+    <!-- 圖表八：被騙後是否影響使用習慣 -->
     <section class="step min-h-screen flex flex-col justify-center items-center p-6">
       <h2 class="text-3xl font-bold mb-6">🔄 被騙後，你還敢繼續用嗎？</h2>
       <div class="w-full max-w-2xl bg-black/40 p-6 rounded-2xl">
@@ -177,8 +165,8 @@
       </div>
     </section>
 
-    <!-- ========== 面向四：結尾 + 融媒體實作 ========== -->
-    <!-- 圖表九：為什麼會被騙？原因複選 -->
+    <!-- ========== 面向四：結尾 ========== -->
+    <!-- 圖表九：為什麼會被騙？ -->
     <section class="step min-h-screen flex flex-col justify-center items-center p-6">
       <h2 class="text-3xl font-bold mb-6">🤔 你覺得為什麼會被騙？</h2>
       <div class="w-full max-w-3xl bg-black/40 p-6 rounded-2xl">
@@ -194,7 +182,7 @@
       </div>
     </section>
 
-    <!-- 圖表十：文字雲（動態出現） -->
+    <!-- 圖表十：文字雲 -->
     <section class="step min-h-screen flex flex-col justify-center items-center p-6">
       <h2 class="text-3xl font-bold mb-6">💬 網友怎麼說？減少詐騙的方法</h2>
       <div id="wordcloud" class="w-full max-w-4xl h-96 bg-black/40 rounded-2xl flex flex-wrap justify-center items-center gap-4 p-6 relative">
@@ -202,12 +190,12 @@
       </div>
     </section>
 
-    <!-- 結尾 -->
+    <!-- 結尾 Footer -->
     <footer class="py-10 text-center text-gray-400 border-t border-white/10">
       <p>資料來源：問卷調查、警政統計、學者訪談 | 融媒體製作</p>
     </footer>
 
-  </div>
+  </div> <!-- 結束主要內容 relative z-10 -->
 
   <script type="module" src="/src/main.js"></script>
 </body>
