@@ -1,4 +1,62 @@
-62495F
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>網路詐騙融媒體專題</title>
+  <!-- 載入 GSAP 動畫套件 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<!-- 全局背景設定為 #62495F，預設文字為白色 -->
+<body class="bg-[#62495F] overflow-x-hidden text-white">
+
+  <!-- 【第一幕：開場區】 -->
+  <!-- 由於背景已是深色，字體改為純白 text-white -->
+  <section id="hero-section" class="relative w-full h-screen flex flex-col items-center justify-center z-10">
+    <h1 class="glitch-text text-4xl md:text-5xl font-black mb-6 tracking-wide text-center px-4"
+        data-text="危機伺服還四伏？網路詐騙帶來年輕人的信任危機">
+      危機伺服還四伏？網路詐騙帶來年輕人的信任危機
+    </h1>
+    <div class="mt-12 text-gray-300 animate-pulse flex flex-col items-center">
+      <span class="mb-2 text-sm tracking-widest">向下捲動進入專題</span>
+      <span class="text-2xl">↓</span>
+    </div>
+  </section>
+
+  <!-- 【第二幕：黑暗閘門特效】 -->
+  <!-- 依舊保留黑色的閘門 #0a0a0a，創造視覺反差 -->
+  <div id="gate-top" class="fixed top-0 left-0 w-full h-[50vh] bg-[#0a0a0a] z-20 transform -translate-y-full"></div>
+  <div id="gate-bottom" class="fixed bottom-0 left-0 w-full h-[50vh] bg-[#0a0a0a] z-20 transform translate-y-full"></div>
+
+  <!-- 【第三幕：詐騙世界正文】 -->
+  <!-- 將原本的漸層拔除，換上 bg-[#62495F] -->
+  <main id="story-section" class="relative z-30 opacity-0 bg-[#62495F] min-h-screen pt-24 pb-32">
+    <div class="max-w-3xl mx-auto px-6">
+      <header class="mb-16">
+        <h2 class="text-3xl md:text-4xl font-black mb-6 text-white tracking-wide">
+          危機伺服還四伏？網路詐騙帶來年輕人的信任危機
+        </h2>
+        <p class="text-[#3b82f6] font-bold tracking-widest border-l-4 border-[#3b82f6] pl-3">
+          詐騙數據深度調查 | 融媒體專題
+        </p>
+      </header>
+
+      <article class="space-y-8 text-lg md:text-xl leading-loose font-serif text-gray-100">
+        <p>「我想不到台灣還有這麼多詐騙層出不窮。」—— 從事自媒體 YouTube 頻道經營將近七年的創作者彥儒，無奈地笑了笑。</p>
+        <p>四年多前，正值師範大學研究所碩士班的他，剛經歷了一場嚴重的感情挫敗，向喜歡的人告白失敗。在心靈極度脆弱、渴望情感替代窗口的孤獨狀態下，他打開了交友軟體，試圖在虛擬世界中尋找一絲慰藉。</p>
+        <!-- 引言區塊 -->
+        <blockquote class="bg-black/30 p-6 rounded-lg border-l-4 border-[#10b981] text-[#10b981] font-sans my-10 shadow-xl">
+          「如果是詐騙，有可能每天傳超過100則訊息、連續泡了三、四個禮拜嗎？我那時候覺得成本太高了，他不可能騙我。」
+        </blockquote>
+        <p>這場溫水煮青蛙的情感鋪陳，最後引導到了虛擬貨幣投資。在對方的手把手教學下，彥儒下載了正常的交易所「幣安」，將台幣換成虛擬貨幣，隨後轉入對方架設的第三方假交易平台...</p>
+      </article>
+    </div>
+  </main>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
 
     <!-- ========== 導言：個案故事（彥儒）加上 pt-24 避免被標題遮擋 ========== -->
     <section class="step min-h-screen flex items-center justify-center p-6 pt-24">
