@@ -15,5 +15,5 @@ html, body {
 
 /* 確保任何容器都不會蓋住固定背景 */
 #bg-container {
-  background: linear-gradient(180deg, #001881, #62495f, #c0bd00) !important;
+  background: red !important;
 }
