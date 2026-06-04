@@ -6,8 +6,8 @@
   <title>網路詐騙融媒體專題</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script type="module" crossorigin src="/scamvisualnews/assets/index-dLCED3zn.js"></script>
-  <link rel="stylesheet" crossorigin href="/scamvisualnews/assets/index-BuejIX2E.css">
+  <script type="module" crossorigin src="/scamvisualnews/assets/index-B45WTXAy.js"></script>
+  <link rel="stylesheet" crossorigin href="/scamvisualnews/assets/index-BhM_bky9.css">
 </head>
 <body class="bg-[#62495F] overflow-x-hidden text-white">
 
@@ -70,9 +70,11 @@
 
     <!-- 數據儀表板區塊 -->
     <section id="scene-fraud" class="step flex flex-col justify-center items-center p-6 relative mb-24">
-      <div class="reveal-group relative w-full max-w-4xl p-6 md:p-10 z-10 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl shadow-2xl">
-        
-        <h3 class="reveal-item text-2xl font-bold font-sans text-white mb-8 border-l-4 border-[#FCE788] pl-4">詐騙現狀無法忽視的數據黑洞</h3>
+    <!-- 統一標題樣式 -->
+    <div class="reveal-item flex items-center mb-10">
+    <div class="w-2 h-8 bg-[#FCE788] mr-4 shadow-[0_0_8px_rgba(252,231,136,0.6)]"></div>
+    <h3 class="text-2xl font-bold font-sans text-white">詐騙現狀無法忽視的數據黑洞</h3>
+    </div>
 
         <div class="reveal-item w-full bg-black/30 rounded-xl overflow-hidden p-4 my-12 border border-white/5">
           <div class="flourish-embed flourish-chart" data-src="visualisation/29175490">
@@ -112,7 +114,11 @@
 
     <!-- 新增段落：年輕世代共性 -->
     <section class="reveal-group max-w-4xl mx-auto px-6 mb-24">
-      <h4 class="reveal-item text-2xl font-bold font-sans text-[#FCE788] mb-8 border-b border-[#FCE788]/30 pb-3">發生在年輕世代的詐騙情況有共性嗎？</h4>
+        <!-- 統一標題樣式 -->
+    <div class="reveal-item flex items-center mb-10">
+    <div class="w-2 h-8 bg-[#FCE788] mr-4 shadow-[0_0_8px_rgba(252,231,136,0.6)]"></div>
+    <h3 class="text-2xl font-bold font-sans text-white">發生在年輕世代的詐騙情況有共性嗎？</h3>
+    </div>
       <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
         在《網路互動犯罪被害促發因素之實證研究》中，多使用網路日常活動理論及自我控制理論，探討台灣有哪些高風險受詐族群，研究提及自我控制、網路成癮、易受被害誘因吸引者，容易成為詐騙被害者。
       </p>
@@ -128,12 +134,29 @@
         在校園中，高度使用網路和社群的學生，也更常暴露在易被詐騙的環境下。詐騙被教育部歸類為一般校安事件，根據113學年度的〈教育部民國113年各級學校校園安全及災害事件分析報告〉 通報統計數據，在各級學校中以大專院校最多，共計558 件、 653 人次，代表每十萬學生中就有58 人受到詐騙。
       </p>
     </section>
-    <!-- 【問卷調查結果區塊】 -->
-    <section class="max-w-6xl mx-auto px-6 mb-24">
-      <div class="reveal-item mb-16 text-center">
-        <h3 class="text-3xl font-bold font-sans text-[#FCE788] mb-4">年輕世代的受詐騙經驗調查</h3>
-        <p class="text-white/80 font-serif text-lg">基於以上研究背景，我們對年輕族群進行了深入問卷調查，以下是我們的關鍵發現：</p>
+<!-- 【加深底色的問卷調查區塊】 -->
+<section class="w-full bg-[#4a3547] py-20 my-24 shadow-[inset_0_0_50px_rgba(0,0,0,0.5)]">
+  <div class="max-w-6xl mx-auto px-6">
+    
+    <div class="reveal-item mb-16 text-center">
+      <h3 class="text-3xl font-bold font-sans text-[#FCE788] mb-4">年輕世代的受詐騙經驗調查</h3>
+      <p class="text-white/80 font-serif text-lg">透過問卷數據，我們還原了數位原住民在網路社會中的真實受騙圖像。</p>
+    </div>
+
+    <div class="space-y-24">
+      <!-- 問卷圖表排版 (左圖右文) -->
+      <div class="reveal-group grid md:grid-cols-2 gap-12 items-center">
+        <div class="reveal-item w-full bg-black/30 rounded-xl overflow-hidden p-4 border border-white/5 shadow-xl">
+           <div class="flourish-embed flourish-chart" data-src="[填入圖表代碼]"></div>
+        </div>
+        <div class="reveal-item space-y-4">
+          <h4 class="text-xl font-bold text-[#FCE788]">調查發現一：受騙途徑分析</h4>
+          <p class="text-white/90 leading-loose">這裡放您的問卷分析文字...說明年輕人最容易在哪些平台遭遇到詐騙。</p>
+        </div>
       </div>
+    </div>
+  </div>
+</section>
 
       <!-- 問卷圖表排版區：使用 grid 進行左右配置 -->
       <div class="space-y-24">
@@ -237,10 +260,11 @@
 
     <!-- 防護網區塊 -->
     <section class="max-w-4xl mx-auto px-6 mb-24">
-      <div class="reveal-item flex items-center mb-10">
-        <div class="w-2 h-8 bg-[#FCE788] mr-4 shadow-[0_0_8px_rgba(252,231,136,0.6)]"></div>
-        <h3 class="text-2xl font-bold font-sans text-white">社群媒體詐騙難防 新型手法政府仍受限 </h3>
-      </div>
+    <!-- 統一標題樣式 -->
+    <div class="reveal-item flex items-center mb-10">
+    <div class="w-2 h-8 bg-[#FCE788] mr-4 shadow-[0_0_8px_rgba(252,231,136,0.6)]"></div>
+    <h3 class="text-2xl font-bold font-sans text-white">社群媒體詐騙難防 新型手法政府仍受限 </h3>
+    </div> 
       
       <div class="reveal-group grid md:grid-cols-2 gap-6 font-sans">
         <div class="reveal-item bg-black/30 backdrop-blur-md p-8 rounded-2xl border-t-4 border-[#FCE788] hover:scale-[1.02] transition-transform shadow-xl">
@@ -276,10 +300,11 @@
 
      <!-- 面向四 -->
     <section class="max-w-4xl mx-auto px-6 mb-24">
-      <div class="reveal-item flex items-center mb-10">
-        <div class="w-2 h-8 bg-[#FCE788] mr-4 shadow-[0_0_8px_rgba(252,231,136,0.6)]"></div>
-        <h3 class="text-2xl font-bold font-sans text-white">撕裂社會信任的詐騙 秉持網路零信任面對 </h3>
-      </div>
+    <!-- 統一標題樣式 -->
+    <div class="reveal-item flex items-center mb-10">
+    <div class="w-2 h-8 bg-[#FCE788] mr-4 shadow-[0_0_8px_rgba(252,231,136,0.6)]"></div>
+    <h3 class="text-2xl font-bold font-sans text-white">撕裂社會信任的詐騙 秉持網路零信任面對 </h3>
+    </div> 
       
       <div class="reveal-group grid md:grid-cols-2 gap-6 font-sans">
         <div class="reveal-item bg-black/30 backdrop-blur-md p-8 rounded-2xl border-t-4 border-[#FCE788] hover:scale-[1.02] transition-transform shadow-xl">
