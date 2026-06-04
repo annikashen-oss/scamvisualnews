@@ -39,6 +39,38 @@ tl.to("#gate-top", { y: "0%", duration: 1, ease: "power2.inOut" }, 0)
   .to("#hero-section", { scale: 0.8, filter: "blur(10px)", opacity: 0, duration: 0.5 }, 0.5)
 // 帶有 #62495F 底色的正文區塊浮現
   .to("#story-section", { opacity: 1, duration: 0.5 }, 0.8);
+// ====== 以下是新增的「首尾呼應」結尾動畫 ======
+
+// 建立結尾區塊的時間軸
+const outroTl = gsap.timeline({
+  scrollTrigger: {
+    trigger: "#outro-section",
+    start: "top top",
+    end: "+=2000", // 動畫佔據 2000px 的捲動距離
+    scrub: 1,      // 跟隨滑鼠捲動
+    pin: true,     // 將結尾畫面釘住在螢幕上
+  }
+});
+
+// 🎬 分鏡 1：黑色閘門關閉 (再次陷入黑暗，與開場呼應)
+outroTl.to("#outro-gate-top", { y: "0%", duration: 1, ease: "power2.inOut" }, 0)
+       .to("#outro-gate-bottom", { y: "0%", duration: 1, ease: "power2.inOut" }, 0);
+
+// 🎬 分鏡 2：結尾文字浮現，且標題 Q 彈跳出 (與開場動畫的 elastic.out 呼應)
+outroTl.to("#outro-text-container", { opacity: 1, duration: 0.5 }, 1)
+       .to("#outro-text-container .glitch-text", { 
+          scale: 1, 
+          duration: 1.5, 
+          ease: "elastic.out(1, 0.4)" 
+       }, 1);
+
+// 🎬 分鏡 3：讀者繼續往下滾，文字淡出，背景亮起光明色 (#FCFAF2)
+outroTl.to("#outro-text-container", { opacity: 0, duration: 0.8 }, 3)
+       .to("#outro-light-bg", { opacity: 1, duration: 1 }, 3);
+
+// 🎬 分鏡 4：黑色閘門重新打開！露出光明底色，準備順滑銜接 Footer
+outroTl.to("#outro-gate-top", { y: "-100%", duration: 1, ease: "power2.inOut" }, 4)
+       .to("#outro-gate-bottom", { y: "100%", duration: 1, ease: "power2.inOut" }, 4);
 
 // ====== 以下是升級後的「群組交錯捲動浮現 (Stagger Reveal)」特效 ======
 
