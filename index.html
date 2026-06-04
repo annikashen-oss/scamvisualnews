@@ -192,31 +192,33 @@
   
   <!-- 網格容器：手機版 1 欄，平板 2 欄，電腦 3 欄 -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-<!-- 每個圖表重複此結構 -->
-<div class="reveal-item group relative bg-black/20 p-4 rounded-xl border border-white/10 backdrop-blur-md overflow-hidden transition-all duration-300">
-  
-  <!-- Flourish 圖表區域 -->
+<!-- 單一卡片範例 (請重複此結構 27 次) -->
+<div class="reveal-item flip-card w-full h-80">
+  <div class="flip-card-inner relative w-full h-full">
+    
+    <!-- 正面：圖表 -->
+    <div class="flip-card-front bg-black/20 p-4 border border-white/10 backdrop-blur-md">
 <div class="flourish-embed flourish-pictogram" data-src="visualisation/29201265">
   <script src="https://public.flourish.studio/resources/embed.js">
-  </script>
-  <noscript>
-    <img src="https://public.flourish.studio/visualisation/29201265/thumbnail" width="100%" alt="pictogram visualization" />
- </noscript>
+</script>
+  <noscript><img src="https://public.flourish.studio/visualisation/29201265/thumbnail" width="100%" alt="pictogram visualization" /></noscript>
 </div>
 
-  <!-- 隱藏的資訊遮罩 (Hover 時顯示) -->
-  <div class="absolute inset-0 bg-black/90 z-20 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 text-center">
-    <p class="text-white/60 text-xs uppercase tracking-widest mb-4">最突出人格向度</p>
-    <div class="space-y-4">
-      <div class="bg-[#FCE788]/20 border border-[#FCE788]/40 px-4 py-2 rounded-lg">
-        <span class="text-[#FCE788] font-bold block text-sm">第一名</span>
-        <span class="text-white text-base">易信任他人</span>
-      </div>
-      <div class="bg-white/10 border border-white/20 px-4 py-2 rounded-lg">
-        <span class="text-white font-bold block text-sm">第二名</span>
-        <span class="text-white text-base">過度自信</span>
+    <!-- 背面：關鍵向度 (最突出的一二名) -->
+    <div class="flip-card-back bg-[#62495F] border-2 border-[#FCE788] p-6 flex flex-col items-center justify-center text-center shadow-2xl">
+      <p class="text-[#FCE788]/60 text-xs uppercase tracking-widest mb-6">關鍵人格向度</p>
+      <div class="space-y-4">
+        <div class="bg-[#FCE788]/20 px-4 py-2 rounded-lg">
+          <span class="text-[#FCE788] text-xs font-bold block">第一名</span>
+          <span class="text-white text-base">易信任他人</span>
+        </div>
+        <div class="bg-white/10 px-4 py-2 rounded-lg">
+          <span class="text-white text-xs font-bold block">第二名</span>
+          <span class="text-white text-base">過度自信</span>
+        </div>
       </div>
     </div>
+
   </div>
 </div>
 
