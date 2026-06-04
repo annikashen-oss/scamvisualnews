@@ -5,25 +5,22 @@
 /* 標題相對定位與純白字體 *//* 修改這一段 */
 .glitch-text {
   position: relative;
-  display: block; /* 改為 block 讓寬度控制生效 */
+  display: block;
   color: #ffffff;
-  width: 100%;    /* 確保寬度佔滿 */
+  width: 100%;
 }
 
-/* 為了讓 Glitch 特效能正確抓到大小，這裡不需要特別變動，
-   但請確保原本的 h1 標籤內不要有其他的 font-size 定義 */
 .glitch-text::before,
 .glitch-text::after {
-  content: attr(data-text); 
+  content: attr(data-text); /* 這會抓取 data-text 的內容 */
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: transparent;
-  pointer-events: none;
-  /* 確保偽元素繼承父容器的文字排列 */
-  text-align: center; 
+  /* 關鍵修正：將文字設為不可見，或者調整 z-index */
+  z-index: -1; 
+  background: #62495F; /* 設定與背景色相同，避免殘影重疊 */
 }
 
 @keyframes glitch-anim-1 {
