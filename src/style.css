@@ -2,13 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 標題相對定位與純白字體 */
+/* 標題相對定位與純白字體 *//* 修改這一段 */
 .glitch-text {
   position: relative;
-  display: inline-block;
-  color: #ffffff; /* 改回純白字體 */
+  display: block; /* 改為 block 讓寬度控制生效 */
+  color: #ffffff;
+  width: 100%;    /* 確保寬度佔滿 */
 }
 
+/* 為了讓 Glitch 特效能正確抓到大小，這裡不需要特別變動，
+   但請確保原本的 h1 標籤內不要有其他的 font-size 定義 */
 .glitch-text::before,
 .glitch-text::after {
   content: attr(data-text); 
@@ -19,20 +22,8 @@
   height: 100%;
   background: transparent;
   pointer-events: none;
-}
-
-.glitch-text::before {
-  left: 3px;
-  text-shadow: -2px 0 #ef4444; 
-  clip-path: polygon(0 0, 100% 0, 100% 30%, 0 30%);
-  animation: glitch-anim-1 2s infinite linear alternate-reverse;
-}
-
-.glitch-text::after {
-  left: -3px;
-  text-shadow: -2px 0 #3b82f6; 
-  clip-path: polygon(0 70%, 100% 70%, 100% 100%, 0 100%);
-  animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
+  /* 確保偽元素繼承父容器的文字排列 */
+  text-align: center; 
 }
 
 @keyframes glitch-anim-1 {
