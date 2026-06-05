@@ -75,31 +75,23 @@ outroTl.to("#outro-gate-top", { y: "-100%", duration: 1, ease: "power2.inOut" },
 // ====== 以下是升級後的「群組交錯捲動浮現 (Stagger Reveal)」特效 ======
 
 // 抓取網頁中所有的群組容器
-const revealGroups = gsap.utils.toArray('.reveal-group');
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
-revealGroups.forEach((group) => {
-  // 找出這個群組裡面所有需要排隊的子元素 (.reveal-item)
-  const items = group.querySelectorAll('.reveal-item');
-  
-  if (items.length === 0) return;
-
-  // 先把該群組內的所有子元素隱藏起來
-  gsap.set(items, { y: 40, autoAlpha: 0 });
-
-  // 監聽當這個「群組區塊」滾動到畫面時，觸發排隊起動動畫
-  ScrollTrigger.create({
-    trigger: group,
-    start: "top 82%", // 當群組頂部到達螢幕下方 82% 處時觸發
-    onEnter: () => {
-      gsap.to(items, {
-        y: 0,
-        autoAlpha: 1,
-        duration: 0.8,
-        ease: "power2.out",
-        stagger: 0.25, // 【關鍵核心】每個元素之間交錯 0.25 秒依序出現！
-        overwrite: "auto"
-      });
-    }
+// 強制為每個 reveal-item 綁定動畫
+document.addEventListener("DOMContentLoaded", () => {
+  gsap.utils.toArray(".reveal-item").forEach((item) => {
+    gsap.to(item, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      scrollTrigger: {
+        trigger: item,
+        start: "top 85%", // 當項目到達視窗 85% 高度時觸發
+        toggleActions: "play none none reverse"
+      }
+    });
   });
 });
 
