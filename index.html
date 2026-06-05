@@ -12,7 +12,7 @@
   <!-- 【第一幕：開場區】 -->
   <section id="hero-section" class="relative w-full h-screen flex flex-col items-center justify-center z-10">
     <h1 class="glitch-text text-4xl md:text-5xl font-black mb-6 tracking-wide text-center px-4"
-        data-text="危機伺服還四伏？網路詐騙帶來年輕人的信任危機">
+        data-text="危機伺服還四伏？">
       危機伺服還四伏？網路詐騙帶來年輕人的信任危機
     </h1>
     <div class="mt-12 text-[#FCE788] animate-pulse flex flex-col items-center">
@@ -56,20 +56,21 @@
         <p class="reveal-item text-white/95 text-lg leading-loose mb-6">身為男同志的他，如果選擇報警，就必須向警方交代完整的對話紀錄、交友軟體使用動機與互動細節，這意味著他將在公權力與陌生人面前被迫「出櫃」。</p>
         <p class="reveal-item text-white/95 text-lg leading-loose mb-6">對身分認同的顧慮及社會壓力，他最終選擇默默吞下損失，不願報警，轉而以創作者的角色將這段經歷透過影片傳遞給觀眾，以此做為警惕。</p>
       </article>
+      
     </section>
 
     <!-- 數據儀表板區塊 -->
     <section id="scene-fraud" class="step flex flex-col justify-center items-center p-6 relative mb-24">
       <div class="reveal-group relative w-full max-w-4xl p-6 md:p-10 z-10 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl shadow-2xl">
         
-        <h3 class="reveal-item text-2xl font-bold font-sans text-white mb-8 border-l-4 border-[#FCE788] pl-4">01. 詐騙現況：無法忽視的數據黑洞</h3>
+        <h3 class="reveal-item text-2xl font-bold font-sans text-white mb-8 border-l-4 border-[#FCE788] pl-4">詐騙現況無法忽視的數據黑洞</h3>
 
         <div class="reveal-item w-full bg-black/30 rounded-xl overflow-hidden p-4 my-12 border border-white/5">
           <div class="flourish-embed flourish-chart" data-src="visualisation/29175490">
             <script src="https://public.flourish.studio/resources/embed.js"></script>
           </div>
           <p class="text-center text-xs md:text-sm text-gray-400 mt-4 leading-relaxed">
-            資料來源：內政部警政署165打詐儀錶板，民國113年8月至115年5月全國詐騙財產損失金額（單位：億元）、圖表製作／孟沛蓁
+            資料來源：內政部警政署165打詐儀錶板，民國113年8月至115年5月全國詐騙財產損失金額（單位：億元）、製圖／孟沛蓁
           </p>
         </div>
         
@@ -102,7 +103,7 @@
 
     <!-- 新增段落：年輕世代共性 -->
     <section class="reveal-group max-w-4xl mx-auto px-6 mb-24">
-      <h4 class="reveal-item text-2xl font-bold font-sans text-[#FCE788] mb-8 border-b border-[#FCE788]/30 pb-3">發生在年輕世代的詐騙情況有共性嗎？</h4>
+      <h4 class="reveal-item text-2xl font-bold font-sans text-[#FCE788] mb-8 border-b border-[#FCE788]/30 pb-3">發生在年輕世代的詐騙情況有也一樣嗎？</h4>
       <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
         在《網路互動犯罪被害促發因素之實證研究》中，多使用網路日常活動理論及自我控制理論，探討台灣有哪些高風險受詐族群，研究提及自我控制、網路成癮、易受被害誘因吸引者，容易成為詐騙被害者。
       </p>
@@ -117,19 +118,107 @@
       <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
         在校園中，高度使用網路和社群的學生，也更常暴露在易被詐騙的環境下。詐騙被教育部歸類為一般校安事件，根據113學年度的〈教育部民國113年各級學校校園安全及災害事件分析報告〉 通報統計數據，在各級學校中以大專院校最多，共計558 件、 653 人次，代表每十萬學生中就有58 人受到詐騙。
       </p>
-      <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
-        基於以上研究和報告內容，我們對年輕族群發放〈年輕世代的受詐騙經驗調查〉，並在報導中呈現問卷回覆中的關鍵發現。
-      </p>
-      <p class="reveal-item text-[#FCE788] text-lg leading-loose mt-8 italic">
-        根據 JASP 數據交叉比對顯示，年輕族群每日在線時間的延長，與接觸高風險詐騙資訊的頻率呈現高度正相關...
-      </p>
+<!-- 【問卷調查結果區塊】 -->
+    <section class="max-w-6xl mx-auto px-6 mb-24">
+      <div class="reveal-item mb-16 text-center">
+        <h3 class="text-3xl font-bold font-sans text-[#FCE788] mb-4">年輕世代的受詐騙經驗調查</h3>
+        <p class="text-white/80 font-serif text-lg">基於以上研究背景，我們對年輕族群進行了深入問卷調查，以下是我們的關鍵發現：</p>
+      </div>
+
+      <!-- 問卷圖表排版區：使用 grid 進行左右配置 -->
+      <div class="space-y-24">
+        
+        <!-- 問卷發現 1 (概述問卷結果)-->
+        <div class="reveal-group grid md:grid-cols-2 gap-12 items-center">
+          <div class="reveal-item w-full bg-black/30 rounded-xl overflow-hidden p-4 border border-white/5 shadow-xl">
+             <!-- 此處填入第一個 Flourish 圖表 -->
+        <div class="flourish-embed flourish-parliament" data-src="visualisation/29255072">
+          <script src="https://public.flourish.studio/resources/embed.js">
+          </script>
+          <noscript>
+            <img src="https://public.flourish.studio/visualisation/29255072/thumbnail" width="100%" alt="parliament visualization" />
+          </noscript>
+        </div>
+          <div class="reveal-item space-y-4">
+            <h4 class="text-xl font-bold text-[#FCE788]">在樣本中，所有 152 位資料中共有 28 位受詐騙並損失金錢，比例為 18.4%。</h4>
+            <p class="text-center text-xs md:text-sm text-gray-400 mt-4 leading-relaxed mb-2">
+            資料來源：〈年輕世代的受詐騙經驗調查〉問卷調查、製圖／沈韋彤
+          </p>
+            <div class="flourish-embed flourish-hierarchy" data-src="visualisation/29117515">
+              <script src="https://public.flourish.studio/resources/embed.js">
+            </script>
+              <noscript>
+                <img src="https://public.flourish.studio/visualisation/29117515/thumbnail" width="100%" alt="hierarchy visualization" />
+            </noscript>
+            </div>
+            <p class="text-white/90 leading-loose">細緻發現 28 位受詐騙且損失金額的案例中，損失金額多小於十萬元。</p>
+          </div>
+        </div>
+  <!-- 單一卡片範例 (請重複此結構 27 次) -->
+  <div class="reveal-item flip-card w-full h-80">
+  <div class="flip-card-inner relative w-full h-full">
+    
+    <!-- 正面：圖表 -->
+    <div class="flip-card-front bg-black/20 p-4 border border-white/10 backdrop-blur-md">
+      <div class="flourish-embed flourish-pictogram" data-src="visualisation/29201265"></div>
+    </div>
+
+    <!-- 背面：關鍵向度 (最突出的一二名) -->
+    <div class="flip-card-back bg-[#62495F] border-2 border-[#FCE788] p-6 flex flex-col items-center justify-center text-center shadow-2xl">
+      <p class="text-[#FCE788]/60 text-xs uppercase tracking-widest mb-6">關鍵人格向度</p>
+      <div class="space-y-4">
+        <div class="bg-[#FCE788]/20 px-4 py-2 rounded-lg">
+          <span class="text-[#FCE788] text-xs font-bold block">第一名</span>
+          <span class="text-white text-base">易信任他人</span>
+        </div>
+        <div class="bg-white/10 px-4 py-2 rounded-lg">
+          <span class="text-white text-xs font-bold block">第二名</span>
+          <span class="text-white text-base">孤獨與社交疏離</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+        <!-- 問卷發現 2 損失有沒有追回 -->
+        <div class="reveal-group grid md:grid-cols-2 gap-12 items-center">
+          <div class="reveal-item w-full bg-black/30 rounded-xl overflow-hidden p-4 border border-white/5 shadow-xl">
+             <!-- 此處填入第二個 Flourish 圖表 -->
+             <div class="flourish-embed flourish-hierarchy" data-src="visualisation/29174577">
+               <script src="https://public.flourish.studio/resources/embed.js">
+               </script>
+               <noscript>
+                 <img src="https://public.flourish.studio/visualisation/29174577/thumbnail" width="100%" alt="hierarchy visualization" />
+             </noscript>
+             </div>
+          <div class="reveal-item space-y-4">
+            <h4 class="text-xl font-bold text-[#FCE788]">關於年輕人被詐騙後不報警的行為，在問卷表單回覆中較難看出差異</h4>
+            <p class="text-center text-xs md:text-sm text-gray-400 mt-4 leading-relaxed mb-2">
+            資料來源：〈年輕世代的受詐騙經驗調查〉問卷調查、製圖／沈韋彤
+          </p>
+            <p class="text-white/90 leading-loose">從回覆中可見遭遇詐騙的每個人後，都採取報警的行動。另外延伸發現，在攸關是否追回損失的問題上，從受騙到採取報警行動的時間，出現一天內和三天內的兩個集中分布的情形，且大部分都導向未追回損失的結果。</p>
+          </div>
+        </div>
+        <!-- 問卷發現 3 詐騙發生的主要地點是社群媒體平台 -->
+        <div class="reveal-group grid md:grid-cols-2 gap-12 items-center">
+          <div class="reveal-item w-full bg-black/30 rounded-xl overflow-hidden p-4 border border-white/5 shadow-xl">
+             <!-- 此處填入第三個 Flourish 圖表 -->
+
+          <div class="reveal-item space-y-4">
+            <h4 class="text-xl font-bold text-[#FCE788]">受詐騙的類型多屬於網路購物，且多數發生在社群媒體平台。</h4>
+            <p class="text-center text-xs md:text-sm text-gray-400 mt-4 leading-relaxed mb-2">
+            資料來源：〈年輕世代的受詐騙經驗調查〉問卷調查、製圖／沈韋彤
+          </p>
+            <p class="text-white/90 leading-loose">林書立解釋目前社群媒體上的詐騙通常會延伸到私人聊天室。「在大海中遇到了你，他把這個水撈到小池塘來，只有點對點、你跟他」，若在平台上，政府有權管控或追責，但一旦詐騙者將你拉進私密的通訊軟體，政府的手就伸不進去了。</p>
+          </div>
+        </div>
     </section>
 
     <!-- 防護網區塊 -->
     <section class="max-w-4xl mx-auto px-6 mb-24">
       <div class="reveal-item flex items-center mb-10">
         <div class="w-2 h-8 bg-[#FCE788] mr-4 shadow-[0_0_8px_rgba(252,231,136,0.6)]"></div>
-        <h3 class="text-2xl font-bold font-sans text-white">02. 防護網：打詐四法與預警機制</h3>
+        <h3 class="text-2xl font-bold font-sans text-white">社群媒體詐騙難防 新型手法政府仍受限</h3>
       </div>
       
       <div class="reveal-group grid md:grid-cols-2 gap-6 font-sans">
