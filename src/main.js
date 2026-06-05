@@ -32,27 +32,25 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
+// 🌟 新增：由 JS 負責初始化隱藏，避免與 Tailwind 衝突
+  gsap.set([".glitch-text", "#hero-subtitle", "#scroll-hint"], { opacity: 0, y: 50 });
+
   // ==========================================
-  // 1. 開場大標題動畫 (✅ 修正：改為捲動到畫面時才觸發)
+  // 1. 開場大標題動畫 (捲動到畫面時才觸發)
   // ==========================================
   ScrollTrigger.create({
     trigger: "#hero-section",
-    start: "top 75%", // 當標題區塊進入螢幕 75% 時，才觸發跳躍特效
+    start: "top 75%", 
     onEnter: () => {
-      // 標題 Q 彈跳出
-      gsap.fromTo(".glitch-text", 
-        { scale: 0.8, opacity: 0, y: 50 },
-        { scale: 1, opacity: 1, y: 0, duration: 1.5, ease: "elastic.out(1, 0.4)" }
-      );
-      // 讓副標題與指示箭頭依序淡入
-      gsap.fromTo("#hero-subtitle", { opacity: 0 }, { opacity: 0.9, duration: 1, delay: 0.8 });
-      gsap.fromTo("#scroll-hint", { opacity: 0 }, { opacity: 1, duration: 1, delay: 1.2 });
+      // 使用 .to 把隱藏的標題彈跳出來
+      gsap.to(".glitch-text", { scale: 1, opacity: 1, y: 0, duration: 1.5, ease: "elastic.out(1, 0.4)" });
+      gsap.to("#hero-subtitle", { opacity: 0.9, y: 0, duration: 1, delay: 0.8 });
+      gsap.to("#scroll-hint", { opacity: 1, y: 0, duration: 1, delay: 1.2 });
     },
-    once: true // 確保只跳動一次，不會因為上下滾動重複觸發
+    once: true 
   });
 
-
-// ==========================================
+  // ==========================================
   // 2. 滾動轉場時間軸：先閃爍留存 ➔ 後包夾吸入
   // ==========================================
   const heroTl = gsap.timeline({
@@ -71,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .to("#gate-top", { y: "0%", duration: 0.6, ease: "power1.in" }, 0.6)
     .to("#gate-bottom", { y: "0%", duration: 0.6, ease: "power1.in" }, 0.6)
     
-    // 🌟 關鍵修正：將原本的 .to 改為 .fromTo，強制鎖定起點狀態，防止跟進場動畫打架
+    // 🌟 關鍵防呆修正：使用 fromTo 強制規定從「清晰(blur 0)」變成「模糊(blur 15)」，拒絕幽靈狀態！
     .fromTo(".glitch-text", 
       { scale: 1, filter: "blur(0px)", opacity: 1 }, 
       { scale: 0.7, filter: "blur(15px)", opacity: 0, duration: 0.5, ease: "none" }, 0.6)
