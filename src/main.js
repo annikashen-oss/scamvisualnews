@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
-  // ==========================================
+// ==========================================
   // 2. 滾動轉場時間軸：先閃爍留存 ➔ 後包夾吸入
   // ==========================================
   const heroTl = gsap.timeline({
@@ -70,9 +70,20 @@ document.addEventListener("DOMContentLoaded", () => {
     .to("#gate-bottom", { y: "15%", duration: 0.6, ease: "none" }, 0)
     .to("#gate-top", { y: "0%", duration: 0.6, ease: "power1.in" }, 0.6)
     .to("#gate-bottom", { y: "0%", duration: 0.6, ease: "power1.in" }, 0.6)
-    .to(".glitch-text", { scale: 0.7, filter: "blur(15px)", opacity: 0, duration: 0.5, ease: "none" }, 0.6)
-    .to("#hero-subtitle", { scale: 0.8, filter: "blur(10px)", opacity: 0, duration: 0.5, ease: "none" }, 0.7)
-    .to("#scroll-hint", { opacity: 0, duration: 0.3, ease: "none" }, 0.6)
+    
+    // 🌟 關鍵修正：將原本的 .to 改為 .fromTo，強制鎖定起點狀態，防止跟進場動畫打架
+    .fromTo(".glitch-text", 
+      { scale: 1, filter: "blur(0px)", opacity: 1 }, 
+      { scale: 0.7, filter: "blur(15px)", opacity: 0, duration: 0.5, ease: "none" }, 0.6)
+      
+    .fromTo("#hero-subtitle", 
+      { scale: 1, filter: "blur(0px)", opacity: 0.9 }, 
+      { scale: 0.8, filter: "blur(10px)", opacity: 0, duration: 0.5, ease: "none" }, 0.7)
+      
+    .fromTo("#scroll-hint", 
+      { opacity: 1 }, 
+      { opacity: 0, duration: 0.3, ease: "none" }, 0.6)
+      
     .to("#story-section", { opacity: 1, duration: 0.3 }, 1.2)
     .to("#gate-top", { y: "-100%", duration: 1.0, ease: "power2.inOut" }, 1.5)
     .to("#gate-bottom", { y: "100%", duration: 1.0, ease: "power2.inOut" }, 1.5);
