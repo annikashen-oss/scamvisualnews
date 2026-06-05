@@ -7,8 +7,8 @@
 <!-- 載入 GSAP 動畫套件 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script type="module" crossorigin src="/scamvisualnews/assets/index-Cm9wBKw8.js"></script>
-  <link rel="stylesheet" crossorigin href="/scamvisualnews/assets/index-BW7Wqtus.css">
+  <script type="module" crossorigin src="/scamvisualnews/assets/index-CezbvxSK.js"></script>
+  <link rel="stylesheet" crossorigin href="/scamvisualnews/assets/index-B8gOMGAe.css">
 </head>
 <!-- 全局背景設定為 #62495F，預設文字為白色 -->
 <body class="bg-[#62495F] overflow-x-hidden text-white">
@@ -223,19 +223,34 @@
               </div>
             </div> </div> </div> <div class="reveal-group grid md:grid-cols-2 gap-12 items-center pt-16">
           </div>
-        <!-- 問卷發現 3 詐騙發生的主要地點是社群媒體平台 -->
-        <div class="reveal-group grid md:grid-cols-2 gap-12 items-center">
-          <div class="reveal-item w-full bg-black/30 rounded-xl overflow-hidden p-4 border border-white/5 shadow-xl">
-             <!-- 此處填入第三個 Flourish 圖表 -->
-
-          <p class="text-center text-xs md:text-sm text-[#BFBABF]  mt-4 leading-relaxed mb-2">
-            資料來源：〈年輕世代的受詐騙經驗調查〉問卷調查、製圖／沈韋彤
-          </p>
-          <div class="reveal-item space-y-4">
-          <h4 class="text-xl font-bold text-[#FCE788]">受詐騙的類型多屬於網路購物，且多數發生在社群媒體平台。</h4>
-          <p class="text-white/90 leading-loose">林書立解釋目前社群媒體上的詐騙通常會延伸到私人聊天室。「在大海中遇到了你，他把這個水撈到小池塘來，只有點對點、你跟他」，若在平台上，政府有權管控或追責，但一旦詐騙者將你拉進私密的通訊軟體，政府的手就伸不進去了。</p>
+<!-- ==================== 問卷發現 3 ==================== -->
+        <!-- 🌟 局部修正：比照問卷發現 2，完全去除卡片，回歸嚴格的左圖右文雙欄結構 -->
+        <div class="reveal-group grid md:grid-cols-2 gap-12 items-center pt-16">
+          
+          <!-- 【左欄：圖表三容器】只放置 Flourish 內容 -->
+          <div class="reveal-item w-full bg-black/30 rounded-xl overflow-hidden p-6 border border-white/5 shadow-xl">
+            <!-- 此處填入第三個 Flourish 圖表（社群媒體平台分布） -->
+            <div class="flourish-embed flourish-hierarchy" data-src="[請填入您圖表三的代碼]">
+              <script src="https://public.flourish.studio/resources/embed.js"></script>
+            </div>
+            
+            <!-- 數據來源小字 -->
+            <p class="text-center text-xs text-gray-400 mt-4 leading-relaxed mb-2">
+              資料來源：〈年輕世代的受詐騙經驗調查〉問卷調查、製圖／沈韋彤
+            </p>
           </div>
-        </div>
+
+          <!-- 【右欄：文字說明】只放置論述與專家分析內容 -->
+          <div class="reveal-item space-y-4 font-sans">
+            <h4 class="text-xl font-bold text-[#FCE788]">
+              受詐騙的類型多屬於網路購物，且多數發生在社群媒體平台。
+            </h4>
+            <p class="text-white/90 text-lg leading-loose font-serif">
+              林書立解釋目前社群媒體上的詐騙通常會延伸到私人聊天室。「在大海中遇到了你，他把這個水撈到小池塘來，只有點對點、你跟他」，若在平台上，政府有權管控或追責，但一旦詐騙者將你拉進私密的通訊軟體，政府的手就伸不進去了。
+            </p>
+          </div>
+
+        </div> <!-- 結束問卷發現 3 的 grid -->
     </section>
 
     <!-- 面向三防護網區塊 -->
