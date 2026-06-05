@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
     delay: 1.2 
   });
 
-
 // 🌟 局部修正：完美同步滾輪的開場時間軸
 const heroTl = gsap.timeline({
   scrollTrigger: {
@@ -53,20 +52,7 @@ heroTl
   .to("#gate-top", { y: "-100%", duration: 1.5, ease: "power2.inOut" }, 1.6)
   .to("#gate-bottom", { y: "100%", duration: 1.2, ease: "power2.inOut" }, 1.6);
 
-  heroTl
-    // 【分鏡 A】滑鼠開始捲動，上下閘門從螢幕邊緣往中央包夾（此時標題完整保留在後方）
-    .to("#gate-top", { y: "0%", duration: 1.2, ease: "power1.inOut" }, 0)
-    .to("#gate-bottom", { y: "0%", duration: 1.2, ease: "power1.inOut" }, 0)
-    
-    // 【分鏡 B】在閘門幾乎完全咬合的最後一刻（0.8秒處），標題才優雅地模糊淡出
-    .to("#hero-section", { scale: 0.8, filter: "blur(10px)", opacity: 0, duration: 0.4 }, 0.8)
-    
-    // 【分鏡 C】閘門完全合攏，全黑狀態下無縫啟用正文區塊
-    .to("#story-section", { opacity: 1, duration: 0.4 }, 1.2)
-    
-    // 【分鏡 D】黑色閘門再次由中央往上下拉開，流暢露出後方的專題內容
-    .to("#gate-top", { y: "-100%", duration: 1.2, ease: "power2.inOut" }, 1.6)
-    .to("#gate-bottom", { y: "100%", duration: 1.2, ease: "power2.inOut" }, 1.6);
+
 
 
   // ==========================================
