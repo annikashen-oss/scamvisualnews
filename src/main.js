@@ -4,38 +4,59 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-
 document.addEventListener("DOMContentLoaded", () => {
 
-  // 1. 開場動畫 (大標題彈跳)// 在 main.js 中
-gsap.from(".glitch-text", {
-  scale: 0.8,
-  opacity: 0,
-  duration: 1.5,
-  ease: "elastic.out(1, 0.4)",
-  y: 50,
-  delay: 0.2
-});
-  gsap.from(".animate-pulse", { opacity: 0, duration: 1, delay: 1.2 });
+  // ==========================================
+  // 1. 開場進場動畫 (網頁剛載入時的 Q 彈跳動)
+  // ==========================================
+  gsap.from(".glitch-text", {
+    scale: 0.8,
+    opacity: 0,
+    duration: 1.5,
+    ease: "elastic.out(1, 0.4)",
+    y: 50,
+    delay: 0.2
+  });
 
-  // 2. 開場閘門轉場 (綁定 hero-section)
+  gsap.from(".animate-pulse", { 
+    opacity: 0, 
+    duration: 1, 
+    delay: 1.2 
+  });
+
+
+  // ==========================================
+  // 2. 電影感轉場閘門控制 (已合併重複代碼，優化節奏)
+  // ==========================================
   const heroTl = gsap.timeline({
     scrollTrigger: {
       trigger: "#hero-section",
       start: "top top",
-      end: "+=800",
+      end: "+=1000", // 拉長滾動緩衝距離，讓電影轉場有喘息空間
       scrub: 1,
       pin: true,
     }
   });
 
-  heroTl.to("#gate-top", { y: "0%", duration: 1, ease: "power2.inOut" }, 0)
-        .to("#gate-bottom", { y: "0%", duration: 1, ease: "power2.inOut" }, 0)
-        .to("#hero-section", { scale: 0.8, filter: "blur(10px)", opacity: 0, duration: 0.5 }, 0.5)
-        .to("#story-section", { opacity: 1, duration: 0.5 }, 0.8);
+  heroTl
+    // 【分鏡 A】滑鼠開始捲動，上下閘門從螢幕邊緣往中央包夾（此時標題完整保留在後方）
+    .to("#gate-top", { y: "0%", duration: 1.2, ease: "power1.inOut" }, 0)
+    .to("#gate-bottom", { y: "0%", duration: 1.2, ease: "power1.inOut" }, 0)
+    
+    // 【分鏡 B】在閘門幾乎完全咬合的最後一刻（0.8秒處），標題才優雅地模糊淡出
+    .to("#hero-section", { scale: 0.8, filter: "blur(10px)", opacity: 0, duration: 0.4 }, 0.8)
+    
+    // 【分鏡 C】閘門完全合攏，全黑狀態下無縫啟用正文區塊
+    .to("#story-section", { opacity: 1, duration: 0.4 }, 1.2)
+    
+    // 【分鏡 D】黑色閘門再次由中央往上下拉開，流暢露出後方的專題內容
+    .to("#gate-top", { y: "-100%", duration: 1.2, ease: "power2.inOut" }, 1.6)
+    .to("#gate-bottom", { y: "100%", duration: 1.2, ease: "power2.inOut" }, 1.6);
 
-  // 3. 故事區段：角色走路、轉場與 Zoom in
-  // 注意：這裡改用 ScrollTrigger 監聽 story-section，不使用 pin 以避免卡住捲動
+
+  // ==========================================
+  // 3. 故事主線：角色走路與背景白天變黑夜
+  // ==========================================
   gsap.to("#boy-character", {
     x: window.innerWidth - 100,
     scrollTrigger: {
@@ -47,7 +68,7 @@ gsap.from(".glitch-text", {
   });
 
   gsap.to("body", {
-    backgroundColor: "#2e1065",
+    backgroundColor: "#2e1065", // 隨著故事推進漸變成夜晚的深紫藍
     scrollTrigger: {
       trigger: "#story-section",
       start: "top top",
@@ -56,7 +77,20 @@ gsap.from(".glitch-text", {
     }
   });
 
-  // 4. 結尾動畫 (Outro)
+
+  // ==========================================
+  // 4. 27 張人格卡片點擊翻轉功能
+  // ==========================================
+  document.querySelectorAll('.flip-card').forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('is-flipped');
+    });
+  });
+
+
+  // ==========================================
+  // 5. 首尾呼應：結尾動畫 (Outro)
+  // ==========================================
   const outroTl = gsap.timeline({
     scrollTrigger: {
       trigger: "#outro-section",
@@ -76,90 +110,38 @@ gsap.from(".glitch-text", {
          .to("#outro-gate-top", { y: "-100%", duration: 1, ease: "power2.inOut" }, 4)
          .to("#outro-gate-bottom", { y: "100%", duration: 1, ease: "power2.inOut" }, 4);
 
-  // 5. Reveal 動畫 (文字浮現)
+
+  // ==========================================
+  // 6. 全局文字、圖表交錯捲動浮現 (Reveal 補償防呆)
+  // ==========================================
   gsap.utils.toArray('.reveal-item').forEach((item) => {
-    gsap.set(item, { y: 40, autoAlpha: 0 });
+    gsap.set(item, { y: 40, autoAlpha: 0 }); // 先行隱藏預設位置
     ScrollTrigger.create({
       trigger: item,
       start: "top 85%",
-      onEnter: () => gsap.to(item, { y: 0, autoAlpha: 1, duration: 0.8, ease: "power2.out" })
+      onEnter: () => gsap.to(item, { y: 0, autoAlpha: 1, duration: 0.8, ease: "power2.out", overwrite: "auto" })
     });
   });
-});
-gsap.registerPlugin(ScrollTrigger);
 
-// ====== 以下是原本的「捲動轉場」與「交錯浮現」特效，維持不變 ======
 
-// 建立一個綁定滾動的動畫時間軸 (控制開場與閘門)
-const tl = gsap.timeline({
-  scrollTrigger: {
-    trigger: "#hero-section",
-    start: "top top",
-    end: "+=800",
-    scrub: 1,
-    pin: true,
+  // ==========================================
+  // 7. 融媒體影片自動播放控制
+  // ==========================================
+  const introVideo = document.getElementById("intro-video");
+  const outroVideo = document.getElementById("outro-video");
+
+  if (introVideo) {
+    ScrollTrigger.create({
+      trigger: "#hero-section",
+      onEnter: () => introVideo.play().catch(err => console.log("影片自動播放受瀏覽器限制:", err)),
+    });
   }
-});
 
-// 閘門關閉
-tl.to("#gate-top", { y: "0%", duration: 1, ease: "power2.inOut" }, 0)
-  .to("#gate-bottom", { y: "0%", duration: 1, ease: "power2.inOut" }, 0)
-// 標題模糊吸入
-  .to("#hero-section", { scale: 0.8, filter: "blur(10px)", opacity: 0, duration: 0.5 }, 0.5)
-// 帶有 #62495F 底色的正文區塊浮現
-  .to("#story-section", { opacity: 1, duration: 0.5 }, 0.8);
-// ====== 以下是新增的「首尾呼應」結尾動畫 ======
-
-// 建立結尾區塊的時間軸
-const outroTl = gsap.timeline({
-  scrollTrigger: {
-    trigger: "#outro-section",
-    start: "top top",
-    end: "+=2000", // 動畫佔據 2000px 的捲動距離
-    scrub: 1,      // 跟隨滑鼠捲動
-    pin: true,     // 將結尾畫面釘住在螢幕上
+  if (outroVideo) {
+    ScrollTrigger.create({
+      trigger: "#outro-section",
+      onEnter: () => outroVideo.play().catch(err => console.log("影片自動播放受瀏覽器限制:", err)),
+    });
   }
-});
 
-// 🎬 分鏡 1：黑色閘門關閉 (再次陷入黑暗，與開場呼應)
-outroTl.to("#outro-gate-top", { y: "0%", duration: 1, ease: "power2.inOut" }, 0)
-       .to("#outro-gate-bottom", { y: "0%", duration: 1, ease: "power2.inOut" }, 0);
-
-// 🎬 分鏡 2：結尾文字浮現，且標題 Q 彈跳出 (與開場動畫的 elastic.out 呼應)
-outroTl.to("#outro-text-container", { opacity: 1, duration: 0.5 }, 1)
-       .to("#outro-text-container .glitch-text", { 
-          scale: 1, 
-          duration: 1.5, 
-          ease: "elastic.out(1, 0.4)" 
-       }, 1);
-
-// 🎬 分鏡 3：讀者繼續往下滾，文字淡出，背景亮起光明色 (#FCFAF2)
-outroTl.to("#outro-text-container", { opacity: 0, duration: 0.8 }, 3)
-       .to("#outro-light-bg", { opacity: 1, duration: 1 }, 3);
-
-// 🎬 分鏡 4：黑色閘門重新打開！露出光明底色，準備順滑銜接 Footer
-outroTl.to("#outro-gate-top", { y: "-100%", duration: 1, ease: "power2.inOut" }, 4)
-       .to("#outro-gate-bottom", { y: "100%", duration: 1, ease: "power2.inOut" }, 4);
-
-
-// 影片播放控制：開頭與結尾
-const introVideo = document.getElementById("intro-video");
-const outroVideo = document.getElementById("outro-video");
-
-ScrollTrigger.create({
-  trigger: "#hero-section",
-  onEnter: () => introVideo.play(),
-});
-
-ScrollTrigger.create({
-  trigger: "#outro-section",
-  onEnter: () => outroVideo.play(),
-});
-
-initInteraction();
-// 讓 27 張卡片都具備點擊翻轉功能
-document.querySelectorAll('.flip-card').forEach(card => {
-  card.addEventListener('click', () => {
-    card.classList.toggle('is-flipped');
-  });
 });
