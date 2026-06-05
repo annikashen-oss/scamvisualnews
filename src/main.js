@@ -1,5 +1,91 @@
 import './style.css';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+gsap.registerPlugin(ScrollTrigger);
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  // 1. 開場動畫 (大標題彈跳)
+  gsap.from(".glitch-text", {
+    scale: 0,
+    opacity: 0,
+    duration: 1.5,
+    ease: "elastic.out(1, 0.4)",
+    y: 50,
+    delay: 0.2
+  });
+
+  gsap.from(".animate-pulse", { opacity: 0, duration: 1, delay: 1.2 });
+
+  // 2. 開場閘門轉場 (綁定 hero-section)
+  const heroTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#hero-section",
+      start: "top top",
+      end: "+=800",
+      scrub: 1,
+      pin: true,
+    }
+  });
+
+  heroTl.to("#gate-top", { y: "0%", duration: 1, ease: "power2.inOut" }, 0)
+        .to("#gate-bottom", { y: "0%", duration: 1, ease: "power2.inOut" }, 0)
+        .to("#hero-section", { scale: 0.8, filter: "blur(10px)", opacity: 0, duration: 0.5 }, 0.5)
+        .to("#story-section", { opacity: 1, duration: 0.5 }, 0.8);
+
+  // 3. 故事區段：角色走路、轉場與 Zoom in
+  // 注意：這裡改用 ScrollTrigger 監聽 story-section，不使用 pin 以避免卡住捲動
+  gsap.to("#boy-character", {
+    x: window.innerWidth - 100,
+    scrollTrigger: {
+      trigger: "#story-section",
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 2
+    }
+  });
+
+  gsap.to("body", {
+    backgroundColor: "#2e1065",
+    scrollTrigger: {
+      trigger: "#story-section",
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 2
+    }
+  });
+
+  // 4. 結尾動畫 (Outro)
+  const outroTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#outro-section",
+      start: "top top",
+      end: "+=2000",
+      scrub: 1,
+      pin: true,
+    }
+  });
+
+  outroTl.to("#outro-gate-top", { y: "0%", duration: 1, ease: "power2.inOut" }, 0)
+         .to("#outro-gate-bottom", { y: "0%", duration: 1, ease: "power2.inOut" }, 0)
+         .to("#outro-text-container", { opacity: 1, duration: 0.5 }, 1)
+         .to("#outro-text-container .glitch-text", { scale: 1, duration: 1.5, ease: "elastic.out(1, 0.4)" }, 1)
+         .to("#outro-text-container", { opacity: 0, duration: 0.8 }, 3)
+         .to("#outro-light-bg", { opacity: 1, duration: 1 }, 3)
+         .to("#outro-gate-top", { y: "-100%", duration: 1, ease: "power2.inOut" }, 4)
+         .to("#outro-gate-bottom", { y: "100%", duration: 1, ease: "power2.inOut" }, 4);
+
+  // 5. Reveal 動畫 (文字浮現)
+  gsap.utils.toArray('.reveal-item').forEach((item) => {
+    gsap.set(item, { y: 40, autoAlpha: 0 });
+    ScrollTrigger.create({
+      trigger: item,
+      start: "top 85%",
+      onEnter: () => gsap.to(item, { y: 0, autoAlpha: 1, duration: 0.8, ease: "power2.out" })
+    });
+  });
+});
 gsap.registerPlugin(ScrollTrigger);
 
 // 🌟 新增：一進網頁的大標題「放大縮小跳躍」進場特效
@@ -72,83 +158,6 @@ outroTl.to("#outro-text-container", { opacity: 0, duration: 0.8 }, 3)
 outroTl.to("#outro-gate-top", { y: "-100%", duration: 1, ease: "power2.inOut" }, 4)
        .to("#outro-gate-bottom", { y: "100%", duration: 1, ease: "power2.inOut" }, 4);
 
-// ====== 以下是升級後的「群組交錯捲動浮現 (Stagger Reveal)」特效 ======
-
-// 抓取網頁中所有的群組容器
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
-
-// 強制為每個 reveal-item 綁定動畫
-document.addEventListener("DOMContentLoaded", () => {
-  gsap.utils.toArray(".reveal-item").forEach((item) => {
-    gsap.to(item, {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      scrollTrigger: {
-        trigger: item,
-        start: "top 85%", // 當項目到達視窗 85% 高度時觸發
-        toggleActions: "play none none reverse"
-      }
-    });
-  });
-});
-
-// 防呆機制：如果有些單一的 .reveal-item 沒有被任何群組包住，讓它們也能正常單獨浮現
-gsap.utils.toArray('.reveal-item').forEach((item) => {
-  if (!item.closest('.reveal-group')) {
-    gsap.set(item, { y: 40, autoAlpha: 0 });
-    ScrollTrigger.create({
-      trigger: item,
-      start: "top 85%",
-      onEnter: () => gsap.to(item, { y: 0, autoAlpha: 1, duration: 0.8, ease: "power2.out", overwrite: "auto" })
-    });
-  }
-});
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
-
-// 初始化：設定水平線與角色動畫
-function initInteraction() {
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: "#story-section", // 從故事開始觸發
-      start: "top top",
-      end: "bottom bottom",
-      scrub: 1, // 跟隨滑鼠捲動的平滑度
-      pin: true, // 可選：鎖定背景不讓它亂跑
-    }
-  });
-
-  // 1. 男生由左往右走
-  tl.to("#boy-character", {
-    x: window.innerWidth - 100,
-    duration: 10,
-    ease: "none"
-  })
-  // 2. 轉場：白天變夜晚 (背景顏色變化)
-  .to("body", {
-    backgroundColor: "#2e1065", // 深紫藍色 (夜晚)
-    duration: 5
-  }, 0);
-
-  // 3. Zoom in 到手機螢幕的特效
-  ScrollTrigger.create({
-    trigger: "#phone-zoom-point",
-    start: "top center",
-    onEnter: () => {
-      gsap.to("#phone-character", { scale: 3, transformOrigin: "center center" });
-      gsap.to("#avatar-change", { opacity: 1, duration: 1 });
-    },
-    onLeaveBack: () => {
-      gsap.to("#phone-character", { scale: 1 });
-      gsap.to("#avatar-change", { opacity: 0 });
-    }
-  });
-}
 
 // 影片播放控制：開頭與結尾
 const introVideo = document.getElementById("intro-video");
