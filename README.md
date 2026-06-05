@@ -52,17 +52,17 @@
 
 ## 📁 專案結構
 -
--├── index.html # 主頁面（所有章節、圖表、對話框）
--├── src/
--│ ├── main.js # GSAP 動畫、Chart.js 初始化、文字雲生成
--│ └── style.css # Tailwind 指令與自訂樣式（含背景強制覆蓋）
--├── public/
--│ └── images/ # 背景圖片（可選，目前使用純漸層）
--├── package.json # 依賴與部署腳本
--├── vite.config.js # Vite 設定（base 路徑）
--├── tailwind.config.js # Tailwind 設定（字體擴展）
--├── postcss.config.js # PostCSS 設定
--└── README.md
+├── index.html # 主頁面（所有章節、圖表、對話框）
+├── src/
+│ ├── main.js # GSAP 動畫、Chart.js 初始化、文字雲生成
+│ └── style.css # Tailwind 指令與自訂樣式（含背景強制覆蓋）
+├── public/
+│ └── images/ # 背景圖片（可選，目前使用純漸層）
+├── package.json # 依賴與部署腳本
+├── vite.config.js # Vite 設定（base 路徑）
+├── tailwind.config.js # Tailwind 設定（字體擴展）
+├── postcss.config.js # PostCSS 設定
+└── README.md
 ## 📄 授權
 本專案僅供教育與非商業用途使用。數據來源請參考頁面底部標註。
 
