@@ -7,8 +7,8 @@
 <!-- 載入 GSAP 動畫套件 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script type="module" crossorigin src="/scamvisualnews/assets/index-B9Ds0SKp.js"></script>
-  <link rel="stylesheet" crossorigin href="/scamvisualnews/assets/index-B8gOMGAe.css">
+  <script type="module" crossorigin src="/scamvisualnews/assets/index-REwDrco7.js"></script>
+  <link rel="stylesheet" crossorigin href="/scamvisualnews/assets/index-mW8jMTR8.css">
 </head>
 <!-- 全局背景設定為 #62495F，預設文字為白色 -->
 <body class="bg-[#62495F] overflow-x-hidden text-white">
@@ -16,18 +16,17 @@
 <!-- 【第一幕：開場區】 -->
 <section id="hero-section" class="relative w-full h-screen flex flex-col items-center justify-center z-10 text-center px-4 bg-[#62495F]">
   
-  <!-- 主標題：獨立故障效果 -->
-  <h1 class="glitch-text text-4xl md:text-6xl font-black tracking-wide mb-6" 
-      data-text="危機伺服還四伏？">
+  <!-- 主標題：獨立 Q 彈與故障閃爍特效 -->
+  <h1 class="glitch-text text-4xl md:text-6xl font-black tracking-wide mb-6 opacity-0" data-text="危機伺服還四伏？">
     危機伺服還四伏？
   </h1>
-
-  <!-- 副標題：獨立控制，無故障效果 -->
-  <p class="text-xl md:text-2xl font-normal text-white opacity-90 tracking-wide">
+  
+  <!-- 副標題：乾淨縮小，獨立控制不閃爍 -->
+  <p id="hero-subtitle" class="text-xl md:text-2xl font-normal opacity-0 leading-snug max-w-2xl mx-auto">
     網路詐騙帶來年輕人的信任危機
   </p>
-
-  <div class="mt-12 text-[#FCE788] animate-pulse flex flex-col items-center">
+  
+  <div id="scroll-hint" class="mt-12 text-[#FCE788] animate-pulse flex flex-col items-center opacity-0">
     <span class="mb-2 text-sm tracking-widest">向下捲動進入專題</span>
     <span class="text-2xl">↓</span>
   </div>
