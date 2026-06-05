@@ -4,18 +4,18 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+
 document.addEventListener("DOMContentLoaded", () => {
 
-  // 1. 開場動畫 (大標題彈跳)
-  gsap.from(".glitch-text", {
-    scale: 0,
-    opacity: 0,
-    duration: 1.5,
-    ease: "elastic.out(1, 0.4)",
-    y: 50,
-    delay: 0.2
-  });
-
+  // 1. 開場動畫 (大標題彈跳)// 在 main.js 中
+gsap.from(".glitch-text", {
+  scale: 0.8,
+  opacity: 0,
+  duration: 1.5,
+  ease: "elastic.out(1, 0.4)",
+  y: 50,
+  delay: 0.2
+});
   gsap.from(".animate-pulse", { opacity: 0, duration: 1, delay: 1.2 });
 
   // 2. 開場閘門轉場 (綁定 hero-section)
