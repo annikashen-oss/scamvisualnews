@@ -2,25 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 標題相對定位與純白字體 *//* 修改這一段 */
+/* 僅針對擁有 glitch-text 的主標題生效 */
 .glitch-text {
   position: relative;
-  display: block;
+  display: inline-block; /* 確保特效範圍精準 */
   color: #ffffff;
-  width: 100%;
+  z-index: 1;
 }
 
 .glitch-text::before,
 .glitch-text::after {
-  content: attr(data-text); /* 這會抓取 data-text 的內容 */
+  content: attr(data-text); 
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  /* 關鍵修正：將文字設為不可見，或者調整 z-index */
-  z-index: -1; 
-  background: #62495F; /* 設定與背景色相同，避免殘影重疊 */
+  z-index: -1; /* 放在文字後方，確保主文字清晰 */
+  background: #62495F; /* 必須與背景色一致，否則會蓋住文字 */
+}
+
+/* 故障動畫 (維持不變) */
+.glitch-text::before {
+  left: 3px;
+  text-shadow: -2px 0 #ef4444; 
+  clip-path: polygon(0 0, 100% 0, 100% 30%, 0 30%);
+  animation: glitch-anim-1 2s infinite linear alternate-reverse;
 }
 
 @keyframes glitch-anim-1 {
