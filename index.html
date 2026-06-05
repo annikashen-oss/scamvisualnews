@@ -7,14 +7,24 @@
 <!-- 載入 GSAP 動畫套件 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script type="module" crossorigin src="/scamvisualnews/assets/index-5k-feTZ9.js"></script>
-  <link rel="stylesheet" crossorigin href="/scamvisualnews/assets/index-B1WJzz79.css">
+  <script type="module" crossorigin src="/scamvisualnews/assets/index-BGefr93f.js"></script>
+  <link rel="stylesheet" crossorigin href="/scamvisualnews/assets/index-B-e3THS3.css">
 </head>
 <!-- 全局背景設定為 #62495F，預設文字為白色 -->
 <body class="bg-[#62495F] overflow-x-hidden text-white">
-
-<section id="begin-video-section" class="relative w-full h-screen bg-black overflow-hidden" style="position: relative; width: 100%; height: 100vh; background: #000; overflow: hidden;">
-  <video class="absolute inset-0 w-full h-full object-cover" src="/scamvisualnews/assets/Begin-CXUQOKUZ.mp4" autoplay muted loop playsinline preload="auto" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;"></video>
+  
+<!-- 【第零幕：開場前導影片】 -->
+<section id="begin-video-section" class="relative w-full h-screen bg-black overflow-hidden">
+  <!-- 1. 移除 loop 屬性，並加上 id="intro-video" 以便 JS 抓取 -->
+  <video id="intro-video" class="absolute inset-0 w-full h-full object-cover z-0" src="/scamvisualnews/assets/Begin-CXUQOKUZ.mp4" autoplay muted playsinline preload="auto"></video>
+  
+  <!-- 2. 新增專屬的「向下捲動提示」，預設 opacity-0 (隱藏)，放置在畫面底部中央 -->
+  <div id="video-scroll-hint" class="absolute bottom-12 left-1/2 transform -translate-x-1/2 text-[#FCE788] animate-pulse flex flex-col items-center opacity-0 z-10 pointer-events-none">
+    <span class="mb-2 text-sm md:text-base tracking-widest font-bold drop-shadow-lg bg-black/40 backdrop-blur-sm px-4 py-1 rounded-full">
+      影片播畢，請向下捲動進入專題
+    </span>
+    <span class="text-3xl drop-shadow-lg mt-2">↓</span>
+  </div>
 </section>
   
 <!-- 【第一幕：開場區】 -->
