@@ -25,18 +25,33 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
-  // ==========================================
-  // 2. 電影感轉場閘門控制 (已合併重複代碼，優化節奏)
-  // ==========================================
-  const heroTl = gsap.timeline({
-    scrollTrigger: {
-      trigger: "#hero-section",
-      start: "top top",
-      end: "+=1000", // 拉長滾動緩衝距離，讓電影轉場有喘息空間
-      scrub: 1,
-      pin: true,
-    }
-  });
+// 🌟 局部修正：完美同步滾輪的開場時間軸
+const heroTl = gsap.timeline({
+  scrollTrigger: {
+    trigger: "#hero-section",
+    start: "top top",
+    end: "+=1200", // 增長捲動距離，讓同步感更細緻
+    scrub: 1,      // 嚴格控制 1:1 的滑鼠滾輪同步率
+    pin: true,
+  }
+});
+
+heroTl
+  // 1. 隨著滾輪往下，上下閘門緩緩向中央包夾（此時標題依然在後方清晰可見）
+  .to("#gate-top", { y: "0%", duration: 1.5, ease: "none" }, 0)
+  .to("#gate-bottom", { y: "0%", duration: 1.5, ease: "none" }, 0)
+  
+  // 2. 與閘門包夾「同步」：標題開始等比例縮小、變模糊、淡出
+  .to(".glitch-text", { scale: 0.8, filter: "blur(12px)", opacity: 0, duration: 1.2, ease: "none" }, 0.2)
+  .to("#hero-subtitle", { scale: 0.9, filter: "blur(8px)", opacity: 0, duration: 1.0, ease: "none" }, 0.4)
+  .to("#scroll-hint", { opacity: 0, duration: 0.5, ease: "none" }, 0)
+  
+  // 3. 閘門在 1.5 秒處完全咬合，全黑狀態下切換正文
+  .to("#story-section", { opacity: 1, duration: 0.3 }, 1.3)
+  
+  // 4. 閘門重新拉開，順滑進入下一幕
+  .to("#gate-top", { y: "-100%", duration: 1.5, ease: "power2.inOut" }, 1.6)
+  .to("#gate-bottom", { y: "100%", duration: 1.2, ease: "power2.inOut" }, 1.6);
 
   heroTl
     // 【分鏡 A】滑鼠開始捲動，上下閘門從螢幕邊緣往中央包夾（此時標題完整保留在後方）
