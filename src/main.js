@@ -88,23 +88,6 @@ gsap.from(".glitch-text", {
 });
 gsap.registerPlugin(ScrollTrigger);
 
-// 🌟 新增：一進網頁的大標題「放大縮小跳躍」進場特效
-gsap.from(".glitch-text", {
-  scale: 0,                  // 從大小為 0 開始
-  opacity: 0,                // 一開始是透明的
-  duration: 1.5,             // 動畫執行 1.5 秒
-  ease: "elastic.out(1, 0.4)", // 這會產生「放大超過原本尺寸，再縮回中央」的 Q 彈跳躍感
-  y: 50,                     // 從畫面下方 50px 的地方彈上來
-  delay: 0.2                 // 網頁載入後稍微等 0.2 秒再跳出來，體驗更順暢
-});
-
-// 🌟 新增：讓下方的「向下捲動進入專題」文字跟著標題後面淡入出現
-gsap.from(".animate-pulse", {
-  opacity: 0,
-  duration: 1,
-  delay: 1.2
-});
-
 // ====== 以下是原本的「捲動轉場」與「交錯浮現」特效，維持不變 ======
 
 // 建立一個綁定滾動的動畫時間軸 (控制開場與閘門)
@@ -174,3 +157,9 @@ ScrollTrigger.create({
 });
 
 initInteraction();
+// 讓 27 張卡片都具備點擊翻轉功能
+document.querySelectorAll('.flip-card').forEach(card => {
+  card.addEventListener('click', () => {
+    card.classList.toggle('is-flipped');
+  });
+});
