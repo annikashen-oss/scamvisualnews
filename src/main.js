@@ -114,3 +114,62 @@ gsap.utils.toArray('.reveal-item').forEach((item) => {
     });
   }
 });
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+// 初始化：設定水平線與角色動畫
+function initInteraction() {
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#story-section", // 從故事開始觸發
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 1, // 跟隨滑鼠捲動的平滑度
+      pin: true, // 可選：鎖定背景不讓它亂跑
+    }
+  });
+
+  // 1. 男生由左往右走
+  tl.to("#boy-character", {
+    x: window.innerWidth - 100,
+    duration: 10,
+    ease: "none"
+  })
+  // 2. 轉場：白天變夜晚 (背景顏色變化)
+  .to("body", {
+    backgroundColor: "#2e1065", // 深紫藍色 (夜晚)
+    duration: 5
+  }, 0);
+
+  // 3. Zoom in 到手機螢幕的特效
+  ScrollTrigger.create({
+    trigger: "#phone-zoom-point",
+    start: "top center",
+    onEnter: () => {
+      gsap.to("#phone-character", { scale: 3, transformOrigin: "center center" });
+      gsap.to("#avatar-change", { opacity: 1, duration: 1 });
+    },
+    onLeaveBack: () => {
+      gsap.to("#phone-character", { scale: 1 });
+      gsap.to("#avatar-change", { opacity: 0 });
+    }
+  });
+}
+
+// 影片播放控制：開頭與結尾
+const introVideo = document.getElementById("intro-video");
+const outroVideo = document.getElementById("outro-video");
+
+ScrollTrigger.create({
+  trigger: "#hero-section",
+  onEnter: () => introVideo.play(),
+});
+
+ScrollTrigger.create({
+  trigger: "#outro-section",
+  onEnter: () => outroVideo.play(),
+});
+
+initInteraction();
