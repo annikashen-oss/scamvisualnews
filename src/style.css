@@ -87,3 +87,7 @@
   opacity: 1;
   transform: translateY(0);
 }
+.reveal-item {
+  opacity: 0;
+  transform: translateY(30px);
+}
