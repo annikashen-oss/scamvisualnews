@@ -4,7 +4,27 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-document.addEventListener("DOMContentLoaded", () => {
+// ==========================================
+  // ★ 新增：前導影片自動播放與結束提示邏輯
+  // ==========================================
+  const introVideo = document.getElementById("intro-video");
+  const videoScrollHint = document.getElementById("video-scroll-hint");
+
+  if (introVideo) {
+    // 1. 強制確保自動播放 (防範部分瀏覽器阻攔)
+    introVideo.play().catch(err => console.log("影片自動播放受瀏覽器限制:", err));
+
+    // 2. 監聽影片「播放結束 (ended)」事件
+    introVideo.addEventListener('ended', () => {
+      // 影片一結束，立刻使用 GSAP 讓提示文字優雅淡入
+      gsap.to(videoScrollHint, { 
+        opacity: 1, 
+        y: -10, // 微微往上浮現增加動感
+        duration: 1.5, 
+        ease: "power2.out" 
+      });
+    });
+  }
 
   // ==========================================
   // 1. 開場進場動畫 (網頁剛載入時的 Q 彈跳動)
@@ -133,26 +153,5 @@ document.addEventListener("DOMContentLoaded", () => {
       onEnter: () => gsap.to(item, { y: 0, autoAlpha: 1, duration: 0.8, ease: "power2.out", overwrite: "auto" })
     });
   });
-
-
-  // ==========================================
-  // 7. 融媒體影片自動播放控制
-  // ==========================================
-  const introVideo = document.getElementById("intro-video");
-  const outroVideo = document.getElementById("outro-video");
-
-  if (introVideo) {
-    ScrollTrigger.create({
-      trigger: "#hero-section",
-      onEnter: () => introVideo.play().catch(err => console.log("影片自動播放受瀏覽器限制:", err)),
-    });
-  }
-
-  if (outroVideo) {
-    ScrollTrigger.create({
-      trigger: "#outro-section",
-      onEnter: () => outroVideo.play().catch(err => console.log("影片自動播放受瀏覽器限制:", err)),
-    });
-  }
 
 });
