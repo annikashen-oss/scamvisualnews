@@ -9,21 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // ==========================================
   // 1. 開場進場動畫 (網頁剛載入時的 Q 彈跳動)
   // ==========================================
-  gsap.from(".glitch-text", {
-    scale: 0.8,
-    opacity: 0,
-    duration: 1.5,
-    ease: "elastic.out(1, 0.4)",
-    y: 50,
-    delay: 0.2
-  });
-
-  gsap.from(".animate-pulse", { 
-    opacity: 0, 
-    duration: 1, 
-    delay: 1.2 
-  });
-
 // 🌟 局部修正：完美同步滾輪的開場時間軸
 const heroTl = gsap.timeline({
   scrollTrigger: {
@@ -51,10 +36,7 @@ heroTl
   // 4. 閘門重新拉開，順滑進入下一幕
   .to("#gate-top", { y: "-100%", duration: 1.5, ease: "power2.inOut" }, 1.6)
   .to("#gate-bottom", { y: "100%", duration: 1.2, ease: "power2.inOut" }, 1.6);
-
-
-
-
+  
   // ==========================================
   // 3. 故事主線：角色走路與背景白天變黑夜
   // ==========================================
