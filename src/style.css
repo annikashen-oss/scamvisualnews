@@ -83,3 +83,105 @@
 .flip-card-back {
   transform: rotateY(180deg);
 }
+
+/* ========================================== */
+    /* 🛡️ Meta 防詐互動圖表專屬樣式 */
+    /* ========================================== */
+    #meta-infographic {
+      font-family: "Microsoft JhengHei", sans-serif;
+      text-align: center;
+    }
+    #meta-infographic h1.meta-title {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      color: white;
+      font-weight: 900;
+    }
+    #meta-infographic .blue { color: #8cb4ff; }
+    #meta-infographic .red { color: #ff6b6b; }
+    
+    #meta-infographic .tree { transition: 1.5s ease; }
+    #meta-infographic .tree.finished { transform: translateY(-250px); }
+    
+    #meta-infographic .center-box {
+      background: white;
+      padding: 25px;
+      border-radius: 20px;
+      width: 300px;
+      margin: auto;
+      box-shadow: 0 8px 30px rgba(0,0,0,.3);
+      color: #333;
+    }
+    #meta-infographic .icon { font-size: 50px; margin-bottom: 10px; }
+    #meta-infographic .connect-line {
+      width: 4px; height: 0; background: #cbd5e1; margin: auto; transition: 1s;
+    }
+    #meta-infographic .connect-line.show { height: 70px; }
+    
+    #meta-infographic .question {
+      opacity: 0; transform: translateY(30px); transition: .8s;
+    }
+    #meta-infographic .question.show { opacity: 1; transform: translateY(0); }
+    
+    #meta-infographic .buttons {
+      margin-top: 20px; display: flex; justify-content: center; gap: 20px;
+    }
+    #meta-infographic button.meta-btn {
+      padding: 12px 25px; font-size: 18px; border: none; border-radius: 15px;
+      cursor: pointer; transition: .3s; font-weight: bold;
+    }
+    #meta-infographic button.meta-btn:hover { transform: scale(1.05); }
+    #meta-infographic .yesBtn { background: #1976ff; color: white; }
+    #meta-infographic .noBtn { background: #d62828; color: white; }
+    
+    #meta-infographic .paths {
+      display: flex; justify-content: center; gap: 40px; margin-top: 40px; align-items: flex-start;
+    }
+    #meta-infographic .path { width: 400px; }
+    
+    #meta-infographic .meta-card {
+      background: white; border-radius: 20px; padding: 20px; margin: 20px 0;
+      box-shadow: 0 8px 20px rgba(0,0,0,.2);
+      opacity: 0; transform: translateY(30px); transition: .8s; color: #333;
+    }
+    #meta-infographic .meta-card.show { opacity: 1; transform: translateY(0); }
+    #meta-infographic .left-card { border-top: 8px solid #1976ff; }
+    #meta-infographic .right-card { border-top: 8px solid #d62828; }
+    #meta-infographic .meta-card h2 { margin-bottom: 15px; font-weight: bold; font-size: 1.25rem;}
+    #meta-infographic .meta-card p { margin: 10px 0; font-size: 16px; }
+    
+    #meta-infographic .success { background: #e8f7ed; }
+    #meta-infographic .warning { background: #fff4e5; }
+    #meta-infographic .shield { animation: glow 2s infinite; }
+    
+    @keyframes glow {
+      0% { filter: drop-shadow(0 0 0px #1976ff); }
+      50% { filter: drop-shadow(0 0 15px #1976ff); }
+      100% { filter: drop-shadow(0 0 0px #1976ff); }
+    }
+    
+    #meta-infographic .warningIcon { animation: shake .8s infinite; }
+    @keyframes shake {
+      0%{transform:rotate(0);} 25%{transform:rotate(-5deg);} 50%{transform:rotate(5deg);} 75%{transform:rotate(-5deg);} 100%{transform:rotate(0);}
+    }
+    
+    #meta-infographic .conclusion {
+      position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%) scale(.7);
+      background: white; padding: 40px; border-radius: 25px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.4);
+      opacity: 0; pointer-events: none; transition: 1s; width: 700px; max-width: 90%; color: #333; z-index: 10;
+    }
+    #meta-infographic .conclusion.show { opacity: 1; transform: translate(-50%,-50%) scale(1); pointer-events: auto;}
+    #meta-infographic .conclusion h2 { font-size: 2rem; margin-bottom: 20px; font-weight: bold;}
+    #meta-infographic .conclusion p { font-size: 1.25rem; line-height: 1.8; }
+    
+    #meta-infographic svg { width: 100%; height: 90px; overflow: visible; }
+    #meta-infographic path { stroke-width: 4; fill: none; stroke-dasharray: 600; stroke-dashoffset: 600; }
+    #meta-infographic .draw { animation: drawLine 1.2s forwards; }
+    @keyframes drawLine { to { stroke-dashoffset: 0; } }
+    
+    @media(max-width:900px){
+      #meta-infographic .paths { flex-direction: column; align-items: center; }
+      #meta-infographic .path { width: 100%; max-width: 500px; }
+      #meta-infographic svg { display: none; } /* 手機版隱藏連線，避免破版 */
+    }
