@@ -184,3 +184,4 @@
       #meta-infographic .paths { flex-direction: column; align-items: center; }
       #meta-infographic .path { width: 100%; max-width: 500px; }
       #meta-infographic svg { display: none; } /* 手機版隱藏連線，避免破版 */
+ }
