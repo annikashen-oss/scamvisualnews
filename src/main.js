@@ -4,34 +4,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// ✅ 修正：確保 DOM 載入完畢才執行，避免抓不到元件
-document.addEventListener("DOMContentLoaded", () => {
-
-  // ==========================================
-  // 0. 前導影片自動播放與結束提示邏輯
-  // ==========================================
-  const introVideo = document.getElementById("intro-video");
-  const videoScrollHint = document.getElementById("video-scroll-hint");
-
-  if (introVideo) {
-    // 1. 強制確保自動播放 (防範部分瀏覽器阻攔)
-    introVideo.play().catch(err => console.log("影片自動播放受瀏覽器限制:", err));
-
-    // 2. 監聽影片「播放結束 (ended)」事件
-    introVideo.addEventListener('ended', () => {
-      if (videoScrollHint) {
-        // 影片一結束，立刻使用 GSAP 讓提示文字優雅淡入
-        gsap.to(videoScrollHint, { 
-          opacity: 1, 
-          y: -10, // 微微往上浮現增加動感
-          duration: 1.5, 
-          ease: "power2.out" 
-        });
-      }
-    });
-  }
-
-
 // ==========================================
   // 🎬 全新：電影感開場動畫序列
   // 順序：開門 ➔ 標題淡出 ➔ 影片出現播放 ➔ 影片淡出 ➔ 標題重現 ➔ 關門
