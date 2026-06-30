@@ -5,24 +5,38 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 // ==========================================
-  // 🎬 全新：電影感開場動畫序列
-  // 順序：開門 ➔ 標題淡出 ➔ 影片出現播放 ➔ 影片淡出 ➔ 標題重現 ➔ 關門
+  // 🎬 全新：開場自動進場 + 滾動轉場序列
   // ==========================================
   const introVideo = document.getElementById("intro-video");
 
-  // 使用 GSAP 時間軸，將這整段綁定在滑鼠滾輪上 (scrub: 1)
+  // 1. 網頁剛載入時：「自動播放」開門與標題彈出 (不依賴滾動)
+  // 先將標題與提示文字隱藏
+  gsap.set(".glitch-text", { scale: 0.8, opacity: 0 }); 
+  gsap.set("#intro-title p", { opacity: 0, y: 20 });   
+  gsap.set("#scroll-hint-global", { opacity: 0 });     
+
+  const initTl = gsap.timeline();
+  initTl.to("#intro-gate-top", { yPercent: -100, duration: 1.2, ease: "power3.inOut" }, 0.2)
+        .to("#intro-gate-bottom", { yPercent: 100, duration: 1.2, ease: "power3.inOut" }, 0.2)
+        // 標題自動 Q 彈出現
+        .to(".glitch-text", { scale: 1, opacity: 1, duration: 1.5, ease: "elastic.out(1, 0.4)" }, 1.0)
+        .to("#intro-title p", { opacity: 1, y: 0, duration: 1 }, 1.5)
+        .to("#scroll-hint-global", { opacity: 1, duration: 1 }, 2.0);
+
+
+  // 2. 滑鼠滾動時：控制後續的轉場 (標題淡出 ➔ 影片 ➔ 標題重現 ➔ 關門)
   const masterIntroTl = gsap.timeline({
     scrollTrigger: {
       trigger: "#master-intro",
       start: "top top",
-      end: "+=5000", // 創造 5000px 的超長虛擬滾動空間，確保每個階段都很從容
-      scrub: 1,      
-      pin: true,     // 將畫面定住，直到整個開場序列播完才放行
+      end: "+=4000",
+      scrub: 1,
+      pin: true,
       onUpdate: (self) => {
-        // 在滾動進度 30% 到 60% 之間（也就是影片可見時），播放影片
         if (introVideo) {
-          if (self.progress > 0.3 && self.progress < 0.6) {
-            if (introVideo.paused) introVideo.play().catch(e => console.log("瀏覽器阻擋播放", e));
+          // 在進度 20% ~ 60% 的區間，自動控制影片的播放與暫停
+          if (self.progress > 0.2 && self.progress < 0.6) {
+            if (introVideo.paused) introVideo.play().catch(e => console.log(e));
           } else {
             if (!introVideo.paused) introVideo.pause();
           }
@@ -32,31 +46,25 @@ gsap.registerPlugin(ScrollTrigger);
   });
 
   masterIntroTl
-    // 階段 1：拉開閘門，展現專題標題
-    .to("#intro-gate-top", { yPercent: -100, duration: 1, ease: "power2.inOut" }, 0)
-    .to("#intro-gate-bottom", { yPercent: 100, duration: 1, ease: "power2.inOut" }, 0)
+    // 階段 1：往下滾動時，自動出現的標題開始模糊淡出
+    .to("#intro-title", { opacity: 0, filter: "blur(10px)", scale: 0.9, duration: 1, ease: "none" }, 0)
     
-    // 階段 2：專題標題隨滾動模糊淡出
-    .to("#intro-title", { opacity: 0, filter: "blur(10px)", scale: 0.9, duration: 1, ease: "none" }, 1.5)
+    // 階段 2：彥儒影片浮現
+    .to("#intro-video-container", { opacity: 1, duration: 1, ease: "none" }, 1)
     
-    // 階段 3：出現彥儒前導影片
-    .to("#intro-video-container", { opacity: 1, duration: 1, ease: "none" }, 2.5)
+    // 階段 3：給予捲動空間看影片
+    .to({}, { duration: 2 }, 2)
     
-    // 階段 4：預留大量的捲動空間，讓讀者有時間觀看播放中的影片
-    .to({}, { duration: 2.5 }, 3.5)
+    // 階段 4：影片淡出
+    .to("#intro-video-container", { opacity: 0, duration: 1, ease: "none" }, 4)
     
-    // 階段 5：影片隨滾動淡出
-    .to("#intro-video-container", { opacity: 0, duration: 1, ease: "none" }, 6.0)
+    // 階段 5：標題再次重現
+    .to("#intro-title", { opacity: 1, filter: "blur(0px)", scale: 1, duration: 1, ease: "none" }, 5)
     
-    // 階段 6：再次出現清晰的專題標題
-    .to("#intro-title", { opacity: 1, filter: "blur(0px)", scale: 1, duration: 1, ease: "none" }, 7.0)
-    
-    // 階段 7：上下閘門再次關閉，畫面變黑
-    .to("#intro-gate-top", { yPercent: 0, duration: 1, ease: "power2.inOut" }, 8.5)
-    .to("#intro-gate-bottom", { yPercent: 0, duration: 1, ease: "power2.inOut" }, 8.5)
-    
-    // 階段 8：提示字淡出，解除鎖定
-    .to("#scroll-hint-global", { opacity: 0, duration: 0.5 }, 8.5);
+    // 階段 6：上下閘門關閉，準備進入正文
+    .to("#intro-gate-top", { yPercent: 0, duration: 1, ease: "power2.inOut" }, 6)
+    .to("#intro-gate-bottom", { yPercent: 0, duration: 1, ease: "power2.inOut" }, 6)
+    .to("#scroll-hint-global", { opacity: 0, duration: 0.5 }, 6);
   
 
   // ==========================================
