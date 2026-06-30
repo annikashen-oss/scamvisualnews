@@ -157,3 +157,108 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
+// ==========================================
+  // ★ 165 手機撥號模擬器邏輯
+  // ==========================================
+  const phoneDevice = document.getElementById('phoneDevice');
+  const numberDisplay = document.getElementById('numberDisplay');
+  const displayPlaceholder = document.getElementById('displayPlaceholder');
+  const statusMsg = document.getElementById('statusMsg');
+  const topHint = document.getElementById('topHint');
+  const clearBtn = document.getElementById('clearBtn');
+  const keyButtons = document.querySelectorAll('.key-btn');
+
+  if(phoneDevice) {
+    let currentInput = '';
+    let hasFailed = false;
+    const targetSequence = '165';
+
+    function triggerVibration(duration = 50, isError = false) {
+      if (navigator.vibrate) navigator.vibrate(duration);
+      const shakeTime = isError ? 300 : 150;
+      phoneDevice.classList.add('shake-active');
+      setTimeout(() => phoneDevice.classList.remove('shake-active'), shakeTime);
+    }
+
+    function updateDisplay() {
+      numberDisplay.textContent = currentInput;
+      if (currentInput.length > 0) displayPlaceholder.classList.add('hidden');
+      else displayPlaceholder.classList.remove('hidden');
+
+      if (currentInput === '') {
+        if (hasFailed) {
+          statusMsg.textContent = '提示：請輸入 1 ➔ 6 ➔ 5';
+          statusMsg.className = 'text-xs text-red-400 mt-4 h-5 font-bold';
+        } else {
+          statusMsg.textContent = '請輸入正確的三碼防詐專線';
+          statusMsg.className = 'text-xs text-slate-400 mt-4 h-5 font-medium';
+        }
+      } else if (currentInput === '1') {
+        statusMsg.textContent = '輸入正確，請繼續輸入...';
+        statusMsg.className = 'text-xs text-amber-400 mt-4 h-5 font-medium';
+      } else if (currentInput === '16') {
+        statusMsg.textContent = '最後一步，請輸入最後一個數字';
+        statusMsg.className = 'text-xs text-amber-300 mt-4 h-5 font-medium';
+      }
+    }
+
+    function resetInput() {
+      currentInput = '';
+      updateDisplay();
+    }
+
+    function handleKeyPress(value) {
+      const nextIndex = currentInput.length;
+      const expectedChar = targetSequence[nextIndex];
+
+      if (value === expectedChar) {
+        triggerVibration(50, false);
+        currentInput += value;
+        updateDisplay();
+
+        if (currentInput === targetSequence) {
+          statusMsg.textContent = '成功撥打 165 反詐專線...';
+          statusMsg.className = 'text-xs text-emerald-400 mt-4 h-5 font-bold animate-pulse';
+          if (navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 150]);
+
+          setTimeout(() => {
+            phoneDevice.classList.remove('shake-active', 'slide-in-entry');
+            phoneDevice.classList.add('slide-up-exit');
+
+            setTimeout(() => {
+              currentInput = '';
+              hasFailed = false;
+              topHint.textContent = '你能找出正確的「反詐騙專線」並成功撥打嗎？';
+              topHint.className = 'text-sm text-white/70 mt-2 transition-all duration-300';
+              updateDisplay();
+              phoneDevice.classList.remove('slide-up-exit');
+              phoneDevice.classList.add('slide-in-entry');
+              setTimeout(() => phoneDevice.classList.remove('slide-in-entry'), 700);
+            }, 3000);
+          }, 500);
+        }
+      } else {
+        hasFailed = true;
+        currentInput = '';
+        triggerVibration(100, true);
+        updateDisplay();
+        topHint.textContent = '正確的防詐專線為 165！';
+        topHint.className = 'text-sm text-red-400 font-bold mt-2 transition-all duration-300';
+        statusMsg.textContent = '提示：請依序撥打 1 ➔ 6 ➔ 5';
+        statusMsg.className = 'text-xs text-red-400 mt-4 h-5 font-bold';
+      }
+    }
+
+    keyButtons.forEach(button => {
+      button.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        handleKeyPress(button.getAttribute('data-value'));
+      });
+    });
+
+    clearBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      triggerVibration(50, false);
+      resetInput();
+    });
+  }
