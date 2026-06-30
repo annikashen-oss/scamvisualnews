@@ -4,349 +4,416 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>年輕世代詐騙視覺化專題</title>
+  <!-- GSAP & ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
- <style>
-    /* 這裡貼上您原本 style.css 裡關於 165 遊戲與 Meta 圖表的 CSS */
-    .key-btn:active { transform: scale(0.9); background-color: rgba(255, 255, 255, 0.35) !important; }
-    /* (記得補上您原本 shake, slideUp 等動畫) */
-  </style>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* ===== 基礎樣式 ===== */
+    body { margin: 0; font-family: 'Helvetica Neue', 'PingFang TC', 'Microsoft JhengHei', sans-serif; }
+    
+    /* ===== Glitch 文字特效 ===== */
+    .glitch-text { position: relative; display: inline-block; }
+    .glitch-text::before, .glitch-text::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    .glitch-text::before { color: #f0f; z-index: -1; transform: translate(-2px, -2px); }
+    .glitch-text::after { color: #0ff; z-index: -2; transform: translate(2px, 2px); }
 
+    /* ===== 翻轉卡片 ===== */
+    .flip-card { perspective: 1000px; }
+    .flip-card-inner { transition: transform 0.6s; transform-style: preserve-3d; }
+    .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%; height: 100%;
+      backface-visibility: hidden;
+      border-radius: 1.5rem;
+    }
+    .flip-card-back { transform: rotateY(180deg); }
+
+    /* ===== 按鈕效果 ===== */
+    .key-btn:active { transform: scale(0.9); background-color: rgba(255,255,255,0.2) !important; }
+
+    /* ===== 手機裝置 ===== */
+    #phoneDevice { box-shadow: 0 20px 50px rgba(0,0,0,0.8); }
+    #numberDisplay { min-height: 3rem; }
+
+    /* ===== 閘門過場 ===== */
+    #intro-gate-top, #intro-gate-bottom { transition: transform 1.2s cubic-bezier(0.77, 0, 0.18, 1); }
+
+    /* ===== Reveal 動畫 ===== */
+    .reveal-item { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
+    .reveal-item.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== 黃燈閃爍提示 ===== */
+    .blink-yellow {
+      animation: blink 1.2s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* ===== 小百科裝飾 ===== */
+    .encyclopedia-block {
+      background: rgba(252, 231, 136, 0.08);
+      border-left: 4px solid #FCE788;
+      border-radius: 0 1rem 1rem 0;
+    }
+
+    /* ===== 圖表容器 ===== */
+    .chart-container {
+      background: rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 1.2rem;
+      overflow: hidden;
+      padding: 1rem;
+    }
+
+    /* ===== 響應式微調 ===== */
+    @media (max-width: 768px) {
+      .flip-card { height: 280px; }
+    }
+  </style>
 </head>
 <body class="bg-[#62495F] overflow-x-hidden text-white">
 
-  <!-- 1. 開場動畫序列 (只保留這一個!) -->
+  <!-- ============================================================ -->
+  <!-- 1. 開場動畫 -->
+  <!-- ============================================================ -->
   <section id="master-intro" class="relative w-full h-screen bg-[#62495F] overflow-hidden z-50">
-    <!-- 標題層：保持在最上方 -->
-    <div id="intro-title" class="absolute inset-0 flex flex-col items-center justify-center z-30">
+    <!-- 標題層 -->
+    <div id="intro-title" class="absolute inset-0 flex flex-col items-center justify-center z-30 px-4 text-center">
       <h1 class="glitch-text text-4xl md:text-6xl font-black tracking-wide mb-6" data-text="危機伺服還四伏？">危機伺服還四伏？</h1>
       <p class="text-xl md:text-2xl font-normal leading-snug max-w-2xl mx-auto text-white">撕下收割年輕世代信任的詐騙標籤</p>
     </div>
-    
-    <!-- 影片層：隱藏在標題之下 -->
+    <!-- 影片層 -->
     <div id="intro-video-container" class="absolute inset-0 z-20 opacity-0 bg-black flex items-center justify-center">
       <video id="intro-video" class="w-full h-full object-cover" src="public/Begin.mp4" muted playsinline></video>
     </div>
-
     <!-- 閘門 -->
     <div id="intro-gate-top" class="absolute top-0 left-0 w-full h-[50vh] bg-[#0a0a0a] z-40"></div>
-    <div id="intro-gate-bottom" class="absolute bottom-0 left-0 w-full h-[50vh] bg-[#0a0a0a] z-40">
-    </div>
-<!-- 2. 正文面向一區塊 -->
-  <main id="story-section" class="relative z-30 bg-[#62495F] min-h-screen pt-24 pb-0 text-gray-100 overflow-hidden">  
+    <div id="intro-gate-bottom" class="absolute bottom-0 left-0 w-full h-[50vh] bg-[#0a0a0a] z-40"></div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 2. 主內容 -->
+  <!-- ============================================================ -->
+  <main id="story-section" class="relative z-30 bg-[#62495F] min-h-screen pt-24 pb-0 text-gray-100 overflow-hidden">
+
+    <!-- ===== 引言區塊（含彥儒動畫預留） ===== -->
     <section class="w-full bg-[#83637D] pt-24 pb-24 mb-24 shadow-2xl">
-      <article class="reveal-group max-w-3xl mx-auto px-6 font-serif">
+      <div class="reveal-group max-w-3xl mx-auto px-6 font-serif">
         <header class="reveal-item mb-16">
           <h2 class="text-3xl md:text-4xl font-black mb-6 text-white tracking-wide leading-tight">危機伺服還四伏？網路詐騙成年輕世代的信任危機</h2>
           <p class="text-[#FCE788] font-bold tracking-widest">【記者陳筱雯、鄭丞傑、沈韋彤、孟沛蓁連線報導】 | 視覺化專題</p>
         </header>
-        </header>
+        <!-- 彥儒動畫區塊（預留） -->
+        <div class="reveal-item w-full bg-black/30 rounded-2xl p-6 mb-8 border border-white/10 flex items-center justify-center min-h-[120px]">
+          <p class="text-white/80 text-center text-lg leading-relaxed font-serif">
+            <span class="text-[#FCE788] font-bold">▍彥儒的故事</span><br />
+            高度暴露於網路環境、正處於追求愛情與財富累積的人生階段，<br />
+            無關學歷與社經背景，遇到客製化的詐騙陷阱更容易讓年輕世代無法抽身。
+          </p>
+        </div>
         <p class="reveal-item text-white/95 text-lg leading-loose mb-6">對身分認同的顧慮及社會壓力，他最終選擇默默吞下損失，不願報警，轉而以創作者的角色將這段經歷透過影片傳遞給觀眾，以此做為警惕。</p>
-      </article>
-      
+      </div>
     </section>
-   <div class="reveal-item w-full bg-black/40 backdrop-blur-md border-y border-[#FCE788]/20 py-4 my-12 shadow-[0_0_20px_rgba(0,0,0,0.3)]">
+
+    <!-- ===== 瀏覽提示（閃動黃燈） ===== -->
+    <div class="reveal-item w-full bg-black/40 backdrop-blur-md border-y border-[#FCE788]/20 py-4 my-12 shadow-[0_0_20px_rgba(0,0,0,0.3)]">
       <div class="max-w-4xl mx-auto px-6 flex items-center justify-center space-x-3 text-center">
         <span class="flex h-3 w-3 relative">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FCE788] opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-3 w-3 bg-[#FCE788]"></span>
+          <span class="relative inline-flex rounded-full h-3 w-3 bg-[#FCE788] blink-yellow"></span>
         </span>
-        
         <p class="text-[#FCE788] font-sans text-sm md:text-base font-bold tracking-widest uppercase">
-          💡 瀏覽提示：本專題所有圖表皆可「點擊」、「懸停」或「翻面」以探索深度數據
+          💡 瀏覽提示：本區域所有圖表皆可以「點擊右下角翻面」或「懸停讀百科」來探索數據和意義
         </p>
       </div>
     </div>
-    
-    <!-- 面向一-->
+
+    <!-- ============================================================ -->
+    <!-- 面向一：18歲到29歲成詐騙最大被害族群 -->
+    <!-- ============================================================ -->
     <section id="scene-fraud" class="step flex flex-col justify-center items-center p-6 relative mb-24">
       <div class="reveal-group relative w-full max-w-4xl p-6 md:p-10 z-10 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl shadow-2xl">
         
-        <h3 class="reveal-item text-2xl font-bold font-sans text-white mb-8 border-l-4 border-[#FCE788] pl-4">詐騙現況無法忽視的數據黑洞</h3>
+        <!-- 面向一大標 -->
+        <h3 class="reveal-item text-2xl md:text-3xl font-bold font-sans text-white mb-6 border-l-4 border-[#FCE788] pl-4 leading-tight">
+          18歲到29歲成詐騙最大被害族群
+        </h3>
+        
+        <!-- 導言 -->
+        <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
+          一年間，每十萬名大專院校學生就有 <span class="text-[#FCE788] font-bold">58 人</span> 受騙，三年內犯罪發生率成長 <span class="text-[#FCE788] font-bold">2.58倍</span>。民國 114 年內政部警政署統計，18 歲至 29 歲的被害人占比高達 <span class="text-[#FCE788] font-bold">32.51%</span>，意即每 3 名受害者中，就有 1 人是該年齡區間的年輕人，高於其他年齡。儘管政府持續推動打擊詐騙的政策和法律，但過去四年，各級學校通報的「遭詐騙的校安事件」數量仍逐年上升。
+        </p>
+        
+        <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
+          詐騙被教育部歸類為一般校安事件，根據113學年度的〈教育部民國113年各級學校校園安全及災害事件分析報告〉，數據顯示大專院校的受詐人數和件數最多，共計 <span class="text-[#FCE788] font-bold">558 件、653 人次</span>，佔總共受詐通報案件的 <span class="text-[#FCE788] font-bold">67%</span>。
+        </p>
 
-        <div class="reveal-item w-full bg-black/30 rounded-xl overflow-hidden p-4 my-12 border border-white/5">
-          <div class="flourish-embed flourish-chart" data-src="visualisation/29175490">
-            <script src="https://public.flourish.studio/resources/embed.js"></script>
+        <!-- ===== 面向一小標 A ===== -->
+        <h4 class="reveal-item text-xl font-bold font-sans text-[#FCE788] mt-12 mb-6 border-b border-[#FCE788]/30 pb-3">
+          學生與成年人的受騙類型有何不同
+        </h4>
+
+        <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
+          受騙類型上實際呈現年齡分水嶺，23歲以下的青少年受騙類型主要是「<span class="text-[#FCE788] font-bold">假網路拍賣</span>」、「<span class="text-[#FCE788] font-bold">投資詐欺</span>」和「<span class="text-[#FCE788] font-bold">一般購物詐欺</span>」三種，而24歲以上的成年人則最常落入「投資詐欺」的陷阱。比較113年到114年，假網路拍賣的案件數呈現成長趨勢，並在114年底刑事局公布的詐騙手法中，網路購物詐騙正式超越假投資詐騙成為目前最主要的受詐來源。雖然單件財損金額相對投資詐欺低，但案件數量成長對整體的危害不容忽視。
+        </p>
+
+        <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
+          在高度使用網路和社群的校園情境中，學生更常暴露在易被詐騙的環境中。財團法人台灣網路資訊中心調查，114年的18-29 歲年齡層使用率高達 <span class="text-[#FCE788] font-bold">98.02%</span>，是社群媒體使用率最高的族群。從兩種犯罪學理論出發，詐騙案件通常需要「具動機的犯罪者」、「合適的被害目標」以及「缺乏監護的環境」三個條件，這群年輕人高度網路依賴的生活型態，讓他們頻繁暴露於詐騙高風險環境中，加上網路世界做為重要媒介，更容易串聯詐騙三個條件，讓詐騙遇上學生的風險提高。
+        </p>
+
+        <!-- 小百科：生活暴露理論 + 日常活動理論 -->
+        <div class="reveal-item encyclopedia-block p-6 my-8 shadow-lg relative overflow-hidden font-sans">
+          <span class="inline-block bg-[#FCE788] text-black text-sm font-bold px-3 py-1 rounded-full mb-3">🔍 小百科</span>
+          <div class="space-y-4 text-white/90 leading-relaxed">
+            <div>
+              <span class="font-bold text-[#FCE788]">生活暴露理論：</span>
+              個人成為被害者的機率，取決於日常的生活型態。投入越多時間在網路互動、頻繁參與網購或交友 App，便會提高接觸犯罪者的機率，進而提升被害風險。受害者並非因能力不足而受騙，而是其生活方式使然。
+            </div>
+            <div>
+              <span class="font-bold text-[#FCE788]">日常活動理論：</span>
+              由 Cohen 與 Felson 提出，認為要形成犯罪事件，必須在特定時空下同時具備三要素：(1) 具動機的犯罪者、(2) 合適的被害目標、(3) 缺乏有效的監護。在網路情境下，若缺乏資安防護或即時查證，受害者便容易在數位空間中成為犯罪集團的合適目標。
+            </div>
+            <div class="text-xs text-white/50 mt-2">
+              來源自賴克宗 (2005)，《大學生網路犯罪被害研究》、廖釗頡 (2010)，《網路釣魚被害類型及其成因》、方呈祥(2020)《網路詐欺犯罪被害之性別差異—以網路日常活動與自我控制理論分析》
+            </div>
           </div>
-          <p class="text-center text-xs md:text-sm text-[#BFBABF] mt-4 leading-relaxed">
-            資料來源：內政部警政署165打詐儀錶板，民國113年8月至115年5月全國詐騙財產損失金額（單位：億元）、製圖／孟沛蓁
-          </p>
-        </div>
-        
-        <p class="reveal-item text-white/95 text-lg leading-loose mb-6">根據內政部警政署「165打詐儀錶板」的數據顯示，民國113年7月立法院通過「打詐新四法」（以下簡稱新法），並開始記錄每月詐騙財損金額，新法上路前每月財損依然處於超過百億元的高檔水位。民國114年1月新法正式生效後，財損金額隨即出現大幅下降。</p>
-        
-        <div class="reveal-item bg-[#FCE788]/10 border border-[#FCE788]/30 p-6 rounded-xl my-10 shadow-lg relative overflow-hidden font-sans">
-          <span class="inline-block bg-[#FCE788] text-black text-sm font-bold px-3 py-1 rounded-full mb-3">💡 小百科</span>
-          <p class="text-white/90 leading-relaxed">
-            打詐新四法為：《詐欺犯罪危害防制條例》、《通訊保障及監察法》、《刑事訴訟法特殊強制處分專章》（科技偵查法制化）以及《洗錢防制法》。
-          </p>
         </div>
 
-        <p class="reveal-item text-white/95 text-lg leading-loose mb-6">然而，傳統詐騙旺季如3月至6月年終發放後的投資收網期、5月報稅季及畢業求職潮等，因詐騙集團迅速調整手法反撲，且檢警、金融機構與數位平台在落實新法的過渡期中，仍需時間磨合建立聯防通報機制，導致該期間的財損金額再度微幅回升。</p>
-        <p class="reveal-item text-white/95 text-lg leading-loose mb-6">到了下半年，隨著各部會與民間企業的系統對接及攔阻機制全面步上軌道，法規與執法的綜合成效顯現，才成功讓財損金額一路穩定下滑，並奠定今年創新低的防禦基礎，另於1月23日修訂新法並加強施行。</p>
-        <p class="reveal-item text-white/95 text-lg leading-loose mb-6">統計顯示，新法實施後，似乎已有效降低整體詐騙財損。然而，銘傳大學犯罪防治學系副教授王伯頎指出，18至29歲的年輕族群受騙比例正逐年攀升，甚至有愈來愈多未滿18歲的青少年，因誤信詐騙集團「年少觸法不會留案底」的說法，被吸收成為車手而誤入歧途。</p>
-        
-        <div class="reveal-item w-full bg-black/30 rounded-xl overflow-hidden p-4 my-12 border border-white/5">
-          <div class="flourish-embed flourish-gantt" data-src="visualisation/29233681">
-            <script src="https://public.flourish.studio/resources/embed.js"></script>
+        <!-- ===== 面向一小標 B ===== -->
+        <h4 class="reveal-item text-xl font-bold font-sans text-[#FCE788] mt-12 mb-6 border-b border-[#FCE788]/30 pb-3">
+          校園裡受詐經驗金額小、不一定報案
+        </h4>
+
+        <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
+          詐騙的犯罪鏈成形，不是因為年輕人比較笨，我們結合心理學的自我控制理論，深入探討哪些易受被害因子，容易成為潛在詐騙被害者。
+        </p>
+
+        <!-- 小百科：自我控制理論 -->
+        <div class="reveal-item encyclopedia-block p-6 my-8 shadow-lg relative overflow-hidden font-sans">
+          <span class="inline-block bg-[#FCE788] text-black text-sm font-bold px-3 py-1 rounded-full mb-3">🔍 小百科</span>
+          <div class="text-white/90 leading-relaxed">
+            <span class="font-bold text-[#FCE788]">自我控制理論：</span>
+            由 Gottfredson 與 Hirschi 提出，認為個人若缺乏自我控制能力，在面對誘惑時更容易採取衝動、追求短期滿足的行為。在網路詐騙情境中，低自我控制者通常更傾向於忽略潛在風險、不進行必要的理性查證，並渴望透過快速獲利或衝動購物來滿足慾望，較易落入詐騙陷阱。
           </div>
-          <p class="text-center text-xs md:text-sm text-[#BFBABF] mt-4 leading-relaxed mb-2">
-            資料來源：王伯頎提供、製圖／孟沛蓁、沈韋彤
-          </p>
+          <div class="text-xs text-white/50 mt-2">
+            來源自方呈祥(2020)《網路詐欺犯罪被害之性別差異—以網路日常活動與自我控制理論分析》
+          </div>
         </div>
 
-        <p class="reveal-item text-white/95 text-lg leading-loose mb-6">王伯頎將詐騙演進分為四階段，分別是傳統詐騙、電信詐騙、網路詐騙、數位詐騙。王伯頎指出年輕族群受騙人數增加，主因在於他們身為「數位原住民」，相較於過往實體面對面或聲音的傳統詐騙，這群人對網路信任度更高、黏著時間更長，因此更容易落入數位詐騙陷阱。此外年輕族群受騙多屬小額財損，王伯頎分析，詐騙集團常利用年輕人因損失輕微、認為追回機率低而「自認倒霉」的心態，導致其受騙後往往不願報警追究，進而形成犯罪黑數。</p>
-        <p class="reveal-item text-white/95 text-lg leading-loose mb-6">銘傳大學犯罪防治學系助理教授林書立描述，「年輕族群本來就是被騙比較多的，只是被騙的金額比較不是那麼高。」近年來，林書立也發現年輕族群主要受詐的範圍從網路購物與遊戲軟體交易，開始逐步出現貸款詐騙，也預示未來他們可能暴露在更高的風險中。</p>
+        <!-- ===== 問卷調查結果區塊 ===== -->
+        <div class="reveal-item w-full mt-12">
+          <h4 class="text-xl font-bold font-sans text-[#FCE788] mb-8 text-center">年輕世代的受詐騙經驗調查</h4>
+          
+          <!-- 問卷發現 1：受詐比例 -->
+          <div class="grid md:grid-cols-2 gap-8 items-start mb-16">
+            <div class="chart-container">
+              <div class="flourish-embed flourish-parliament" data-src="visualisation/29255072">
+                <script src="https://public.flourish.studio/resources/embed.js"></script>
+              </div>
+              <p class="text-center text-xs text-[#BFBABF] mt-4 leading-relaxed">
+                資料來源：〈年輕世代的受詐騙經驗調查〉問卷調查、製圖／沈韋彤
+              </p>
+            </div>
+            <div class="space-y-4 font-sans">
+              <h5 class="text-lg font-bold text-[#FCE788]">
+                在152位問卷填答者中，共有 28 位受詐騙並損失金錢，比例為 <span class="text-2xl">18.4%</span>。
+              </h5>
+              <p class="text-white/90 text-base leading-relaxed">
+                而損失金額多小於十萬元。在警政署的網站中並未明確提及或定義「小金額詐騙」的金額區間，但從損失金額分布符合警政署對於18歲到29歲被詐受害人常遇到的「小額詐騙」型態。
+              </p>
+              <!-- 翻頁內容 -->
+              <div class="mt-4 p-4 bg-white/5 border border-white/10 rounded-xl">
+                <p class="text-[#FCE788]/80 text-sm italic">
+                  「年輕族群本來就是被騙比較多的族群，只是年輕的族群，他們被騙的金額比較不是那麼高。」
+                </p>
+                <p class="text-white/50 text-xs mt-2">—— 銘傳大學犯罪防治學系助理教授 林書立</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 問卷發現 2：網路購物詐騙 -->
+          <div class="grid md:grid-cols-2 gap-8 items-start mb-16">
+            <div class="chart-container">
+              <div class="flourish-embed flourish-hierarchy" data-src="visualisation/29174577">
+                <script src="https://public.flourish.studio/resources/embed.js"></script>
+              </div>
+              <p class="text-center text-xs text-[#BFBABF] mt-4 leading-relaxed">
+                資料來源：〈年輕世代的受詐騙經驗調查〉問卷調查、製圖／沈韋彤
+              </p>
+            </div>
+            <div class="space-y-4 font-sans">
+              <h5 class="text-lg font-bold text-[#FCE788]">
+                網路購物詐騙最常見，主要發生在社群媒體交易
+              </h5>
+              <p class="text-white/90 text-base leading-relaxed">
+                林書立說明：「大部分的年輕族群過去遇到購物詐欺比較多，因為政府對於陌生帳號的轉帳有限制在100000以內。」這也解釋小額詐騙和網路購物的連結，圖表中詐騙類型也多屬於網路購物，但詐騙發生的地點多聚集在社群媒體平台，並高於網路與直接購物商家的平台，透露出社群媒體上有更多的交易風險。
+              </p>
+              <!-- 翻頁內容 -->
+              <div class="mt-4 p-4 bg-white/5 border border-white/10 rounded-xl">
+                <p class="text-[#FCE788]/80 text-sm italic">
+                  社群媒體上的詐騙通常會延伸到私人聊天室。「在大海中遇到了你，他把這個水撈到小池塘來，只有點對點、你跟他」，若在平台上，政府有權管控或追責，一旦詐騙者將你拉進私密的通訊軟體，政府的手便無法介入。
+                </p>
+                <p class="text-white/50 text-xs mt-2">—— 銘傳大學犯罪防治學系助理教授 林書立</p>
+              </div>
+              <!-- 小百科 -->
+              <div class="mt-3 p-3 bg-[#FCE788]/5 border border-[#FCE788]/20 rounded-lg">
+                <p class="text-xs text-white/70 leading-relaxed">
+                  <span class="text-[#FCE788] font-bold">📘 小百科：</span>
+                  警政署統計的受詐騙類型分為九種，投資詐欺、假網路拍賣(購物)、一般購物詐欺(偽稱買賣)、假愛情交友、解除分期付款(ATM)、色情應召詐財、假求職、假冒機構(公務員)、其他。本調查和警政署統計稍有不同，但會著重在假網路拍賣(購物)、一般購物詐欺(偽稱買賣)以及和銀行相關的詐騙類型，如：盜刷信用卡。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== 案例小遊戲（預留） ===== -->
+          <div class="w-full bg-black/30 rounded-2xl p-8 border border-white/10 text-center my-12">
+            <h5 class="text-xl font-bold text-[#FCE788] mb-4">🎮 案例小遊戲</h5>
+            <p class="text-white/60 text-sm">（互動遊戲內容預留位置）</p>
+            <div class="w-full h-48 bg-white/5 rounded-xl mt-4 flex items-center justify-center border border-dashed border-white/20">
+              <span class="text-white/30">遊戲內容即將上線</span>
+            </div>
+          </div>
+
+          <!-- 問卷發現 3：不報警成為黑數 -->
+          <div class="grid md:grid-cols-2 gap-8 items-start">
+            <div class="chart-container">
+              <div class="flourish-embed flourish-hierarchy" data-src="visualisation/29201265">
+                <script src="https://public.flourish.studio/resources/embed.js"></script>
+              </div>
+              <p class="text-center text-xs text-[#BFBABF] mt-4 leading-relaxed">
+                資料來源：〈年輕世代的受詐騙經驗調查〉問卷調查、製圖／沈韋彤
+              </p>
+            </div>
+            <div class="space-y-4 font-sans">
+              <h5 class="text-lg font-bold text-[#FCE788]">
+                不願意報警成為年輕受詐統計最大詐騙黑數
+              </h5>
+              <p class="text-white/90 text-base leading-relaxed">
+                在28位受詐騙者中，有16位選擇報警，其中僅有4位完全追回損失金額。受到詐騙後的報警率僅有半數。
+              </p>
+              <p class="text-white/80 text-base leading-relaxed">
+                在攸關是否追回損失的問題上，從受騙到採取報警行動的時間，出現一天內和三天內的兩種分布的情形，且大部分都導向未追回損失的結果。
+              </p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
-    <!-- 面向二：年輕世代共性 -->
+    <!-- ============================================================ -->
+    <!-- 面向二：詐騙變動快 被騙金額在政策打詐後持續下降 -->
+    <!-- ============================================================ -->
     <section class="reveal-group max-w-4xl mx-auto px-6 mb-24">
-      <h4 class="reveal-item text-2xl font-bold font-sans text-[#FCE788] mb-8 border-b border-[#FCE788]/30 pb-3">發生在年輕世代的詐騙情況也一樣嗎？</h4>
-      <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
-        在《網路互動犯罪被害促發因素之實證研究》中，多使用網路日常活動理論及自我控制理論，探討台灣有哪些高風險受詐族群，研究提及自我控制、網路成癮、易受被害誘因吸引者，容易成為詐騙被害者。
-      </p>
-      
-      <div class="reveal-item bg-[#FCE788]/10 border border-[#FCE788]/30 p-6 rounded-xl my-10 shadow-lg relative overflow-hidden font-sans">
-        <span class="inline-block bg-[#FCE788] text-black text-sm font-bold px-3 py-1 rounded-full mb-3">💡 小百科</span>
-        <p class="text-white/90 leading-relaxed">
-          網路日常活動理論與自我控制理論同屬於社會心理學的行為理論。
+      <h3 class="reveal-item text-2xl md:text-3xl font-bold font-sans text-white mb-8 border-l-4 border-[#FCE788] pl-4 leading-tight">
+        詐騙變動快 被騙金額在政策打詐後持續下降
+      </h3>
+
+      <!-- 圖表 1：165打詐儀錶板 -->
+      <div class="reveal-item chart-container w-full my-8">
+        <div class="flourish-embed flourish-chart" data-src="visualisation/29175490">
+          <script src="https://public.flourish.studio/resources/embed.js"></script>
+        </div>
+        <p class="text-center text-xs md:text-sm text-[#BFBABF] mt-4 leading-relaxed">
+          資料來源：內政部警政署165打詐儀錶板，民國113年8月至115年5月全國詐騙財產損失金額（單位：億元）、製圖／孟沛蓁
         </p>
       </div>
 
       <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
-        在校園中，高度使用網路和社群的學生，也更常暴露在易被詐騙的環境下。詐騙被教育部歸類為一般校安事件，根據113學年度的〈教育部民國113年各級學校校園安全及災害事件分析報告〉 通報統計數據，在各級學校中以大專院校最多，共計558 件、 653 人次，代表每十萬學生中就有58 人受到詐騙。
+        根據內政部警政署「165打詐儀錶板」的數據顯示，民國113年7月立法院通過「打詐新四法」（以下簡稱新法），並開始記錄每月詐騙財損金額，新法上路前每月財損依然超過百億元，而民國114年1月新法正式生效後，財損金額隨即出現大幅下降。
       </p>
-    <!-- 【問卷調查結果區塊】 -->
-    <section class="max-w-6xl mx-auto px-6 mb-24">
-      <div class="reveal-item mb-16 text-center">
-        <h3 class="text-3xl font-bold font-sans text-[#FCE788] mb-4">年輕世代的受詐騙經驗調查</h3>
-        <p class="text-white/80 font-serif text-lg">基於以上研究背景，我們對年輕族群進行了深入問卷調查，以下是我們的關鍵發現：</p>
+
+      <!-- 小百科 -->
+      <div class="reveal-item encyclopedia-block p-6 my-8 shadow-lg relative overflow-hidden font-sans">
+        <span class="inline-block bg-[#FCE788] text-black text-sm font-bold px-3 py-1 rounded-full mb-3">🔍 小百科</span>
+        <p class="text-white/90 leading-relaxed">
+          打詐新四法為：《詐欺犯罪危害防制條例》、《通訊保障及監察法》、《刑事訴訟法特殊強制處分專章》（科技偵查法制化）以及《洗錢防制法》。
+        </p>
       </div>
 
-      <!-- 問卷圖表排版區：使用 grid 進行左右配置 -->
-<div class="space-y-24">
-        <div class="space-y-32">
-        
-        <div class="reveal-group grid md:grid-cols-2 gap-12 items-center">
-          
-          <div class="reveal-item w-full bg-black/30 rounded-xl overflow-hidden p-6 border border-white/5 shadow-xl">
-            <div class="flourish-embed flourish-parliament" data-src="visualisation/29255072">
-              <script src="https://public.flourish.studio/resources/embed.js"></script>
-            </div>
-            <p class="text-center text-xs text-[#BFBABF] mt-4 leading-relaxed">
-              資料來源：〈年輕世代的受詐騙經驗調查〉問卷調查、製圖／沈韋彤
-            </p>
-            <div class="flourish-embed flourish-hierarchy mt-6" data-src="visualisation/29117515"></div>
-          </div>
+      <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
+        然而，傳統詐騙旺季如3月至6月年終發放後的投資收網期、5月報稅季及畢業求職潮等，因詐騙集團迅速調整手法反撲，且檢警、金融機構與數位平台在落實新法的過渡期中，仍需時間磨合建立聯防通報機制，導致該期間的財損金額再度微幅回升。
+      </p>
 
-          <div class="reveal-item space-y-4 font-sans">
-            <h4 class="text-xl font-bold text-[#FCE788]">
-              在樣本中，所有 152 位資料中共有 28 位受詐騙並損失金錢，比例為 18.4%。
-            </h4>
-            <p class="text-white/90 text-lg leading-loose font-serif">
-              在 28 位受詐騙且損失金額的案例中，損失金額多小於十萬元。這裡可以繼續延伸放您的問卷分析文字，說明年輕世代遭遇小額詐騙的社會心理脈絡。
-            </p>
-          </div>
-        </div> <div class="reveal-group grid md:grid-cols-2 gap-12 items-center">
-          
-          <div class="reveal-item w-full bg-black/30 rounded-xl overflow-hidden p-4 border border-white/5 shadow-xl">
-             <div class="flourish-embed flourish-hierarchy" data-src="visualisation/29174577">
-               <script src="https://public.flourish.studio/resources/embed.js"></script>
-               <noscript><img src="https://public.flourish.studio/visualisation/29174577/thumbnail" width="100%" alt="hierarchy visualization" /></noscript>
-             </div>
-             <p class="text-center text-xs md:text-sm text-[#BFBABF] mt-4 leading-relaxed mb-2">
-               資料來源：〈年輕世代的受詐騙經驗調查〉問卷調查、製圖／沈韋彤
-             </p>
-          </div> <div class="reveal-item space-y-4">
-            <h4 class="text-xl font-bold text-[#FCE788]">關於年輕人被詐騙後不報警的行為，在問卷表單回覆中較難看出差異</h4>
-            <p class="text-white/90 leading-loose">從回覆中可見遭遇詐騙的每個人後，都採取報警的行動。另外延伸發現，在攸關是否追回損失的問題上，從受騙到採取報警行動的時間，出現一天內和三天內的兩個集中分布的情形，且大部分都導向未追回損失的結果。</p>
-          </div>
+      <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
+        到了下半年，隨著各部會與民間企業的系統對接及攔阻機制全面步上軌道，法規與執法的綜合成效顯現，才成功讓財損金額一路穩定下滑，並奠定今年創新低的防禦基礎，另於1月23日修訂新法並加強施行。
+      </p>
 
-              </div>
-            </div> </div> </div> <div class="reveal-group grid md:grid-cols-2 gap-12 items-center pt-16">
+      <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
+        統計顯示，新法實施後，似乎已有效降低整體詐騙財損。然而，銘傳大學犯罪防治學系副教授王伯頎指出，18至29歲的年輕族群受騙比例正逐年攀升，甚至有愈來愈多未滿18歲的青少年，因誤信詐騙集團「年少觸法不會留案底」的說法，被吸收成為車手而誤入歧途。
+      </p>
 
-          </div> <div class="reveal-group pt-12 border-t border-white/10">
-          <div class="reveal-item text-center mb-12">
-            <h4 class="text-2xl font-bold font-sans text-[#FCE788] mb-3">深度剖析：27 種受詐人格特質向度</h4>
-            <p class="text-white/70 text-sm font-serif">點擊下方各張受訪者圖卡，探索他們最突出的前兩名心理易感向度。</p>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            <div class="reveal-item flip-card w-full h-80 cursor-pointer">
-              <div class="flip-card-inner relative w-full h-full">
-                
-                <div class="flip-card-front bg-black/20 backdrop-blur-md p-4 border border-white/10 flex items-center justify-center">
-                  <div class="flourish-embed flourish-pictogram w-full" data-src="visualisation/29201265"></div>
-                </div>
+      <!-- 圖表 2：詐騙演進四階段 -->
+      <div class="reveal-item chart-container w-full my-8">
+        <div class="flourish-embed flourish-gantt" data-src="visualisation/29233681">
+          <script src="https://public.flourish.studio/resources/embed.js"></script>
+        </div>
+        <p class="text-center text-xs md:text-sm text-[#BFBABF] mt-4 leading-relaxed mb-2">
+          資料來源：王伯頎提供、製圖／孟沛蓁
+        </p>
+      </div>
 
-                <div class="flip-card-back bg-[#62495F] border-2 border-[#FCE788] p-6 flex flex-col items-center justify-center text-center shadow-2xl">
-                  <p class="text-[#FCE788]/60 text-xs uppercase tracking-widest mb-6 font-sans">關鍵心理特徵</p>
-                  <div class="space-y-4 w-full px-4">
-                    <div class="bg-[#FCE788]/20 border border-[#FCE788]/40 px-4 py-2 rounded-lg">
-                      <span class="text-[#FCE788] text-xs font-bold block">第一名</span>
-                      <span class="text-white text-base font-sans">易信任他人</span>
-                    </div>
-                    <div class="bg-white/10 border border-white/20 px-4 py-2 rounded-lg">
-                      <span class="text-white text-xs font-bold block">第二名</span>
-                      <span class="text-white text-base font-sans">孤獨與社交疏離</span>
-                    </div>
-                  </div>
-                </div>
+      <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
+        王伯頎將詐騙演進分為四階段，分別是傳統詐騙、電信詐騙、網路詐騙、數位詐騙。王伯頎指出年輕族群受騙人數增加，主因在於他們身為「數位原住民」，相較於過往實體面對面或聲音的傳統詐騙，這群人對網路信任度更高、黏著時間更長，因此更容易落入數位詐騙陷阱。
+      </p>
 
-              </div>
-            </div> </div> </div> <div class="reveal-group grid md:grid-cols-2 gap-12 items-center pt-16">
-          </div>
-<!-- ==================== 問卷發現 3 ==================== -->
-        <!-- 🌟 局部修正：比照問卷發現 2，完全去除卡片，回歸嚴格的左圖右文雙欄結構 -->
-        <div class="reveal-group grid md:grid-cols-2 gap-12 items-center pt-16">
-          
-          <!-- 【左欄：圖表三容器】只放置 Flourish 內容 -->
-          <div class="reveal-item w-full bg-black/30 rounded-xl overflow-hidden p-6 border border-white/5 shadow-xl">
-            <!-- 此處填入第三個 Flourish 圖表（社群媒體平台分布） -->
-            <div class="flourish-embed flourish-hierarchy" data-src="[請填入您圖表三的代碼]">
-              <script src="https://public.flourish.studio/resources/embed.js"></script>
-            </div>
-            
-            <!-- 數據來源小字 -->
-            <p class="text-center text-xs text-gray-400 mt-4 leading-relaxed mb-2">
-              資料來源：〈年輕世代的受詐騙經驗調查〉問卷調查、製圖／沈韋彤
-            </p>
-          </div>
-
-          <!-- 【右欄：文字說明】只放置論述與專家分析內容 -->
-          <div class="reveal-item space-y-4 font-sans">
-            <h4 class="text-xl font-bold text-[#FCE788]">
-              受詐騙的類型多屬於網路購物，且多數發生在社群媒體平台。
-            </h4>
-            <p class="text-white/90 text-lg leading-loose font-serif">
-              林書立解釋目前社群媒體上的詐騙通常會延伸到私人聊天室。「在大海中遇到了你，他把這個水撈到小池塘來，只有點對點、你跟他」，若在平台上，政府有權管控或追責，但一旦詐騙者將你拉進私密的通訊軟體，政府的手就伸不進去了。
-            </p>
-          </div>
-
-        </div> <!-- 結束問卷發現 3 的 grid -->
+      <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
+        林書立也提到「年輕族群本來就是被騙比較多的，只是被騙的金額比較不是那麼高。」近年來，林書立也發現年輕族群主要受詐的範圍從網路購物與遊戲軟體交易，開始逐步出現貸款詐騙，預示未來他們可能暴露在更高的風險中。
+      </p>
     </section>
 
-    <!-- 面向三防護網區塊 -->
+    <!-- ============================================================ -->
+    <!-- 面向三：社群媒體詐騙難防 新型手法政府仍受限 -->
+    <!-- ============================================================ -->
     <section class="max-w-4xl mx-auto px-6 mb-24">
       <div class="reveal-item flex items-center mb-10">
         <div class="w-2 h-8 bg-[#FCE788] mr-4 shadow-[0_0_8px_rgba(252,231,136,0.6)]"></div>
-        <h3 class="text-2xl font-bold font-sans text-white">社群媒體詐騙難防 新型手法政府仍受限</h3>
+        <h3 class="text-2xl md:text-3xl font-bold font-sans text-white leading-tight">
+          社群媒體詐騙難防 新型手法政府仍受限
+        </h3>
       </div>
-      
+
       <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
         創作者解壓因從事中國與臺灣間的代購，經常有較大的換匯需求，詐騙者因而透過假帳號主動與他接觸，解壓也慢慢落入圈套，最終損失新臺幣6萬元。解壓最初發覺被騙時約在凌晨兩、三點，當下腦中只想著要先把事件剪成影片，到了隔天下午才至警局報案，他表示警察已經處理詐騙到麻木，所以也不會很積極的解決，「當下是很無助的，如果對方轉出帳戶的話，基本上就是拿不回來了，因為錢很可能已經被洗掉了。」警察能做的也只是凍結對方帳戶，但若對方使用一次性帳戶，追回的可能性便微乎其微。
       </p>
+
       <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
         近期Threads的詐騙頻發，解壓也是在此受騙，他發現詐騙者會在該平台建立人設，試圖取信他人，Threads相較其他軟體也更利於帳號間的互動。林書立解釋如Threads、X等快社群的特性，更容易接收到詐騙訊息，「不是等你去點他的陷阱，而是主動跳到你面前。」並且使用聳動的語句，吸引大家的注意力。
       </p>
+
       <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
-        林書立表示新法的規範對象涵蓋電商平台與社群媒體，Meta及LINE皆有與政府合作，「如果社群媒體沒有配合政府積極打詐，政府可以依法裁罰。」。不過他也指出，社群媒體基於保護用戶隱私考量，鮮少提供個人資料，時常增加執法機關追查案件的難度，如Facebook在國際間設有統一規範，除非是燒殺擄掠等重大案件才會提供個資。對此林書立強調新法取代線上安全法（註），需要求平台承擔管理責任、強化資訊揭露與風險控管機制。
-      </p>  
-      
-      <div class="reveal-item bg-[#FCE788]/10 border border-[#FCE788]/30 p-6 rounded-xl my-10 shadow-lg relative overflow-hidden font-sans">
-          <span class="inline-block bg-[#FCE788] text-black text-sm font-bold px-3 py-1 rounded-full mb-3">💡 小百科</span>
-          <p class="text-white/90 leading-relaxed">
-            線上安全法：強化對大型網路科技公司的監管，打擊非法有害內容，多國已陸續發布相關法案，如英國、澳洲等。
-          </p>
-        <!-- 前面的線上安全法小百科... -->
-      <div class="reveal-item bg-[#FCE788]/10 border border-[#FCE788]/30 p-6 rounded-xl my-10 shadow-lg relative overflow-hidden font-sans">
-          <span class="inline-block bg-[#FCE788] text-black text-sm font-bold px-3 py-1 rounded-full mb-3">💡 小百科</span>
-          <p class="text-white/90 leading-relaxed">
-            線上安全法：強化對大型網路科技公司的監管，打擊非法有害內容，多國已陸續發布相關法案，如英國、澳洲等。
-          </p>
+        林書立表示新法的規範對象涵蓋電商平台與社群媒體，Meta及LINE皆有與政府合作，下架部分詐騙廣告「如果社群媒體沒有配合政府積極打詐，政府可以依法裁罰。」不過他也指出，社群媒體基於保護用戶隱私考量，鮮少提供個人資料，詐團即是看準這點，並不會在平台上直接詐騙，而是將受騙者拉進個人對話，對此林書立強調以線上安全法取代新法，要求平台承擔管理責任、強化資訊揭露與風險控管機制。
+      </p>
+
+      <!-- 小百科 -->
+      <div class="reveal-item encyclopedia-block p-6 my-8 shadow-lg relative overflow-hidden font-sans">
+        <span class="inline-block bg-[#FCE788] text-black text-sm font-bold px-3 py-1 rounded-full mb-3">🔍 小百科</span>
+        <p class="text-white/90 leading-relaxed">
+          線上安全法：強化對大型網路科技公司的監管，打擊非法有害內容，多國已陸續發布相關法案，如英國、澳洲等。
+        </p>
       </div>
 
-      <!-- ========================================== -->
-      <!-- 🛡️ 新增：Meta 防詐互動圖表 -->
-      <!-- ========================================== -->
-<div id="meta-infographic" class="reveal-item w-full py-16 relative overflow-hidden bg-black/20 rounded-3xl border border-white/10 my-16 shadow-2xl">
-  <div class="tree" id="meta-tree">
-     </div>
-
-  <div class="conclusion" id="meta-conclusion">
-     </div>
-
-</div>
-        <div class="tree" id="meta-tree">
-          <h1 class="meta-title font-sans">
-            平台防線：<span class="blue">上有政策</span>，<span class="red">下有對策</span>
-          </h1>
-
-          <div class="center-box">
-            <div class="icon">🕵️</div>
-            <h2 class="font-bold text-xl">詐騙訊息發出</h2>
-          </div>
-
-          <div class="connect-line show"></div>
-
-          <div class="center-box question show">
-            <div class="icon">🔍</div>
-            <h2 class="font-bold text-xl">平台機制是否識破？</h2>
-            <div class="buttons">
-              <button class="meta-btn yesBtn" id="metaYesBtn">✅ 是</button>
-              <button class="meta-btn noBtn" id="metaNoBtn">❌ 否</button>
-            </div>
-          </div>
-
-          <div class="paths">
-            <!-- 左邊 (政策防堵) -->
-            <div class="path">
-              <svg><path id="blueLine" d="M200 0 L200 80" stroke="#1976ff"/></svg>
-              <div id="left1" class="meta-card left-card">
-                <h2>🛡️ 上有政策</h2>
-                <p>🤖 AI 偵測模型</p>
-                <p>🚩 使用者檢舉通報</p>
-                <p>📢 廣告實名制審查</p>
-              </div>
-              <div id="left2" class="meta-card left-card success">
-                <h2 class="shield text-green-700">🚫 帳號停權處置</h2>
-                <p>惡意內容下架</p>
-                <h3 class="text-lg font-black text-green-800 mt-2">✅ 第一線阻斷成功</h3>
-              </div>
-            </div>
-
-            <!-- 右邊 (詐騙對策) -->
-            <div class="path">
-              <svg><path id="redLine" d="M200 0 L200 80" stroke="#d62828"/></svg>
-              <div id="right1" class="meta-card right-card">
-                <h2>❌ 下有對策</h2>
-                <p>👥 轉移至私人群組</p>
-                <p>💬 引導加 Messenger</p>
-                <p>📱 引導加 LINE / WhatsApp</p>
-              </div>
-              <div id="right2" class="meta-card right-card">
-                <h2>🔒 平台無法介入原因</h2>
-                <p>端對端加密技術</p>
-                <p>通訊隱私與個資保護</p>
-                <p>公權力無法審查私人對話</p>
-              </div>
-              <div id="right3" class="meta-card warning">
-                <h2 class="warningIcon text-red-600">⚠️ 詐騙持續擴散</h2>
-                <p>在私密空間建立信任</p>
-                <p>實施客製化話術詐騙</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 最終結論浮動卡片 -->
-        <div class="conclusion" id="meta-conclusion">
-          <h2 class="text-[#83637D]">🤝 系統結論</h2>
-          <p class="font-bold">🏛️ 平台機制 ＋ 政府執法 ＋ 使用者警覺</p>
-          <p class="mt-4 text-gray-600">社群平台的手無法伸進私人對話，唯有「網路零信任」的防詐意識，才能補足這張防護網的最後一塊拼圖！</p>
-        </div>
-      </div>
-
-      <!-- 🌟 165 反詐騙撥號挑戰遊戲 (您原本的下一段) -->
-        <!-- 頂部標題列 -->
-        </div>
-<div class="reveal-item flex flex-col items-center justify-center w-full my-16 select-none">
-        
+      <!-- ===== 165 反詐騙撥號挑戰 ===== -->
+      <div class="reveal-item flex flex-col items-center justify-center w-full my-16 select-none">
         <div class="text-center mb-6 z-10">
-          <h1 class="text-2xl md:text-3xl font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-[#FCE788]">
-            防詐騙安全挑戰
-          </h1>
+          <h4 class="text-2xl md:text-3xl font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-[#FCE788]">
+            📞 防詐騙安全挑戰
+          </h4>
           <p id="topHint" class="text-sm text-white/70 mt-2 transition-all duration-300">
             你能找出正確的「反詐騙專線」並成功撥打嗎？
           </p>
@@ -354,161 +421,13 @@
 
         <div id="phoneDevice" class="w-[340px] h-[680px] bg-black rounded-[50px] p-3.5 shadow-2xl border-4 border-slate-700 relative flex flex-col transition-all duration-300 transform scale-90 md:scale-100">
           <div class="w-full h-full bg-slate-900 rounded-[38px] overflow-hidden relative flex flex-col border border-slate-800">
-            
+            <!-- 頂部瀏海 -->
             <div class="absolute top-3 left-1/2 -translate-x-1/2 w-28 h-6 bg-black rounded-full z-50 flex items-center justify-between px-3.5">
               <div class="w-2.5 h-2.5 bg-slate-900 rounded-full border border-slate-800"></div>
               <div class="w-1.5 h-1.5 bg-blue-900/50 rounded-full"></div>
             </div>
-
+            <!-- 狀態列 -->
             <div class="h-10 px-6 pt-3.5 flex justify-between items-center text-[11px] font-medium text-slate-400 z-40">
               <div>16:50</div>
               <div class="flex items-center space-x-1.5">
-                <i class="fa-solid fa-signal"></i><span>5G</span><i class="fa-solid fa-battery-three-quarters text-sm"></i>
-              </div>
-            </div>
-
-            <div class="flex-1 flex flex-col justify-center items-center px-6 text-center pt-2">
-              <div class="mb-4 bg-red-950/40 border border-red-500/20 px-4 py-2 rounded-2xl">
-                <p class="text-red-400 text-xs font-bold tracking-widest uppercase">SECURITY</p>
-                <h3 class="text-white text-lg font-extrabold mt-0.5">請撥打反詐騙專線</h3>
-              </div>
-
-              <div class="w-full h-16 flex items-center justify-center rounded-2xl bg-black/40 border border-slate-800/80 px-4 relative overflow-hidden">
-                <div id="numberDisplay" class="text-3xl font-bold tracking-[0.5em] pl-[0.5em] text-[#FCE788] transition-all duration-150"></div>
-                <div id="displayPlaceholder" class="absolute text-xs text-slate-500 tracking-wider">請在下方點擊按鈕撥號</div>
-              </div>
-
-              <p id="statusMsg" class="text-xs text-slate-400 mt-4 h-5 font-medium transition-all duration-200">
-                請輸入正確的三碼防詐專線
-              </p>
-            </div>
-
-            <div class="p-6 pb-8 bg-slate-950/80 border-t border-slate-900 rounded-t-[32px]">
-              <div class="grid grid-cols-3 gap-y-4 gap-x-5 justify-items-center">
-                
-                <button class="key-btn w-[58px] h-[58px] rounded-full bg-slate-800/70 border border-slate-700/50 flex flex-col items-center justify-center transition-all text-white" data-value="1">
-                  <span class="text-xl font-bold">1</span><span class="text-[9px] text-slate-400 font-semibold -mt-0.5">o_o</span>
-                </button>
-                <button class="key-btn w-[58px] h-[58px] rounded-full bg-slate-800/70 border border-slate-700/50 flex flex-col items-center justify-center transition-all text-white" data-value="2">
-                  <span class="text-xl font-bold">2</span><span class="text-[9px] text-slate-400 font-semibold -mt-0.5">ABC</span>
-                </button>
-                <button class="key-btn w-[58px] h-[58px] rounded-full bg-slate-800/70 border border-slate-700/50 flex flex-col items-center justify-center transition-all text-white" data-value="3">
-                  <span class="text-xl font-bold">3</span><span class="text-[9px] text-slate-400 font-semibold -mt-0.5">DEF</span>
-                </button>
-
-                <button class="key-btn w-[58px] h-[58px] rounded-full bg-slate-800/70 border border-slate-700/50 flex flex-col items-center justify-center transition-all text-white" data-value="4">
-                  <span class="text-xl font-bold">4</span><span class="text-[9px] text-slate-400 font-semibold -mt-0.5">GHI</span>
-                </button>
-                <button class="key-btn w-[58px] h-[58px] rounded-full bg-slate-800/70 border border-slate-700/50 flex flex-col items-center justify-center transition-all text-white" data-value="5">
-                  <span class="text-xl font-bold">5</span><span class="text-[9px] text-slate-400 font-semibold -mt-0.5">JKL</span>
-                </button>
-                <button class="key-btn w-[58px] h-[58px] rounded-full bg-slate-800/70 border border-slate-700/50 flex flex-col items-center justify-center transition-all text-white" data-value="6">
-                  <span class="text-xl font-bold">6</span><span class="text-[9px] text-slate-400 font-semibold -mt-0.5">MNO</span>
-                </button>
-
-                <button class="key-btn w-[58px] h-[58px] rounded-full bg-slate-800/70 border border-slate-700/50 flex flex-col items-center justify-center transition-all text-white" data-value="7">
-                  <span class="text-xl font-bold">7</span><span class="text-[9px] text-slate-400 font-semibold -mt-0.5">PQRS</span>
-                </button>
-                <button class="key-btn w-[58px] h-[58px] rounded-full bg-slate-800/70 border border-slate-700/50 flex flex-col items-center justify-center transition-all text-white" data-value="8">
-                  <span class="text-xl font-bold">8</span><span class="text-[9px] text-slate-400 font-semibold -mt-0.5">TUV</span>
-                </button>
-                <button class="key-btn w-[58px] h-[58px] rounded-full bg-slate-800/70 border border-slate-700/50 flex flex-col items-center justify-center transition-all text-white" data-value="9">
-                  <span class="text-xl font-bold">9</span><span class="text-[9px] text-slate-400 font-semibold -mt-0.5">WXYZ</span>
-                </button>
-
-                <button class="key-btn w-[58px] h-[58px] rounded-full bg-slate-800/70 border border-slate-700/50 flex flex-col items-center justify-center transition-all text-white" data-value="*">
-                  <span class="text-xl font-bold mt-1">*</span>
-                </button>
-                <button class="key-btn w-[58px] h-[58px] rounded-full bg-slate-800/70 border border-slate-700/50 flex flex-col items-center justify-center transition-all text-white" data-value="0">
-                  <span class="text-xl font-bold">0</span><span class="text-[9px] text-slate-400 font-semibold -mt-0.5">+</span>
-                </button>
-                <button class="key-btn w-[58px] h-[58px] rounded-full bg-slate-800/70 border border-slate-700/50 flex flex-col items-center justify-center transition-all text-white" data-value="#">
-                  <span class="text-xl font-bold">#</span>
-                </button>
-
-                <div class="col-span-3 flex justify-center w-full mt-2">
-                  <button id="clearBtn" class="px-5 py-2 bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white rounded-full text-xs font-semibold border border-slate-800 transition duration-150 flex items-center space-x-1.5 active:scale-95">
-                    <i class="fa-solid fa-delete-left"></i><span>重新輸入</span>
-                  </button>
-                </div>
-
-              </div>
-            </div>
-
-            <div class="absolute bottom-1 left-1/2 -translate-x-1/2 w-28 h-1 bg-slate-700 rounded-full z-40"></div>
-          </div>
-        </div>
-      </div>
-      </div>
-      <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
-      165反詐騙諮詢專線在打詐中扮演重要角色，林書立指出，165專線主要能從三個面向協助民眾：首先，當民眾察覺自己可能受騙時，可立即撥打專線，工作人員會協助通報並啟動圈存、凍結款項程序，避免在前往警局報案的過程錯失黃金時間；其次，民眾來電的自述也能協助警方掌握詐騙趨勢，得以整理出最新詐騙模式 ，以此警示民眾；最後，則是會向受害者說明後續處理程序，包括報案、製作筆錄及相關法律流程等，協助民眾了解接下來應採取的行動。
-      </p>
-      </div>
-    </section>
-
-     <!-- 面向四 -->
-    <section class="max-w-4xl mx-auto px-6 mb-24">
-      <div class="reveal-item flex items-center mb-10">
-        <div class="w-2 h-8 bg-[#FCE788] mr-4 shadow-[0_0_8px_rgba(252,231,136,0.6)]"></div>
-        <h3 class="text-2xl font-bold font-sans text-white">撕裂社會信任的詐騙 秉持網路零信任面對</h3>
-      </div>
-      <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
-      進入到網際網路與行動裝置的時代，詐騙模式演變為詐團與受害者建立一對一的關係進行頻繁交流，或是利用多人群組形成同溫層，獲取受害者的信任。他也分享犯罪心理學家的觀察，認為台灣人容易被騙是受到教育長期的影響，「我們從小是受儒家的教育，就是溫馴、要相信人。」因此他提倡「網路零信任」，面對網路交友需秉持謹慎的態度，以免受到傷害，甚至得面對個人自尊與社會壓力，「很多受害者只敢把這些受創的過程埋在自己的心裡，不敢講出來，這也是另外一個隱憂。」
-      </p>
-
-      <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
-      「（讓受害者）有一個出口分享自己也是曾經被詐騙的人，經歷這些事後都有所成長，對於任何金錢上的流出也會更警惕。」彥儒提及自己公開受詐騙經驗的原因，是為了鼓勵同樣受騙的人說出自身經歷，除了減輕心理壓力外，也是為了警醒大眾。他分享在受騙後，雖不會影響使用交友軟體的意願，但在實際見面之前，他一律會先把對方當成假人，將風險降到最低；他也認為在從事網路行為時若有所疑慮，先跟親友聊一聊會有所幫助，「（如果）有一個朋友可以討論，往往那個朋友就會把你拉回來。」
-      </p>
-
-      <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
-      道高一尺魔高一丈，詐騙手法日新月異，政府措施與保護即使有所跟進，但也時常力有未逮。因此詐騙防治除了依賴公權力外，更多應該回歸到個人，「必須要有一些自保的能力，就是所謂的防詐意識。」王伯頎認為要提升防詐意識，不只是繼續在教育向下扎根，培養學童對詐騙的敏感度，大眾也應該要多主動接觸新聞、學習新知，並且保持不懂就問的態度，為自己注入「防詐疫苗」。
-      </p>
-    </section>  
-
-    <!-- 遊戲互動區塊 -->
-    <section class="reveal-group max-w-3xl mx-auto px-6 mb-24 text-center">
-      <h3 class="reveal-item text-2xl font-bold font-sans text-white mb-10">我們該如何減少詐騙？</h3>
-      <div class="reveal-item w-full h-64 bg-black/30 backdrop-blur-md rounded-xl mb-16 flex items-center justify-center border border-white/10 shadow-xl">
-        <span class="text-white/60 font-mono">[互動文字雲嵌入處]</span>
-      </div>
-      <p class="reveal-item font-serif text-lg leading-loose mb-12 text-left text-white/95">
-        最後，給自己保留思考的空間，多一些時間察覺不對勁，就能降低受騙風險。面對這場信任危機，您準備好辨識陷阱了嗎？
-      </p>
-      <div class="reveal-item max-w-sm mx-auto bg-black rounded-3xl shadow-[0_0_40px_rgba(0,0,0,0.5)] border-4 border-[#83637D] overflow-hidden aspect-[9/16]">
-        <div class="w-full h-full flex items-center justify-center text-white/60">
-          [OOOPEN Lab 遊戲 iframe]
-        </div>
-      </div>
-    </section>
-
-    <!-- 【第五幕：首尾呼應的結尾動畫】 -->
-    <section id="outro-section" class="relative w-full h-screen bg-[#62495F] flex flex-col items-center justify-center z-40 overflow-hidden">
-      <div id="outro-light-bg" class="absolute inset-0 bg-[#FCFAF2] opacity-0 z-10"></div>
-      <div id="outro-gate-top" class="absolute top-0 left-0 w-full h-[50vh] bg-[#0a0a0a] z-20 transform -translate-y-full"></div>
-      <div id="outro-gate-bottom" class="absolute bottom-0 left-0 w-full h-[50vh] bg-[#0a0a0a] z-20 transform translate-y-full"></div>
-      <div id="outro-text-container" class="absolute inset-0 flex flex-col items-center justify-center z-30 opacity-0 pointer-events-none">
-        <h2 class="glitch-text text-4xl md:text-5xl font-black mb-6 tracking-wide text-center px-4 scale-0" data-text="從信任危機中醒來">
-          從信任危機中醒來
-        </h2>
-        <p class="text-[#FCE788] tracking-widest text-lg md:text-xl font-bold drop-shadow-md">
-          防線，由我們自己決定。
-        </p>
-      </div>
-    </section>
-
-    <!-- 頁尾宣告區 -->
-  <footer class="w-full bg-[#FCFAF2] py-12 flex flex-col items-center justify-center space-y-3 font-sans border-t border-gray-200 text-gray-700 z-50">
-  <div class="max-w-4xl w-full px-6 text-center space-y-2">
-    <p class="font-bold text-[#DCA715] text-base md:text-lg mb-2">© 國立政治大學新聞與媒體實驗室</p>
-    <p class="text-sm md:text-base tracking-wide">出刊日期：115年6月30日</p>
-    <p class="text-sm md:text-base tracking-wide">採訪、撰稿、網頁製作：陳筱雯、鄭丞傑、沈韋彤、孟沛蓁</p>
-    <p class="text-sm md:text-base tracking-wide">指導老師：徐湘芸</p>
-  </div>
-</footer>
-
-  </main> 
-
-</main>
-
-  <script type="module" src="/src/main.js"></script>
-</body>
+                <i class="fa-solid fa-signal"></i><span>5G</span><
