@@ -283,12 +283,108 @@
             線上安全法：強化對大型網路科技公司的監管，打擊非法有害內容，多國已陸續發布相關法案，如英國、澳洲等。
           </p>
         </div>
-      <div class="reveal-group grid md:grid-cols-2 gap-6 font-sans">
-      <div class="reveal-item bg-black/30 backdrop-blur-md p-8 rounded-2xl border-t-4 border-[#FCE788] hover:scale-[1.02] transition-transform shadow-xl">
-          <h4 class="text-xl font-bold text-[#FCE788] mb-4">（綠色通道、紅色通道小小動畫）</h4>
+<div class="reveal-item flex flex-col items-center justify-center w-full my-16 select-none">
+        
+        <div class="text-center mb-6 z-10">
+          <h1 class="text-2xl md:text-3xl font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-[#FCE788]">
+            防詐騙安全挑戰
+          </h1>
+          <p id="topHint" class="text-sm text-white/70 mt-2 transition-all duration-300">
+            你能找出正確的「反詐騙專線」並成功撥打嗎？
+          </p>
+        </div>
+
+        <div id="phoneDevice" class="w-[340px] h-[680px] bg-black rounded-[50px] p-3.5 shadow-2xl border-4 border-slate-700 relative flex flex-col transition-all duration-300 transform scale-90 md:scale-100">
+          <div class="w-full h-full bg-slate-900 rounded-[38px] overflow-hidden relative flex flex-col border border-slate-800">
+            
+            <div class="absolute top-3 left-1/2 -translate-x-1/2 w-28 h-6 bg-black rounded-full z-50 flex items-center justify-between px-3.5">
+              <div class="w-2.5 h-2.5 bg-slate-900 rounded-full border border-slate-800"></div>
+              <div class="w-1.5 h-1.5 bg-blue-900/50 rounded-full"></div>
+            </div>
+
+            <div class="h-10 px-6 pt-3.5 flex justify-between items-center text-[11px] font-medium text-slate-400 z-40">
+              <div>16:50</div>
+              <div class="flex items-center space-x-1.5">
+                <i class="fa-solid fa-signal"></i><span>5G</span><i class="fa-solid fa-battery-three-quarters text-sm"></i>
+              </div>
+            </div>
+
+            <div class="flex-1 flex flex-col justify-center items-center px-6 text-center pt-2">
+              <div class="mb-4 bg-red-950/40 border border-red-500/20 px-4 py-2 rounded-2xl">
+                <p class="text-red-400 text-xs font-bold tracking-widest uppercase">SECURITY</p>
+                <h3 class="text-white text-lg font-extrabold mt-0.5">請撥打反詐騙專線</h3>
+              </div>
+
+              <div class="w-full h-16 flex items-center justify-center rounded-2xl bg-black/40 border border-slate-800/80 px-4 relative overflow-hidden">
+                <div id="numberDisplay" class="text-3xl font-bold tracking-[0.5em] pl-[0.5em] text-[#FCE788] transition-all duration-150"></div>
+                <div id="displayPlaceholder" class="absolute text-xs text-slate-500 tracking-wider">請在下方點擊按鈕撥號</div>
+              </div>
+
+              <p id="statusMsg" class="text-xs text-slate-400 mt-4 h-5 font-medium transition-all duration-200">
+                請輸入正確的三碼防詐專線
+              </p>
+            </div>
+
+            <div class="p-6 pb-8 bg-slate-950/80 border-t border-slate-900 rounded-t-[32px]">
+              <div class="grid grid-cols-3 gap-y-4 gap-x-5 justify-items-center">
+                
+                <button class="key-btn w-[58px] h-[58px] rounded-full bg-slate-800/70 border border-slate-700/50 flex flex-col items-center justify-center transition-all text-white" data-value="1">
+                  <span class="text-xl font-bold">1</span><span class="text-[9px] text-slate-400 font-semibold -mt-0.5">o_o</span>
+                </button>
+                <button class="key-btn w-[58px] h-[58px] rounded-full bg-slate-800/70 border border-slate-700/50 flex flex-col items-center justify-center transition-all text-white" data-value="2">
+                  <span class="text-xl font-bold">2</span><span class="text-[9px] text-slate-400 font-semibold -mt-0.5">ABC</span>
+                </button>
+                <button class="key-btn w-[58px] h-[58px] rounded-full bg-slate-800/70 border border-slate-700/50 flex flex-col items-center justify-center transition-all text-white" data-value="3">
+                  <span class="text-xl font-bold">3</span><span class="text-[9px] text-slate-400 font-semibold -mt-0.5">DEF</span>
+                </button>
+
+                <button class="key-btn w-[58px] h-[58px] rounded-full bg-slate-800/70 border border-slate-700/50 flex flex-col items-center justify-center transition-all text-white" data-value="4">
+                  <span class="text-xl font-bold">4</span><span class="text-[9px] text-slate-400 font-semibold -mt-0.5">GHI</span>
+                </button>
+                <button class="key-btn w-[58px] h-[58px] rounded-full bg-slate-800/70 border border-slate-700/50 flex flex-col items-center justify-center transition-all text-white" data-value="5">
+                  <span class="text-xl font-bold">5</span><span class="text-[9px] text-slate-400 font-semibold -mt-0.5">JKL</span>
+                </button>
+                <button class="key-btn w-[58px] h-[58px] rounded-full bg-slate-800/70 border border-slate-700/50 flex flex-col items-center justify-center transition-all text-white" data-value="6">
+                  <span class="text-xl font-bold">6</span><span class="text-[9px] text-slate-400 font-semibold -mt-0.5">MNO</span>
+                </button>
+
+                <button class="key-btn w-[58px] h-[58px] rounded-full bg-slate-800/70 border border-slate-700/50 flex flex-col items-center justify-center transition-all text-white" data-value="7">
+                  <span class="text-xl font-bold">7</span><span class="text-[9px] text-slate-400 font-semibold -mt-0.5">PQRS</span>
+                </button>
+                <button class="key-btn w-[58px] h-[58px] rounded-full bg-slate-800/70 border border-slate-700/50 flex flex-col items-center justify-center transition-all text-white" data-value="8">
+                  <span class="text-xl font-bold">8</span><span class="text-[9px] text-slate-400 font-semibold -mt-0.5">TUV</span>
+                </button>
+                <button class="key-btn w-[58px] h-[58px] rounded-full bg-slate-800/70 border border-slate-700/50 flex flex-col items-center justify-center transition-all text-white" data-value="9">
+                  <span class="text-xl font-bold">9</span><span class="text-[9px] text-slate-400 font-semibold -mt-0.5">WXYZ</span>
+                </button>
+
+                <button class="key-btn w-[58px] h-[58px] rounded-full bg-slate-800/70 border border-slate-700/50 flex flex-col items-center justify-center transition-all text-white" data-value="*">
+                  <span class="text-xl font-bold mt-1">*</span>
+                </button>
+                <button class="key-btn w-[58px] h-[58px] rounded-full bg-slate-800/70 border border-slate-700/50 flex flex-col items-center justify-center transition-all text-white" data-value="0">
+                  <span class="text-xl font-bold">0</span><span class="text-[9px] text-slate-400 font-semibold -mt-0.5">+</span>
+                </button>
+                <button class="key-btn w-[58px] h-[58px] rounded-full bg-slate-800/70 border border-slate-700/50 flex flex-col items-center justify-center transition-all text-white" data-value="#">
+                  <span class="text-xl font-bold">#</span>
+                </button>
+
+                <div class="col-span-3 flex justify-center w-full mt-2">
+                  <button id="clearBtn" class="px-5 py-2 bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white rounded-full text-xs font-semibold border border-slate-800 transition duration-150 flex items-center space-x-1.5 active:scale-95">
+                    <i class="fa-solid fa-delete-left"></i><span>重新輸入</span>
+                  </button>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="absolute bottom-1 left-1/2 -translate-x-1/2 w-28 h-1 bg-slate-700 rounded-full z-40"></div>
+          </div>
+        </div>
       </div>
-      <div class="reveal-item bg-black/30 backdrop-blur-md p-8 rounded-2xl border-t-4 border-[#FCE788] hover:scale-[1.02] transition-transform shadow-xl">
-          <h4 class="text-xl font-bold text-[#FCE788] mb-4">（可以讓小人撥打電話165，之後帶到文字）</h4>
+      
+      <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
+      </p></h4>
+      </div>
       </div>
       <p class="reveal-item text-white/95 text-lg leading-loose mb-6">
       165反詐騙諮詢專線在打詐中扮演重要角色，林書立指出，165專線主要能從三個面向協助民眾：首先，當民眾察覺自己可能受騙時，可立即撥打專線，工作人員會協助通報並啟動圈存、凍結款項程序，避免在前往警局報案的過程錯失黃金時間；其次，民眾來電的自述也能協助警方掌握詐騙趨勢，得以整理出最新詐騙模式 ，以此警示民眾；最後，則是會向受害者說明後續處理程序，包括報案、製作筆錄及相關法律流程等，協助民眾了解接下來應採取的行動。
