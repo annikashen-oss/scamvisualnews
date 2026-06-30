@@ -185,3 +185,22 @@
       #meta-infographic .path { width: 100%; max-width: 500px; }
       #meta-infographic svg { display: none; } /* 手機版隱藏連線，避免破版 */
  }
+/* 🎮 Tinder Swipe 遊戲專用樣式 */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.tinder-card {
+  /* 確保使用者在手機上拖曳時，不會意外觸發網頁原生滾動或文字選取 */
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none; 
+  transform-origin: 50% 100%; /* 設定旋轉軸心在卡片底部，滑動手感更好 */
+  will-change: transform;
+}
+
+/* 當卡片被滑走時的消失動畫 */
+.card-removed {
+  opacity: 0;
+  pointer-events: none;
+}
