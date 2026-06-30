@@ -32,59 +32,59 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
-// 🌟 新增：由 JS 負責初始化隱藏，避免與 Tailwind 衝突
-  gsap.set([".glitch-text", "#hero-subtitle", "#scroll-hint"], { opacity: 0, y: 50 });
+// ==========================================
+  // 🎬 全新：電影感開場動畫序列
+  // 順序：開門 ➔ 標題淡出 ➔ 影片出現播放 ➔ 影片淡出 ➔ 標題重現 ➔ 關門
+  // ==========================================
+  const introVideo = document.getElementById("intro-video");
 
-  // ==========================================
-  // 1. 開場大標題動畫 (捲動到畫面時才觸發)
-  // ==========================================
-  ScrollTrigger.create({
-    trigger: "#hero-section",
-    start: "top 75%", 
-    onEnter: () => {
-      // 使用 .to 把隱藏的標題彈跳出來
-      gsap.to(".glitch-text", { scale: 1, opacity: 1, y: 0, duration: 1.5, ease: "elastic.out(1, 0.4)" });
-      gsap.to("#hero-subtitle", { opacity: 0.9, y: 0, duration: 1, delay: 0.8 });
-      gsap.to("#scroll-hint", { opacity: 1, y: 0, duration: 1, delay: 1.2 });
-    },
-    once: true 
-  });
-
-  // ==========================================
-  // 2. 滾動轉場時間軸：先閃爍留存 ➔ 後包夾吸入
-  // ==========================================
-  const heroTl = gsap.timeline({
+  // 使用 GSAP 時間軸，將這整段綁定在滑鼠滾輪上 (scrub: 1)
+  const masterIntroTl = gsap.timeline({
     scrollTrigger: {
-      trigger: "#hero-section",
+      trigger: "#master-intro",
       start: "top top",
-      end: "+=1200", 
+      end: "+=5000", // 創造 5000px 的超長虛擬滾動空間，確保每個階段都很從容
       scrub: 1,      
-      pin: true,     
+      pin: true,     // 將畫面定住，直到整個開場序列播完才放行
+      onUpdate: (self) => {
+        // 在滾動進度 30% 到 60% 之間（也就是影片可見時），播放影片
+        if (introVideo) {
+          if (self.progress > 0.3 && self.progress < 0.6) {
+            if (introVideo.paused) introVideo.play().catch(e => console.log("瀏覽器阻擋播放", e));
+          } else {
+            if (!introVideo.paused) introVideo.pause();
+          }
+        }
+      }
     }
   });
 
-  heroTl
-    .to("#gate-top", { y: "-15%", duration: 0.6, ease: "none" }, 0)
-    .to("#gate-bottom", { y: "15%", duration: 0.6, ease: "none" }, 0)
-    .to("#gate-top", { y: "0%", duration: 0.6, ease: "power1.in" }, 0.6)
-    .to("#gate-bottom", { y: "0%", duration: 0.6, ease: "power1.in" }, 0.6)
+  masterIntroTl
+    // 階段 1：拉開閘門，展現專題標題
+    .to("#intro-gate-top", { yPercent: -100, duration: 1, ease: "power2.inOut" }, 0)
+    .to("#intro-gate-bottom", { yPercent: 100, duration: 1, ease: "power2.inOut" }, 0)
     
-    // 🌟 關鍵防呆修正：使用 fromTo 強制規定從「清晰(blur 0)」變成「模糊(blur 15)」，拒絕幽靈狀態！
-    .fromTo(".glitch-text", 
-      { scale: 1, filter: "blur(0px)", opacity: 1 }, 
-      { scale: 0.7, filter: "blur(15px)", opacity: 0, duration: 0.5, ease: "none" }, 0.6)
-      
-    .fromTo("#hero-subtitle", 
-      { scale: 1, filter: "blur(0px)", opacity: 0.9 }, 
-      { scale: 0.8, filter: "blur(10px)", opacity: 0, duration: 0.5, ease: "none" }, 0.7)
-      
-    .fromTo("#scroll-hint", 
-      { opacity: 1 }, 
-      { opacity: 0, duration: 0.3, ease: "none" }, 0.6)
-      
-    .to("#story-section", { opacity: 1, duration: 0.3 }, 1.2)
-    .to("#gate-top", { y: "-100%", duration: 1.0, ease: "power2.inOut" }, 1.5)
-    .to("#gate-bottom", { y: "100%", duration: 1.0, ease: "power2.inOut" }, 1.5);
+    // 階段 2：專題標題隨滾動模糊淡出
+    .to("#intro-title", { opacity: 0, filter: "blur(10px)", scale: 0.9, duration: 1, ease: "none" }, 1.5)
+    
+    // 階段 3：出現彥儒前導影片
+    .to("#intro-video-container", { opacity: 1, duration: 1, ease: "none" }, 2.5)
+    
+    // 階段 4：預留大量的捲動空間，讓讀者有時間觀看播放中的影片
+    .to({}, { duration: 2.5 }, 3.5)
+    
+    // 階段 5：影片隨滾動淡出
+    .to("#intro-video-container", { opacity: 0, duration: 1, ease: "none" }, 6.0)
+    
+    // 階段 6：再次出現清晰的專題標題
+    .to("#intro-title", { opacity: 1, filter: "blur(0px)", scale: 1, duration: 1, ease: "none" }, 7.0)
+    
+    // 階段 7：上下閘門再次關閉，畫面變黑
+    .to("#intro-gate-top", { yPercent: 0, duration: 1, ease: "power2.inOut" }, 8.5)
+    .to("#intro-gate-bottom", { yPercent: 0, duration: 1, ease: "power2.inOut" }, 8.5)
+    
+    // 階段 8：提示字淡出，解除鎖定
+    .to("#scroll-hint-global", { opacity: 0, duration: 0.5 }, 8.5);
   
 
   // ==========================================
