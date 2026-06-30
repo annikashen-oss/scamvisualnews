@@ -283,7 +283,40 @@
           <!-- ===== 案例小遊戲（預留） ===== -->
           <div class="w-full bg-black/30 rounded-2xl p-8 border border-white/10 text-center my-12">
             <h5 class="text-xl font-bold text-[#FCE788] mb-4">🎮 案例小遊戲</h5>
-            <p class="text-white/60 text-sm">（互動遊戲內容預留位置）</p>
+<!-- ========================================== -->
+    <!-- 🎮 互動小遊戲：搶票大作戰 Tinder Swipe -->
+    <!-- ========================================== -->
+    <section id="game-section" class="reveal-item max-w-4xl mx-auto px-4 py-12 mb-24 relative flex flex-col items-center justify-center min-h-[600px] bg-black/30 backdrop-blur-md rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
+      
+      <!-- 遊戲標題區 -->
+      <div class="text-center z-10 mb-8 pointer-events-none">
+        <h3 class="text-2xl md:text-3xl font-bold font-sans text-[#FCE788] mb-2">搶票大作戰：你是哪種買家？</h3>
+        <p class="text-white/70 text-sm md:text-base font-serif bg-black/40 px-4 py-1 rounded-full inline-block">
+          向左滑 👈 拒絕交易 ｜ 向右滑 👉 同意匯款
+        </p>
+      </div>
+
+      <!-- 卡片堆疊容器 -->
+      <div id="card-container" class="relative w-full max-w-[320px] h-[400px] perspective-1000 z-20">
+        <!-- JS 會動態將題目卡片注入到這裡 -->
+      </div>
+      <!-- 測驗結果顯示區 (預設隱藏) -->
+      <div id="result-screen" class="hidden absolute inset-0 bg-[#2D2A32]/95 backdrop-blur-xl flex-col items-center justify-center z-50 p-6 text-center transform scale-95 opacity-0 transition-all duration-500">
+        <h3 class="text-[#FCE788] text-xl mb-4 font-bold tracking-widest border-b border-[#FCE788]/30 pb-2">你的受詐風險診斷 演唱會門票篇</h3>
+        <h1 id="result-title" class="text-3xl md:text-4xl text-white font-black mb-6 leading-tight"></h1>
+        
+        <div class="bg-black/50 p-6 rounded-xl border border-red-500/30 shadow-lg max-w-md w-full mb-8 text-left">
+          <p class="text-red-400 font-bold mb-3 text-lg flex items-center">
+            <span class="mr-2">⚠️</span> 專家警告
+          </p>
+          <p id="result-warning" class="text-white/90 text-base leading-relaxed font-sans"></p>
+        </div>
+        <button id="restart-btn" class="px-8 py-3 bg-[#FCE788] text-[#62495F] font-bold rounded-full hover:scale-105 transition-transform shadow-[0_0_15px_rgba(252,231,136,0.4)]">
+          再測一次，提升防禦力
+        </button>
+      </div>
+
+    </section>
             <div class="w-full h-48 bg-white/5 rounded-xl mt-4 flex items-center justify-center border border-dashed border-white/20">
               <span class="text-white/30">遊戲內容即將上線</span>
             </div>
