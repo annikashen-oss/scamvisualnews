@@ -1,33 +1,59 @@
+/* ==========================================
+   Tailwind 指令（如果您使用 PostCSS 建置）
+   ========================================== */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* 僅針對擁有 glitch-text 的主標題生效 */
+/* ==========================================
+   全域樣式
+   ========================================== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Helvetica Neue', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  background-color: #62495F;
+  overflow-x: hidden;
+}
+
+/* ==========================================
+   Glitch 文字特效（修正版）
+   ========================================== */
 .glitch-text {
   position: relative;
-  display: inline-block; /* 確保特效範圍精準 */
+  display: inline-block;
   color: #ffffff;
   z-index: 1;
 }
 
 .glitch-text::before,
 .glitch-text::after {
-  content: attr(data-text); 
+  content: attr(data-text);
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1; /* 放在文字後方，確保主文字清晰 */
-  background: #62495F; /* 必須與背景色一致，否則會蓋住文字 */
+  z-index: -1;
+  pointer-events: none;
+  /* 移除 background，讓文字可以穿透 */
 }
 
-/* 故障動畫 (維持不變) */
 .glitch-text::before {
   left: 3px;
-  text-shadow: -2px 0 #ef4444; 
+  text-shadow: -2px 0 #ef4444;
   clip-path: polygon(0 0, 100% 0, 100% 30%, 0 30%);
   animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -3px;
+  text-shadow: 2px 0 #3b82f6;
+  clip-path: polygon(0 70%, 100% 70%, 100% 100%, 0 100%);
+  animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
 }
 
 @keyframes glitch-anim-1 {
@@ -48,12 +74,23 @@
   100% { clip-path: polygon(0 85%, 100% 85%, 100% 90%, 0 90%); transform: translate(-1px, 1px); }
 }
 
-/* 翻轉容器 */
-.flip-card {
-  perspective: 1000px;
+/* ==========================================
+   Reveal 捲動浮現動畫
+   ========================================== */
+.reveal-item {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 🌟 局部修正：移除 hover，改由 JS 控制 class */
+.reveal-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================
+   翻轉卡片 (Flip Card)
+   ========================================== */
 .flip-card {
   perspective: 1200px;
   cursor: pointer;
@@ -67,144 +104,50 @@
   transform-style: preserve-3d;
 }
 
-/* 只有當卡片被點擊注入 .is-flipped 時才旋轉 */
 .flip-card.is-flipped .flip-card-inner {
   transform: rotateY(180deg);
 }
 
-.flip-card-front, .flip-card-back {
+.flip-card-front,
+.flip-card-back {
   position: absolute;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
   border-radius: 1rem;
+  overflow: hidden;
 }
 
 .flip-card-back {
   transform: rotateY(180deg);
 }
 
-/* ========================================== */
-    /* 🛡️ Meta 防詐互動圖表專屬樣式 */
-    /* ========================================== */
-    #meta-infographic {
-      font-family: "Microsoft JhengHei", sans-serif;
-      text-align: center;
-    }
-    #meta-infographic h1.meta-title {
-      font-size: 2.5rem;
-      margin-bottom: 40px;
-      color: white;
-      font-weight: 900;
-    }
-    #meta-infographic .blue { color: #8cb4ff; }
-    #meta-infographic .red { color: #ff6b6b; }
-    
-    #meta-infographic .tree { transition: 1.5s ease; }
-    #meta-infographic .tree.finished { transform: translateY(-250px); }
-    
-    #meta-infographic .center-box {
-      background: white;
-      padding: 25px;
-      border-radius: 20px;
-      width: 300px;
-      margin: auto;
-      box-shadow: 0 8px 30px rgba(0,0,0,.3);
-      color: #333;
-    }
-    #meta-infographic .icon { font-size: 50px; margin-bottom: 10px; }
-    #meta-infographic .connect-line {
-      width: 4px; height: 0; background: #cbd5e1; margin: auto; transition: 1s;
-    }
-    #meta-infographic .connect-line.show { height: 70px; }
-    
-    #meta-infographic .question {
-      opacity: 0; transform: translateY(30px); transition: .8s;
-    }
-    #meta-infographic .question.show { opacity: 1; transform: translateY(0); }
-    
-    #meta-infographic .buttons {
-      margin-top: 20px; display: flex; justify-content: center; gap: 20px;
-    }
-    #meta-infographic button.meta-btn {
-      padding: 12px 25px; font-size: 18px; border: none; border-radius: 15px;
-      cursor: pointer; transition: .3s; font-weight: bold;
-    }
-    #meta-infographic button.meta-btn:hover { transform: scale(1.05); }
-    #meta-infographic .yesBtn { background: #1976ff; color: white; }
-    #meta-infographic .noBtn { background: #d62828; color: white; }
-    
-    #meta-infographic .paths {
-      display: flex; justify-content: center; gap: 40px; margin-top: 40px; align-items: flex-start;
-    }
-    #meta-infographic .path { width: 400px; }
-    
-    #meta-infographic .meta-card {
-      background: white; border-radius: 20px; padding: 20px; margin: 20px 0;
-      box-shadow: 0 8px 20px rgba(0,0,0,.2);
-      opacity: 0; transform: translateY(30px); transition: .8s; color: #333;
-    }
-    #meta-infographic .meta-card.show { opacity: 1; transform: translateY(0); }
-    #meta-infographic .left-card { border-top: 8px solid #1976ff; }
-    #meta-infographic .right-card { border-top: 8px solid #d62828; }
-    #meta-infographic .meta-card h2 { margin-bottom: 15px; font-weight: bold; font-size: 1.25rem;}
-    #meta-infographic .meta-card p { margin: 10px 0; font-size: 16px; }
-    
-    #meta-infographic .success { background: #e8f7ed; }
-    #meta-infographic .warning { background: #fff4e5; }
-    #meta-infographic .shield { animation: glow 2s infinite; }
-    
-    @keyframes glow {
-      0% { filter: drop-shadow(0 0 0px #1976ff); }
-      50% { filter: drop-shadow(0 0 15px #1976ff); }
-      100% { filter: drop-shadow(0 0 0px #1976ff); }
-    }
-    
-    #meta-infographic .warningIcon { animation: shake .8s infinite; }
-    @keyframes shake {
-      0%{transform:rotate(0);} 25%{transform:rotate(-5deg);} 50%{transform:rotate(5deg);} 75%{transform:rotate(-5deg);} 100%{transform:rotate(0);}
-    }
-    
-    #meta-infographic .conclusion {
-      position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%) scale(.7);
-      background: white; padding: 40px; border-radius: 25px;
-      box-shadow: 0 10px 40px rgba(0,0,0,.4);
-      opacity: 0; pointer-events: none; transition: 1s; width: 700px; max-width: 90%; color: #333; z-index: 10;
-    }
-    #meta-infographic .conclusion.show { opacity: 1; transform: translate(-50%,-50%) scale(1); pointer-events: auto;}
-    #meta-infographic .conclusion h2 { font-size: 2rem; margin-bottom: 20px; font-weight: bold;}
-    #meta-infographic .conclusion p { font-size: 1.25rem; line-height: 1.8; }
-    
-    #meta-infographic svg { width: 100%; height: 90px; overflow: visible; }
-    #meta-infographic path { stroke-width: 4; fill: none; stroke-dasharray: 600; stroke-dashoffset: 600; }
-    #meta-infographic .draw { animation: drawLine 1.2s forwards; }
-    @keyframes drawLine { to { stroke-dashoffset: 0; } }
-    
-    @media(max-width:900px){
-      #meta-infographic .paths { flex-direction: column; align-items: center; }
-      #meta-infographic .path { width: 100%; max-width: 500px; }
-      #meta-infographic svg { display: none; } /* 手機版隱藏連線，避免破版 */
- }
-/* 🎮 Tinder Swipe 遊戲專用樣式 */
-.perspective-1000 {
-  perspective: 1000px;
+/* ==========================================
+   小百科區塊
+   ========================================== */
+.encyclopedia-block {
+  background: rgba(252, 231, 136, 0.08);
+  border-left: 4px solid #FCE788;
+  border-radius: 0 1rem 1rem 0;
+  padding: 1.5rem;
 }
 
-.tinder-card {
-  /* 確保使用者在手機上拖曳時，不會意外觸發網頁原生滾動或文字選取 */
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: none; 
-  transform-origin: 50% 100%; /* 設定旋轉軸心在卡片底部，滑動手感更好 */
-  will-change: transform;
+/* ==========================================
+   圖表容器
+   ========================================== */
+.chart-container {
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.2rem;
+  overflow: hidden;
+  padding: 1rem;
 }
 
-/* 當卡片被滑走時的消失動畫 */
-.card-removed {
-  opacity: 0;
-  pointer-events: none;
-}
-/* ===== 手機撥號動畫 ===== */
+/* ==========================================
+   手機撥號動畫
+   ========================================== */
 .shake-active {
   animation: shake 0.3s ease-in-out;
 }
@@ -233,20 +176,405 @@
   100% { transform: scale(0.9) translateY(-40px); opacity: 0; }
 }
 
-/* ===== 遊戲卡片 ===== */
+/* ==========================================
+   手機裝置
+   ========================================== */
+#phoneDevice {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+  transition: all 0.3s ease;
+}
+
+#numberDisplay {
+  min-height: 3rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.key-btn {
+  transition: all 0.15s ease;
+}
+
+.key-btn:active {
+  transform: scale(0.9);
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* ==========================================
+   閘門過場
+   ========================================== */
+#intro-gate-top,
+#intro-gate-bottom {
+  transition: transform 1.2s cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+/* ==========================================
+   黃燈閃爍提示
+   ========================================== */
+.blink-yellow {
+  animation: blink 1.2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ==========================================
+   🛡️ Meta 防詐互動圖表專屬樣式
+   ========================================== */
+#meta-infographic {
+  font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+  text-align: center;
+}
+
+#meta-infographic h1.meta-title {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: white;
+  font-weight: 900;
+}
+
+#meta-infographic .blue { color: #8cb4ff; }
+#meta-infographic .red { color: #ff6b6b; }
+
+#meta-infographic .tree {
+  transition: 1.5s ease;
+}
+
+#meta-infographic .tree.finished {
+  transform: translateY(-250px);
+}
+
+#meta-infographic .center-box {
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  width: 300px;
+  margin: auto;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  color: #333;
+}
+
+#meta-infographic .icon {
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+#meta-infographic .connect-line {
+  width: 4px;
+  height: 0;
+  background: #cbd5e1;
+  margin: auto;
+  transition: height 1s ease;
+}
+
+#meta-infographic .connect-line.show {
+  height: 70px;
+}
+
+#meta-infographic .question {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+#meta-infographic .question.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#meta-infographic .buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+#meta-infographic button.meta-btn {
+  padding: 12px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-weight: bold;
+}
+
+#meta-infographic button.meta-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+#meta-infographic .yesBtn {
+  background: #1976ff;
+  color: white;
+}
+
+#meta-infographic .noBtn {
+  background: #d62828;
+  color: white;
+}
+
+#meta-infographic .paths {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+#meta-infographic .path {
+  width: 400px;
+  max-width: 100%;
+}
+
+#meta-infographic .meta-card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  color: #333;
+}
+
+#meta-infographic .meta-card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#meta-infographic .left-card {
+  border-top: 8px solid #1976ff;
+}
+
+#meta-infographic .right-card {
+  border-top: 8px solid #d62828;
+}
+
+#meta-infographic .meta-card h2 {
+  margin-bottom: 15px;
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+#meta-infographic .meta-card p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+#meta-infographic .success {
+  background: #e8f7ed;
+}
+
+#meta-infographic .warning {
+  background: #fff4e5;
+}
+
+#meta-infographic .shield {
+  animation: glow 2s infinite;
+}
+
+@keyframes glow {
+  0% { filter: drop-shadow(0 0 0px #1976ff); }
+  50% { filter: drop-shadow(0 0 15px #1976ff); }
+  100% { filter: drop-shadow(0 0 0px #1976ff); }
+}
+
+#meta-infographic .warningIcon {
+  animation: shake-icon 0.8s infinite;
+}
+
+@keyframes shake-icon {
+  0% { transform: rotate(0); }
+  25% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+  75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0); }
+}
+
+#meta-infographic .conclusion {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.7);
+  background: white;
+  padding: 40px;
+  border-radius: 25px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 1s ease;
+  width: 700px;
+  max-width: 90%;
+  color: #333;
+  z-index: 10;
+}
+
+#meta-infographic .conclusion.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+
+#meta-infographic .conclusion h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+#meta-infographic .conclusion p {
+  font-size: 1.25rem;
+  line-height: 1.8;
+}
+
+#meta-infographic svg {
+  width: 100%;
+  height: 90px;
+  overflow: visible;
+}
+
+#meta-infographic path {
+  stroke-width: 4;
+  fill: none;
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+}
+
+#meta-infographic .draw {
+  animation: drawLine 1.2s forwards;
+}
+
+@keyframes drawLine {
+  to { stroke-dashoffset: 0; }
+}
+
+/* ==========================================
+   🎮 Tinder Swipe 遊戲專用樣式
+   ========================================== */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
 .tinder-card {
   user-select: none;
   -webkit-user-select: none;
   touch-action: none;
+  transform-origin: 50% 100%;
+  will-change: transform;
 }
 
-.tinder-card:hover {
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+.card-removed {
+  opacity: 0;
+  pointer-events: none;
 }
 
-/* ===== 響應式 ===== */
+/* ==========================================
+   響應式設計
+   ========================================== */
+@media (max-width: 900px) {
+  #meta-infographic .paths {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #meta-infographic .path {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  #meta-infographic svg {
+    display: none;
+  }
+
+  #meta-infographic .conclusion {
+    width: 95%;
+    padding: 20px;
+  }
+
+  #meta-infographic .conclusion h2 {
+    font-size: 1.5rem;
+  }
+
+  #meta-infographic .conclusion p {
+    font-size: 1rem;
+  }
+}
+
 @media (max-width: 640px) {
   #phoneDevice {
     transform: scale(0.85);
   }
+
+  #meta-infographic h1.meta-title {
+    font-size: 1.8rem;
+  }
+
+  #meta-infographic .center-box {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .flip-card {
+    height: 280px !important;
+  }
+}
+
+/* ==========================================
+   工具類別（補充）
+   ========================================== */
+.hidden {
+  display: none !important;
+}
+
+.flex {
+  display: flex !important;
+}
+
+.opacity-0 {
+  opacity: 0 !important;
+}
+
+.opacity-100 {
+  opacity: 1 !important;
+}
+
+.scale-95 {
+  transform: scale(0.95) !important;
+}
+
+.scale-100 {
+  transform: scale(1) !important;
+}
+
+/* ==========================================
+   按鈕點擊漣漪效果（選用）
+   ========================================== */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  width: 100%;
+  padding-top: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ripple:active::after {
+  animation: ripple-effect 0.6s ease-out;
+}
+
+@keyframes ripple-effect {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 0.5; }
+  100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
 }
