@@ -4,16 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>年輕世代詐騙視覺化專題</title>
-<!-- 載入 GSAP 動畫套件 -->
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<style>
-  #hero-section .glitch-text,
-  #hero-subtitle {
-    filter: none !important;
-    text-shadow: none !important;
-  }
-</style>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* 這裡只留下 165 遊戲和 Meta 圖表的 CSS 即可 */
+    
+    /* 165 手機遊戲按鈕動畫 */
+    .key-btn:active {
+      transform: scale(0.9);
+      background-color: rgba(255, 255, 255, 0.35) !important;
+    }
+    /* ... 後面接續您原本貼上的 shake, slideUpFade 等遊戲與 Meta 的 CSS ... */
 </head>
 <!-- 全局背景設定為 #62495F，預設文字為白色 -->
 <body class="bg-[#62495F] overflow-x-hidden text-white">
