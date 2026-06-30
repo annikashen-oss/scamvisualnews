@@ -14,25 +14,48 @@
     text-shadow: none !important;
   }
 </style>
-  <script type="module" crossorigin src="/scamvisualnews/assets/index-DkQn9l5s.js"></script>
-  <link rel="stylesheet" crossorigin href="/scamvisualnews/assets/index-BASMM4tx.css">
+  <script type="module" crossorigin src="/scamvisualnews/assets/index-BCs55D7d.js"></script>
+  <link rel="stylesheet" crossorigin href="/scamvisualnews/assets/index-KhWqWXuX.css">
 </head>
 <!-- 全局背景設定為 #62495F，預設文字為白色 -->
 <body class="bg-[#62495F] overflow-x-hidden text-white">
   
-<!-- 【第零幕：開場前導影片】 -->
-<section id="begin-video-section" class="relative w-full h-screen bg-black overflow-hidden">
-  <!-- 1. 移除 loop 屬性，並加上 id="intro-video" 以便 JS 抓取 -->
-  <video id="intro-video" class="absolute inset-0 w-full h-full object-cover z-0" src="/scamvisualnews/assets/Begin-CXUQOKUZ.mp4" autoplay muted playsinline preload="auto"></video>
-  
-  <!-- 2. 新增專屬的「向下捲動提示」，預設 opacity-0 (隱藏)，放置在畫面底部中央 -->
-  <div id="video-scroll-hint" class="absolute bottom-12 left-1/2 transform -translate-x-1/2 text-[#FCE788] animate-pulse flex flex-col items-center opacity-0 z-10 pointer-events-none">
-    <span class="mb-2 text-sm md:text-base tracking-widest font-bold drop-shadow-lg bg-black/40 backdrop-blur-sm px-4 py-1 rounded-full">
-      影片播畢，請向下捲動進入專題
-    </span>
-    <span class="text-3xl drop-shadow-lg mt-2">↓</span>
-  </div>
-</section>
+  <section id="master-intro" class="relative w-full h-screen bg-[#62495F] overflow-hidden z-50">
+    
+    <div id="intro-title" class="absolute inset-0 flex flex-col items-center justify-center z-20">
+      <h1 class="glitch-text text-4xl md:text-6xl font-black tracking-wide mb-6" data-text="危機伺服還四伏？">
+        危機伺服還四伏？
+      </h1>
+      <p class="text-xl md:text-2xl font-normal leading-snug max-w-2xl mx-auto text-white">
+        撕下收割年輕世代信任的詐騙標籤
+      </p>
+    </div>
+
+    <div id="intro-video-container" class="absolute inset-0 z-30 opacity-0 bg-black flex items-center justify-center pointer-events-none">
+      <video id="intro-video" class="w-full h-full object-cover opacity-80" src="/scamvisualnews/assets/Begin-CXUQOKUZ.mp4" muted playsinline preload="auto"></video>
+    </div>
+
+    <div id="intro-gate-top" class="absolute top-0 left-0 w-full h-[50vh] bg-[#0a0a0a] z-40 transform translate-y-0"></div>
+    <div id="intro-gate-bottom" class="absolute bottom-0 left-0 w-full h-[50vh] bg-[#0a0a0a] z-40 transform translate-y-0"></div>
+
+    <div id="scroll-hint-global" class="absolute bottom-10 left-1/2 -translate-x-1/2 text-[#FCE788] animate-pulse flex flex-col items-center z-50">
+      <span class="mb-2 text-sm tracking-widest bg-black/40 px-4 py-1 rounded-full backdrop-blur-sm shadow-lg">向下捲動探索專題</span>
+      <span class="text-2xl">↓</span>
+    </div>
+
+  </section>
+
+  <main id="story-section" class="relative z-30 bg-[#62495F] min-h-screen pt-24 pb-0 text-gray-100 overflow-hidden">
+    
+    <section class="w-full bg-[#83637D] pt-24 pb-24 mb-24 shadow-2xl">
+      <article class="reveal-group max-w-3xl mx-auto px-6 font-serif">
+        ```
+
+### 🎯 這次修正達成了什麼效果？
+1. **多餘的影片消失了：** 我們徹底清除了舊的 `begin-video-section` 與漂浮的閘門 `div`。
+2. **文字回來了：** 拿掉 `opacity-0` 後，當您看完開場電影感動畫，繼續往下滾動時，紫色的正文（包含彥儒的採訪與記者署名）就會順暢地從螢幕下方出現。
+
+趕快存檔重新整理看看，現在您應該能完美體驗到：**「滑鼠往下滾 ➔ 開黑門 ➔ 看到大標題 ➔ 標題模糊消失 ➔ 影片浮現播放 ➔ 影片消失 ➔ 標題回來 ➔ 黑門關閉 ➔ 順滑進入文字正文」** 的高級電影感轉場了！
   
 <section id="master-intro" class="relative w-full h-screen bg-[#62495F] overflow-hidden z-50">
   
