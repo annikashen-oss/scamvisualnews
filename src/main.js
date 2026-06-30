@@ -127,8 +127,6 @@ gsap.registerPlugin(ScrollTrigger);
       onEnter: () => gsap.to(item, { y: 0, autoAlpha: 1, duration: 0.8, ease: "power2.out", overwrite: "auto" })
     });
   });
-
-});
 // ==========================================
   // ★ 165 手機撥號模擬器邏輯
   // ==========================================
