@@ -12,23 +12,28 @@
     /* (記得補上您原本 shake, slideUp 等動畫) */
   </style>
 
-  <script type="module" crossorigin src="/scamvisualnews/assets/index-BW0WxEFJ.js"></script>
-  <link rel="stylesheet" crossorigin href="/scamvisualnews/assets/index-DPhxUdsz.css">
+  <script type="module" crossorigin src="/scamvisualnews/assets/index-CE5mqmx4.js"></script>
+  <link rel="stylesheet" crossorigin href="/scamvisualnews/assets/index-CBLEOM0z.css">
 </head>
 <body class="bg-[#62495F] overflow-x-hidden text-white">
 
   <!-- 1. 開場動畫序列 (只保留這一個!) -->
   <section id="master-intro" class="relative w-full h-screen bg-[#62495F] overflow-hidden z-50">
-    <div id="intro-title" class="absolute inset-0 flex flex-col items-center justify-center z-20">
+    <!-- 標題層：保持在最上方 -->
+    <div id="intro-title" class="absolute inset-0 flex flex-col items-center justify-center z-30">
       <h1 class="glitch-text text-4xl md:text-6xl font-black tracking-wide mb-6" data-text="危機伺服還四伏？">危機伺服還四伏？</h1>
       <p class="text-xl md:text-2xl font-normal leading-snug max-w-2xl mx-auto text-white">撕下收割年輕世代信任的詐騙標籤</p>
     </div>
-    <div id="intro-video-container" class="absolute inset-0 z-30 opacity-0 bg-black flex items-center justify-center pointer-events-none">
-      <video id="intro-video" class="w-full h-full object-cover opacity-80" src="/scamvisualnews/assets/Begin-CXUQOKUZ.mp4" muted playsinline preload="auto"></video>
+    
+    <!-- 影片層：隱藏在標題之下 -->
+    <div id="intro-video-container" class="absolute inset-0 z-20 opacity-0 bg-black flex items-center justify-center">
+      <video id="intro-video" class="w-full h-full object-cover" src="/scamvisualnews/assets/Begin-CXUQOKUZ.mp4" muted playsinline></video>
     </div>
-    <div id="intro-gate-top" class="absolute top-0 left-0 w-full h-[50vh] bg-[#0a0a0a] z-40 transform translate-y-0"></div>
-    <div id="intro-gate-bottom" class="absolute bottom-0 left-0 w-full h-[50vh] bg-[#0a0a0a] z-40 transform translate-y-0"></div>
-  </section>
+
+    <!-- 閘門 -->
+    <div id="intro-gate-top" class="absolute top-0 left-0 w-full h-[50vh] bg-[#0a0a0a] z-40"></div>
+    <div id="intro-gate-bottom" class="absolute bottom-0 left-0 w-full h-[50vh] bg-[#0a0a0a] z-40">
+    </div>
 <!-- 2. 正文面向一區塊 -->
   <main id="story-section" class="relative z-30 bg-[#62495F] min-h-screen pt-24 pb-0 text-gray-100 overflow-hidden">  
     <section class="w-full bg-[#83637D] pt-24 pb-24 mb-24 shadow-2xl">
