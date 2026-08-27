@@ -1,7 +1,9 @@
 // src/pages/ScamVisualNews/index.jsx
 import { useState, useEffect } from 'react';
 import GateScreen from './components/GateScreen';
+import NavbarHeader from './components/NavbarHeader';
 import DataSection from './components/DataSection';
+import Footer from './components/Footer';
 import { useScrollReveal } from './hooks/useScrollReveal';
 import styles from './styles/scam.module.css';
 
@@ -15,21 +17,22 @@ export default function ScamVisualNews() {
   // 當頁面進入後，重新觸發 Flourish 圖表渲染（若尚未載入）
   useEffect(() => {
     if (entered) {
-      // 如果 Flourish 有全域方法，呼叫它重新掃描頁面中的圖表元素
       if (window.Flourish) {
         window.Flourish.embed?.();
       }
-      // 若使用 Intersection Observer 或其他初始化邏輯，可放在此
     }
   }, [entered]);
 
   return (
-    <div className="bg-[#62495F] overflow-x-hidden text-white">
+    <div className="bg-[#62495F] overflow-x-hidden text-white min-h-screen relative selection:bg-[#FCE788] selection:text-black">
       {/* 閘門遮罩：未進入時顯示，進入後隱藏 */}
       {!entered && <GateScreen onEnter={() => setEntered(true)} />}
 
-      {/* 主內容容器：套用滾動動畫的 ref */}
-      <main ref={containerRef} className="relative z-30 bg-[#62495F] min-h-screen pt-24 pb-0">
+      {/* 常駐頁首 Navbar */}
+      <NavbarHeader />
+
+      {/* 主內容容器：套用滾動動畫的 ref，並加上 pt-20 避免被固定的 Navbar 遮擋 */}
+      <main ref={containerRef} className="relative z-30 bg-[#62495F] min-h-screen pt-20 pb-0">
 
         {/* 瀏覽提示（黃燈閃爍） */}
         <div className="reveal-item w-full bg-black/40 backdrop-blur-md border-y border-[#FCE788]/20 py-4 my-12 shadow-[0_0_20px_rgba(0,0,0,0.3)]">
@@ -48,6 +51,9 @@ export default function ScamVisualNews() {
         <DataSection />
 
       </main>
+
+      {/* 頁尾 Footer */}
+      <Footer />
     </div>
   );
 }
