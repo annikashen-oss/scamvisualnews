@@ -4,7 +4,7 @@ import styles from '../styles/scam.module.css';
 
 export default function PhoneSimulator() {
   const [input, setInput] = useState('');
-  const [status, setStatus] = useState('請輸入正確的防詐專線');
+  const [status, setStatus] = useState('請輸入正確的防詐專線電話');
   const [statusClass, setStatusClass] = useState('text-xs text-slate-400 mt-4 h-5 font-medium');
   const [shake, setShake] = useState(false);
   const [exitAnim, setExitAnim] = useState(false);
