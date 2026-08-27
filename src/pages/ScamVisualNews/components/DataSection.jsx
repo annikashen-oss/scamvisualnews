@@ -11,7 +11,7 @@ export default function DataSection() {
       {/* ============================================================
           面向一：18歲到29歲成詐騙最大被害族群
           ============================================================ */}
-      <section className="flex flex-col justify-center items-center p-6 relative">
+      <section className="flex flex-col justify-center items-center p-6 pb-24 relative">
         <div className="relative w-full max-w-4xl p-6 md:p-10 z-10 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl shadow-2xl">
 
           <h3 className="reveal-item text-2xl md:text-3xl font-bold font-sans text-white mb-6 border-l-4 border-[#FCE788] pl-4 leading-tight">
@@ -209,7 +209,7 @@ export default function DataSection() {
       {/* ============================================================
           面向二：詐騙變動快 被騙金額在政策打詐後持續下降
           ============================================================ */}
-      <section className="max-w-4xl mx-auto px-6">
+      <section className="max-w-4xl mx-auto px-6 pb-24">
         <h3 className="reveal-item text-2xl md:text-3xl font-bold font-sans text-white mb-8 border-l-4 border-[#FCE788] pl-4 leading-tight">
           詐騙變動快 被騙金額在政策打詐後持續下降
         </h3>
@@ -261,7 +261,7 @@ export default function DataSection() {
       {/* ============================================================
           面向三：社群媒體詐騙難防 新型手法政府應對仍受限
           ============================================================ */}
-      <section className="max-w-4xl mx-auto px-6">
+      <section className="max-w-4xl mx-auto px-6 pb-24">
         <div className="reveal-item flex items-center mb-10">
           <div className="w-2 h-8 bg-[#FCE788] mr-4 shadow-[0_0_8px_rgba(252,231,136,0.6)]"></div>
           <h3 className="text-2xl md:text-3xl font-bold font-sans text-white leading-tight">
