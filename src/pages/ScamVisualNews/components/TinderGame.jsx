@@ -53,16 +53,30 @@ export default function TinderGame() {
     setResultKey('perfect');
   };
 
-  // ---- 各种渲染分支（Summary / Result / 卡片） ----
+  // ----各種渲染分支（Summary / Result / 卡片） ----
   if (showResult) {
     const res = resultsMap[resultKey] || resultsMap.perfect;
-    return ( ... ); // 同之前的结果展示
+    return (
+      <div className="w-full max-w-xl mx-auto bg-[#fcfbfa] border border-stone-300 rounded-3xl p-6 shadow-md text-stone-900">
+        <div className="text-xs text-stone-500 mb-1 font-semibold">─── 你的受詐風險診斷 ───</div>
+        <h2 className="text-xl font-extrabold text-amber-800 mb-4">{res.title}</h2>
+        <div className="bg-stone-100 border border-amber-300/60 rounded-2xl p-4 text-sm space-y-3">
+          {resultKey !== 'perfect' && (
+            <p className="text-rose-700 font-medium">{res.dialogue}</p>
+          )}
+          <p className="text-stone-700 text-xs leading-relaxed">{res.advice}</p>
+        </div>
+        <button
+          onClick={restart}
+          className="w-full mt-6 py-3 bg-amber-800 hover:bg-amber-900 rounded-xl font-bold text-white text-sm transition shadow"
+        >
+          🔄 重新挑戰測驗
+        </button>
+      </div>
+    );
   }
 
   if (showSummary) {
-    return ( ... ); // 同之前的结算展示
-  }
-
   return (
     <div className="w-full max-w-xl mx-auto relative">
       <div className="flex items-center justify-between h-[480px]">
