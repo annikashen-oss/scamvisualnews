@@ -37,9 +37,6 @@
 - 📱 **響應式設計**  
   使用 Tailwind CSS 的網格系統與響應式工具，在手機、平板、桌機皆能舒適閱讀。
 
-- 🚀 **輕鬆部署**  
-  基於 Vite 建置，一鍵部署到 GitHub Pages。
-
 ## 🛠️ 技術棧
 
 - **前端框架**：Vite + 原生 JavaScript (ES Module)
