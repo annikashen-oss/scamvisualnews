@@ -51,18 +51,24 @@
 - **託管**：GitHub Pages
 
 ## 📁 專案結構
--
-├── index.html # 主頁面（所有章節、圖表、對話框）
-├── src/
-│ ├── main.js # GSAP 動畫、Chart.js 初始化、文字雲生成
-│ └── style.css # Tailwind 指令與自訂樣式（含背景強制覆蓋）
+你的專案/
+├── index.html                ← 上面提供的這個（根目錄）
+├── package.json
+├── tailwind.config.js
+├── vite.config.js
 ├── public/
-│ └── images/ # 背景圖片（可選，目前使用純漸層）
-├── package.json # 依賴與部署腳本
-├── vite.config.js # Vite 設定（base 路徑）
-├── tailwind.config.js # Tailwind 設定（字體擴展）
-├── postcss.config.js # PostCSS 設定
-└── README.md
+│   └── Begin.mp4            ← 開場影片
+└── src/
+    ├── main.jsx             ← React 進入點（掛載 App）
+    ├── App.jsx              ← 導入 ScamVisualNews
+    ├── index.css            ← Tailwind 全局樣式
+    └── pages/
+        └── ScamVisualNews/
+            ├── index.jsx    ← 你已經有的主頁面（組裝所有區塊）
+            ├── components/  ← 所有子元件（GateScreen、DataSection 等）
+            ├── hooks/       ← useScrollReveal、useTinderSwipe
+            ├── data/        ← questions.js
+            └── styles/      ← scam.module.css
 ## 📄 授權
 本專案僅供教育與非商業用途使用。數據來源請參考頁面底部標註。
 
