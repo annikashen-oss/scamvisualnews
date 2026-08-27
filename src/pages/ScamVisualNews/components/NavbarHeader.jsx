@@ -18,17 +18,6 @@ export default function NavbarHeader() {
         </div>
       </div>
 
-      {/* 瀏覽提示橫條融入 Navbar 內 */}
-      <div className="flex items-center space-x-2 bg-black/30 px-3 py-1 rounded-full border border-[#FCE788]/20 text-center">
-        <span className="flex h-2 w-2 relative">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FCE788] opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FCE788]"></span>
-        </span>
-        <p className="text-[#FCE788] font-sans text-xs font-bold tracking-wider">
-          💡 提示：圖表可「點擊右下角翻面」或「懸停讀百科」
-        </p>
-      </div>
-
     </header>
   );
 }
