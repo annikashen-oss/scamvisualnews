@@ -33,7 +33,7 @@ export default function ScamVisualNews() {
       <NavbarHeader />
       
       {/* 2. 放在內文最上方，當作專題的震撼開場 */}
-        <MainTitleBanner />
+      <MainTitleBanner />
 
       {/* 主內容容器：套用滾動動畫的 ref，並加上 pt-20 避免被固定的 Navbar 遮擋 */}
       <main ref={containerRef} className="relative z-30 bg-[#62495F] min-h-screen pt-12 pb-0">
