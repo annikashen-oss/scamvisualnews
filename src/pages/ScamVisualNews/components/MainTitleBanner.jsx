@@ -1,7 +1,7 @@
 // src/pages/ScamVisualNews/components/MainTitleBanner.jsx
 export default function MainTitleBanner() {
   return (
-    <div className="w-full py-14 flex flex-col items-center justify-center text-center px-4">
+    <div className="w-full py-20 flex flex-col items-center justify-center text-center px-4">
       {/* 帶有故障特效的大主標題 */}
       <h1 
         className="glitch-text text-4xl md:text-6xl font-black tracking-widest text-white mb-6"
