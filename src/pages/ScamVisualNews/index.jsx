@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import GateScreen from './components/GateScreen';
 import NavbarHeader from './components/NavbarHeader';
+import MainTitleBanner from './components/MainTitleBanner';
 import DataSection from './components/DataSection';
 import Footer from './components/Footer';
 import { useScrollReveal } from './hooks/useScrollReveal';
