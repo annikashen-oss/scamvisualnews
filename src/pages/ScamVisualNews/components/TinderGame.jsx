@@ -105,8 +105,7 @@ export default function TinderGame() {
       <div className="flex items-center justify-between h-[480px]">
         {/* 左箱 */}
         <div className="w-20 md:w-24 h-64 bg-[#f0eae1] border-2 border-stone-300 rounded-2xl flex flex-col items-center justify-center p-2 text-stone-900">
-          <div className="text-2xl mb-1">🛡️</div>
-          <div className="text-xs font-bold text-emerald-800 text-center">安全防禦</div>
+          <div className="text-xs font-bold text-emerald-800 text-center">選左邊</div>
           <div className="text-lg font-extrabold text-emerald-900 mt-1">{leftCount}</div>
         </div>
 
@@ -153,8 +152,7 @@ export default function TinderGame() {
 
         {/* 右箱 */}
         <div className="w-20 md:w-24 h-64 bg-[#f0eae1] border-2 border-stone-300 rounded-2xl flex flex-col items-center justify-center p-2 text-stone-900">
-          <div className="text-2xl mb-1">⚠️</div>
-          <div className="text-xs font-bold text-rose-800 text-center">落入風險</div>
+          <div className="text-xs font-bold text-rose-800 text-center">選右邊</div>
           <div className="text-lg font-extrabold text-rose-900 mt-1">{rightCount}</div>
         </div>
       </div>
