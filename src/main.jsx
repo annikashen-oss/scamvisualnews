@@ -3,7 +3,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css'; // 全域樣式（含 Tailwind + 基礎樣式）
-import '@fortawesome/fontawesome-free/css/all.min.css'; // Font Awesome 圖示庫
 
 // 如果未來需要使用 GSAP 的 ScrollTrigger，可在這裡註冊
 // import gsap from 'gsap';
