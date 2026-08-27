@@ -8,7 +8,7 @@ import { useScrollReveal } from './hooks/useScrollReveal';
 import styles from './styles/scam.module.css';
 
 export default function ScamVisualNews() {
-  // 閘門狀態：true 表示 解鎖進入專題
+  // 閘門狀態：true 表示 成功解鎖進入專題
   const [entered, setEntered] = useState(false);
 
   // 使用自訂 Hook 處理滾動動畫（.reveal-item 元素）
