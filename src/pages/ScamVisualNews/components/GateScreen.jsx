@@ -13,7 +13,7 @@ export default function GateScreen({ onEnter }) {
   return (
     <div className={`${styles.gateScreen} ${isOpen ? styles.open : ''}`}>
       <div className="text-[#ffcc00] text-xl md:text-2xl tracking-[4px] mb-5 text-center px-5">
-        當數位生活成為詐騙破口
+       當數位生活成為詐騙破口
         ⚠️ 警告：偵測到資安高風險環境 ⚠️
       </div>
       <button
