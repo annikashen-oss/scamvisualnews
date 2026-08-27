@@ -36,7 +36,7 @@ export default function ScamVisualNews() {
         <MainTitleBanner />
 
       {/* 主內容容器：套用滾動動畫的 ref，並加上 pt-20 避免被固定的 Navbar 遮擋 */}
-      <main ref={containerRef} className="relative z-30 bg-[#62495F] min-h-screen pt-16 pb-0">
+      <main ref={containerRef} className="relative z-30 bg-[#62495F] min-h-screen pt-12 pb-0">
         {/* 瀏覽提示（黃燈閃爍） */}
         <div className="reveal-item w-full bg-black/40 backdrop-blur-md border-y border-[#FCE788]/20 py-4 my-12 shadow-[0_0_20px_rgba(0,0,0,0.3)]">
           <div className="max-w-4xl mx-auto px-6 flex items-center justify-center space-x-3 text-center">
