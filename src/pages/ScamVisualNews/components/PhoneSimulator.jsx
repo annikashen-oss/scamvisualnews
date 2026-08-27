@@ -53,7 +53,7 @@ export default function PhoneSimulator() {
     if (exitAnim) return;
     triggerVibration(50, false);
     setInput('');
-    setStatus('請輸入正確的三碼防詐專線');
+    setStatus('請輸入正確的防詐專線');
     setStatusClass('text-xs text-slate-400 mt-4 h-5 font-medium');
   };
 
