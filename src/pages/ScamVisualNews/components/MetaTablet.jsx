@@ -27,7 +27,7 @@ export default function MetaTablet() {
     <div className="w-full max-w-[1050px] mx-auto">
       <div className="bg-[#111] p-4 rounded-[40px] shadow-[0_20px_60px_rgba(0,0,0,0.8),inset_0_0_10px_rgba(255,255,255,0.1)] border-4 border-[#333]">
         <div className="bg-gradient-to-br from-[#f0f4ff] to-[#e2e8f0] rounded-[28px] p-6 md:p-10 min-h-[750px] max-h-[88vh] overflow-y-auto relative flex flex-col items-center text-[#1e293b]">
-          {/* 播放盖板 */}
+          {/* 播放平板 */}
           {!played && (
             <div className="absolute inset-0 bg-[rgba(15,23,42,0.85)] backdrop-blur-md flex flex-col justify-center items-center z-50 rounded-[28px]">
               <button
