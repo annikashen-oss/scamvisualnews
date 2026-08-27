@@ -1,7 +1,6 @@
 // src/pages/ScamVisualNews/index.jsx
 import { useState, useEffect } from 'react';
 import GateScreen from './components/GateScreen';
-import IntroSection from './components/IntroSection';
 import DataSection from './components/DataSection';
 import { useScrollReveal } from './hooks/useScrollReveal';
 import styles from './styles/scam.module.css';
