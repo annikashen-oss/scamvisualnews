@@ -1,13 +1,15 @@
-import './style.css';
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+// src/main.jsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import './index.css';        // ← 匯入全域樣式
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
-gsap.registerPlugin(ScrollTrigger);
-
-// ==========================================
-// 0. 確保 DOM 完全載入後再執行
-// ==========================================
-document.addEventListener('DOMContentLoaded', () => {
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
 
 // ==========================================
 // 🎬 開場自動進場 + 滾動轉場序列
