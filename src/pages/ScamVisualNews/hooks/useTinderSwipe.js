@@ -5,8 +5,8 @@ import { useRef, useState, useEffect, useCallback } from 'react';
  * 自定義 Hook：Tinder 風格卡片滑動
  * @param {Object} options
  * @param {number} options.threshold - 觸發滑動的閥值（像素），默認 100
- * @param {Function} options.onSwipeLeft - 左滑回調（通常表示“安全/拒絕”）
- * @param {Function} options.onSwipeRight - 右滑回調（通常表示“風险/接受”）
+ * @param {Function} options.onSwipeLeft - 左滑（通常表示“安全/拒絕”）
+ * @param {Function} options.onSwipeRight - 右滑（通常表示“風险/接受”）
  * @param {number} options.flyDistance - 飛出距离，默認 250
  * @returns {Object} { ref, style, resetPosition, isDragging }
  */
