@@ -2,7 +2,6 @@
    src/pages/ScamVisualNews/styles/scam.module.css
    元件專屬樣式（CSS Module）
    ========================================== */
-
 /* ---------- 閘門過場 ---------- */
 .gateScreen {
   position: fixed;
