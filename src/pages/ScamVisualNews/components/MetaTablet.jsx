@@ -185,7 +185,7 @@ export default function MetaTablet() {
               </div>
             </div>
 
-            {/* 结论 */}
+            {/* 結論 */}
             <div className={`${styles.conclusion} ${showConclusion ? styles.conclusionShow : ''} w-full max-w-[950px] mt-10 bg-[rgba(15,23,42,0.85)] backdrop-blur-xl border border-white/20 p-6 md:p-8 rounded-2xl shadow-[0_20px_45px_rgba(0,0,0,0.35)] text-white text-left`}>
               <h2 className="text-xl md:text-2xl font-bold text-[#38bdf8] text-center mb-3">🤝 結論：上有政策，下有對策</h2>
               <p className="text-sm text-[#cbd5e1] text-center">
