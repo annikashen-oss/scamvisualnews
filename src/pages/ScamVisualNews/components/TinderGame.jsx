@@ -66,7 +66,7 @@ export default function TinderGame() {
   return (
     <div className="w-full max-w-xl mx-auto relative">
       <div className="flex items-center justify-between h-[480px]">
-        {/* 左箱子 */}
+        {/* 左箱 */}
         <div className="w-20 md:w-24 h-64 bg-[#f0eae1] border-2 border-stone-300 rounded-2xl flex flex-col items-center justify-center p-2 text-stone-900">
         </div>
 
@@ -111,7 +111,7 @@ export default function TinderGame() {
           </div>
         </div>
 
-        {/* 右箱子 */}
+        {/* 右箱 */}
         <div className="w-20 md:w-24 h-64 bg-[#f0eae1] border-2 border-stone-300 rounded-2xl flex flex-col items-center justify-center p-2 text-stone-900">
         </div>
       </div>
