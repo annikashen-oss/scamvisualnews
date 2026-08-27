@@ -1,4 +1,4 @@
-// src/pages/ScamVisualNews/components/TinderGame.jsx (重構版)
+// src/pages/ScamVisualNews/components/TinderGame.jsx
 import { useState } from 'react';
 import { useTinderSwipe } from '../hooks/useTinderSwipe';
 import { questions, resultsMap } from '../data/questions';
