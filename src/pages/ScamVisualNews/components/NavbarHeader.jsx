@@ -13,7 +13,7 @@ export default function NavbarHeader() {
             當數位生活成為詐騙破口
           </h1>
         </div>
-        <div className="hidden lg:block text-xs text-[#FCE788]/90 font-medium border-l border-white/20 pl-3">
+        <div className="text-xs text-[#FCE788]/90 font-medium border-l border-white/20 pl-3">
           新法打詐財損下降，年輕受害件數卻上升？
         </div>
       </div>
