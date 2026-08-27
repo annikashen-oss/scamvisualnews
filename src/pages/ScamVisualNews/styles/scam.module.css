@@ -1,0 +1,511 @@
+/* ==========================================
+   src/pages/ScamVisualNews/styles/scam.module.css
+   元件專屬樣式（CSS Module）
+   ========================================== */
+
+/* ---------- 閘門過場 ---------- */
+.gateScreen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: #62495F;
+  overflow: hidden;
+}
+
+.gateTop,
+.gateBottom {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 50vh;
+  background: #0a0a0a;
+  z-index: 40;
+  transition: transform 1.2s cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+.gateTop {
+  top: 0;
+}
+
+.gateBottom {
+  bottom: 0;
+}
+
+.gateOpen .gateTop {
+  transform: translateY(-100%);
+}
+
+.gateOpen .gateBottom {
+  transform: translateY(100%);
+}
+
+/* ---------- Glitch 文字特效 ---------- */
+.glitchText {
+  position: relative;
+  display: inline-block;
+  color: #ffffff;
+  z-index: 1;
+}
+
+.glitchText::before,
+.glitchText::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.glitchText::before {
+  left: 3px;
+  text-shadow: -2px 0 #ef4444;
+  clip-path: polygon(0 0, 100% 0, 100% 30%, 0 30%);
+  animation: glitchAnim1 2s infinite linear alternate-reverse;
+}
+
+.glitchText::after {
+  left: -3px;
+  text-shadow: 2px 0 #3b82f6;
+  clip-path: polygon(0 70%, 100% 70%, 100% 100%, 0 100%);
+  animation: glitchAnim2 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitchAnim1 {
+  0% { clip-path: polygon(0 20%, 100% 20%, 100% 21%, 0 21%); transform: translate(-2px, 1px); }
+  20% { clip-path: polygon(0 33%, 100% 33%, 100% 33%, 0 33%); transform: translate(2px, -1px); }
+  40% { clip-path: polygon(0 44%, 100% 44%, 100% 44%, 0 44%); transform: translate(-2px, 2px); }
+  60% { clip-path: polygon(0 50%, 100% 50%, 100% 20%, 0 20%); transform: translate(2px, -2px); }
+  80% { clip-path: polygon(0 70%, 100% 70%, 100% 70%, 0 70%); transform: translate(-1px, 1px); }
+  100% { clip-path: polygon(0 80%, 100% 80%, 100% 80%, 0 80%); transform: translate(1px, -1px); }
+}
+
+@keyframes glitchAnim2 {
+  0% { clip-path: polygon(0 10%, 100% 10%, 100% 20%, 0 20%); transform: translate(2px, -1px); }
+  20% { clip-path: polygon(0 25%, 100% 25%, 100% 35%, 0 35%); transform: translate(-2px, 1px); }
+  40% { clip-path: polygon(0 45%, 100% 45%, 100% 50%, 0 50%); transform: translate(2px, -2px); }
+  60% { clip-path: polygon(0 60%, 100% 60%, 100% 70%, 0 70%); transform: translate(-2px, 2px); }
+  80% { clip-path: polygon(0 75%, 100% 75%, 100% 80%, 0 80%); transform: translate(1px, -1px); }
+  100% { clip-path: polygon(0 85%, 100% 85%, 100% 90%, 0 90%); transform: translate(-1px, 1px); }
+}
+
+/* ---------- Reveal 捲動浮現 ---------- */
+.revealItem {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.revealItem.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- 翻轉卡片 ---------- */
+.flipCard {
+  perspective: 1200px;
+  cursor: pointer;
+}
+
+.flipCardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.flipCardFlipped .flipCardInner {
+  transform: rotateY(180deg);
+}
+
+.flipCardFront,
+.flipCardBack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.flipCardBack {
+  transform: rotateY(180deg);
+}
+
+/* ---------- 小百科區塊 ---------- */
+.encyclopediaBlock {
+  background: rgba(252, 231, 136, 0.08);
+  border-left: 4px solid #FCE788;
+  border-radius: 0 1rem 1rem 0;
+  padding: 1.5rem;
+}
+
+/* ---------- 圖表容器 ---------- */
+.chartContainer {
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.2rem;
+  overflow: hidden;
+  padding: 1rem;
+}
+
+/* ---------- 手機撥號動畫 ---------- */
+.shakeActive {
+  animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-12px); }
+  75% { transform: translateX(12px); }
+}
+
+.slideInEntry {
+  animation: slideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes slideIn {
+  0% { transform: scale(0.8) translateY(40px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.slideUpExit {
+  animation: slideUp 0.5s ease-in forwards;
+}
+
+@keyframes slideUp {
+  0% { transform: scale(1) translateY(0); opacity: 1; }
+  100% { transform: scale(0.9) translateY(-40px); opacity: 0; }
+}
+
+/* ---------- 手機裝置 ---------- */
+.phoneDevice {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+  transition: all 0.3s ease;
+}
+
+.numberDisplay {
+  min-height: 3rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.keyBtn {
+  transition: all 0.15s ease;
+}
+
+.keyBtn:active {
+  transform: scale(0.9);
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* ---------- 黃燈閃爍 ---------- */
+.blinkYellow {
+  animation: blink 1.2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ---------- Meta 防詐互動圖表專屬樣式 ---------- */
+.metaInfographic {
+  font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+  text-align: center;
+}
+
+.metaInfographic h1.metaTitle {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: white;
+  font-weight: 900;
+}
+
+.metaInfographic .blue { color: #8cb4ff; }
+.metaInfographic .red { color: #ff6b6b; }
+
+.metaInfographic .tree {
+  transition: 1.5s ease;
+}
+
+.metaInfographic .treeFinished {
+  transform: translateY(-250px);
+}
+
+.metaInfographic .centerBox {
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  width: 300px;
+  margin: auto;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  color: #333;
+}
+
+.metaInfographic .icon {
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+.metaInfographic .connectLine {
+  width: 4px;
+  height: 0;
+  background: #cbd5e1;
+  margin: auto;
+  transition: height 1s ease;
+}
+
+.metaInfographic .connectLineShow {
+  height: 70px;
+}
+
+.metaInfographic .question {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.metaInfographic .questionShow {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.metaInfographic .buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.metaInfographic .metaBtn {
+  padding: 12px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-weight: bold;
+}
+
+.metaInfographic .metaBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.metaInfographic .yesBtn {
+  background: #1976ff;
+  color: white;
+}
+
+.metaInfographic .noBtn {
+  background: #d62828;
+  color: white;
+}
+
+.metaInfographic .paths {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.metaInfographic .path {
+  width: 400px;
+  max-width: 100%;
+}
+
+.metaInfographic .metaCard {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  color: #333;
+}
+
+.metaInfographic .metaCardShow {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.metaInfographic .leftCard {
+  border-top: 8px solid #1976ff;
+}
+
+.metaInfographic .rightCard {
+  border-top: 8px solid #d62828;
+}
+
+.metaInfographic .metaCard h2 {
+  margin-bottom: 15px;
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.metaInfographic .metaCard p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.metaInfographic .success {
+  background: #e8f7ed;
+}
+
+.metaInfographic .warning {
+  background: #fff4e5;
+}
+
+.metaInfographic .shield {
+  animation: glow 2s infinite;
+}
+
+@keyframes glow {
+  0% { filter: drop-shadow(0 0 0px #1976ff); }
+  50% { filter: drop-shadow(0 0 15px #1976ff); }
+  100% { filter: drop-shadow(0 0 0px #1976ff); }
+}
+
+.metaInfographic .warningIcon {
+  animation: shakeIcon 0.8s infinite;
+}
+
+@keyframes shakeIcon {
+  0% { transform: rotate(0); }
+  25% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+  75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0); }
+}
+
+.metaInfographic .conclusion {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.7);
+  background: white;
+  padding: 40px;
+  border-radius: 25px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 1s ease;
+  width: 700px;
+  max-width: 90%;
+  color: #333;
+  z-index: 10;
+}
+
+.metaInfographic .conclusionShow {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+
+.metaInfographic .conclusion h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.metaInfographic .conclusion p {
+  font-size: 1.25rem;
+  line-height: 1.8;
+}
+
+.metaInfographic svg {
+  width: 100%;
+  height: 90px;
+  overflow: visible;
+}
+
+.metaInfographic path {
+  stroke-width: 4;
+  fill: none;
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+}
+
+.metaInfographic .draw {
+  animation: drawLine 1.2s forwards;
+}
+
+@keyframes drawLine {
+  to { stroke-dashoffset: 0; }
+}
+
+/* ---------- Tinder Swipe 遊戲專用 ---------- */
+.perspective1000 {
+  perspective: 1000px;
+}
+
+.tinderCard {
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  transform-origin: 50% 100%;
+  will-change: transform;
+}
+
+.cardRemoved {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- 響應式設計 ---------- */
+@media (max-width: 900px) {
+  .metaInfographic .paths {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .metaInfographic .path {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .metaInfographic svg {
+    display: none;
+  }
+
+  .metaInfographic .conclusion {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .metaInfographic .conclusion h2 {
+    font-size: 1.5rem;
+  }
+
+  .metaInfographic .conclusion p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .phoneDevice {
+    transform: scale(0.85);
+  }
+
+  .metaInfographic h1.metaTitle {
+    font-size: 1.8rem;
+  }
+
+  .metaInfographic .centerBox {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .flipCard {
+    height: 280px !important;
+  }
+}
