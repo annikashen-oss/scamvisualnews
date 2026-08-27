@@ -33,7 +33,7 @@ export default function HeroSection() {
         當數位生活成為詐騙破口
       </h1>
       <p className="text-[#ffcc00] text-xl md:text-2xl mt-5 font-bold tracking-[2px]">
-        新法打詐財損下降，年輕受害件數卻上升？
+       新法打詐財損下降，年輕受害件數卻上升？
       </p>
     </header>
   );
