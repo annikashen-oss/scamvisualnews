@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 /**
  * 自訂 Hook：處理滾動觸發的 reveal 動畫
- * @param {string} selector - 要監聽的 CSS 選擇器（預設 '.reveal-item'）
+ * @param {string} selector - 要監聽的CSS選擇器（預設 '.reveal-item'）
  * @returns {React.RefObject} containerRef - 綁定到父容器上，用於清理動畫
  */
 export const useScrollReveal = (selector = '.reveal-item') => {
