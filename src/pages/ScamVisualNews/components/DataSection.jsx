@@ -2,6 +2,7 @@
 import styles from '../styles/scam.module.css';
 import TinderGame from './TinderGame';
 import PhoneSimulator from './PhoneSimulator';
+import MetaTablet from './MetaTablet'; 
 
 export default function DataSection() {
   return (
@@ -122,11 +123,11 @@ export default function DataSection() {
             檢定結果顯示，在「他者認知」與「訊息辨識與查證」兩個向度皆達統計顯著水準。這顯示出，容易在社群媒體上受騙的年輕人，具備兩種特質：第一是較高的認知僵化與沉沒成本謬誤，一旦相信某個粉專或賣家，就很難改變想法，即便有疑慮也不願放棄。第二是較差的訊息查證習慣，特別容易受到時間壓力（如：社群上的「限時搶購」、「最後名額」）影響而放棄查證。
           </p>
 
-          {/* 图表区块（保留 Flourish 嵌入） */}
+          {/* 图表區塊（保留 Flourish 嵌入） */}
           <div className="reveal-item w-full mt-12">
             <h4 className="text-xl font-bold font-sans text-[#FCE788] mb-8 text-center">年輕世代的受詐騙經驗調查</h4>
 
-            {/* 受诈比例 */}
+            {/* 受詐比例 */}
             <div className="grid md:grid-cols-2 gap-8 items-start mb-16">
               <div className={styles.chartContainer}>
                 <div className="flourish-embed flourish-parliament" data-src="visualisation/29255072"></div>
@@ -150,7 +151,7 @@ export default function DataSection() {
               </div>
             </div>
 
-            {/* 网络购物诈骗 */}
+            {/*網路购物诈骗 */}
             <div className="grid md:grid-cols-2 gap-8 items-start mb-16">
               <div className={styles.chartContainer}>
                 <div className="flourish-embed flourish-hierarchy" data-src="visualisation/29174577"></div>
@@ -180,7 +181,7 @@ export default function DataSection() {
               </div>
             </div>
 
-            {/* 不报警成为黑数 */}
+            {/* 不報警成为黑数 */}
             <div className="grid md:grid-cols-2 gap-8 items-start">
               <div className={styles.chartContainer}>
                 <div className="flourish-embed flourish-hierarchy" data-src="visualisation/29201265"></div>
@@ -306,7 +307,10 @@ export default function DataSection() {
             </div>
           </div>
         </div>
-
+        {/* Meta 平板動畫組件*/}
+        <div className="reveal-item w-full my-16">
+          <MetaTablet />
+        </div>
         {/* 165 模擬器 + 說明文字 */}
         <div className="reveal-item flex flex-col items-center justify-center w-full my-16 select-none">
           <div className="text-center mb-6 z-10">
