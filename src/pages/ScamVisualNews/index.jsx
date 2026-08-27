@@ -35,6 +35,10 @@ export default function ScamVisualNews() {
       <main ref={containerRef} className="relative z-30 bg-[#62495F] min-h-screen pt-20 pb-0">
 
         {/* 瀏覽提示（黃燈閃爍） */}
+        {/* 將 pt-20 調整為 pt-16，減少頁首下方與內容的間距 */}
+      <main ref={containerRef} className="relative z-30 bg-[#62495F] min-h-screen pt-16 pb-0">
+        <DataSection />
+      </main>
         <div className="reveal-item w-full bg-black/40 backdrop-blur-md border-y border-[#FCE788]/20 py-4 my-12 shadow-[0_0_20px_rgba(0,0,0,0.3)]">
           <div className="max-w-4xl mx-auto px-6 flex items-center justify-center space-x-3 text-center">
             <span className="flex h-3 w-3 relative">
