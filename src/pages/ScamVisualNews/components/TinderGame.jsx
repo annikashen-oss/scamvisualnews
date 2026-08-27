@@ -53,7 +53,9 @@ export default function TinderGame() {
     setResultKey('perfect');
   };
 
-  // ----各種渲染分支（Summary / Result / 卡片） ----
+  // =================各種渲染分支=================
+
+  // 1. 顯示最終診斷結果
   if (showResult) {
     const res = resultsMap[resultKey] || resultsMap.perfect;
     return (
@@ -76,12 +78,36 @@ export default function TinderGame() {
     );
   }
 
+  // 2. 顯示結算過場動畫
   if (showSummary) {
+    return (
+      <div className="w-full max-w-xl mx-auto bg-[#fcfbfa] border border-stone-300 rounded-3xl p-6 shadow-md text-center animate-bounce-in text-stone-900">
+        <div className="text-3xl mb-2">📊</div>
+        <h3 className="text-lg font-bold text-amber-900 mb-4">你的防禦決策結算中...</h3>
+        <div className="space-y-3 text-sm">
+          <div className="bg-rose-50 border border-rose-200 rounded-xl p-3 flex justify-between text-rose-900">
+            <span>👉 右滑 (落入風險箱)：</span>
+            <span className="font-extrabold">{rightCount} 張</span>
+          </div>
+          <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 flex justify-between text-emerald-900">
+            <span>👈 左滑 (安全防禦箱)：</span>
+            <span className="font-extrabold">{leftCount} 張</span>
+          </div>
+        </div>
+        <p className="text-xs text-stone-500 mt-6 animate-pulse">正在生成你的個人化受詐風險診斷...</p>
+      </div>
+    );
+  }
+
+  // 3. 預設顯示：主卡片遊戲畫面
   return (
     <div className="w-full max-w-xl mx-auto relative">
       <div className="flex items-center justify-between h-[480px]">
         {/* 左箱 */}
         <div className="w-20 md:w-24 h-64 bg-[#f0eae1] border-2 border-stone-300 rounded-2xl flex flex-col items-center justify-center p-2 text-stone-900">
+          <div className="text-2xl mb-1">🛡️</div>
+          <div className="text-xs font-bold text-emerald-800 text-center">安全防禦</div>
+          <div className="text-lg font-extrabold text-emerald-900 mt-1">{leftCount}</div>
         </div>
 
         {/* 卡片 */}
@@ -127,6 +153,9 @@ export default function TinderGame() {
 
         {/* 右箱 */}
         <div className="w-20 md:w-24 h-64 bg-[#f0eae1] border-2 border-stone-300 rounded-2xl flex flex-col items-center justify-center p-2 text-stone-900">
+          <div className="text-2xl mb-1">⚠️</div>
+          <div className="text-xs font-bold text-rose-800 text-center">落入風險</div>
+          <div className="text-lg font-extrabold text-rose-900 mt-1">{rightCount}</div>
         </div>
       </div>
     </div>
