@@ -102,7 +102,7 @@ export default function DataSection() {
 
           {/* 搶票測驗 */}
           <div className="reveal-item w-full bg-black/30 rounded-2xl p-8 border border-white/10 text-center my-12">
-            <h5 className="text-xl font-bold text-[#FCE788] mb-4">🎮 搶票大作戰 </h5>
+            <h5 className="text-xl font-bold text-[#FCE788] mb-4">🎫搶票大作戰 </h5>
             <TinderGame />
           </div>
 
