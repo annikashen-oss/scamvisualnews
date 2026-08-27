@@ -2,7 +2,7 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
 
 /**
- * 自定义 Hook：Tinder 风格卡片滑动
+ * 自定義 Hook：Tinder 風格卡片滑動
  * @param {Object} options
  * @param {number} options.threshold - 觸發滑動的閥值（像素），默認 100
  * @param {Function} options.onSwipeLeft - 左滑回調（通常表示“安全/拒絕”）
