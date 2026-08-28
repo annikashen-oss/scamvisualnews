@@ -47,10 +47,21 @@ export const useTinderSwipe = ({
 
     const onPointerDown = (e) => {
       if (isFlying) return;
+      
+      // 🛡️ 關鍵修復：如果點擊的目標是按鈕或按鈕內的元素，直接跳過不拖曳！
+      if (e.target.closest('button')) {
+        return;
+      }
+
       setIsDragging(true);
       startX.current = e.clientX;
-      element.setPointerCapture(e.pointerId);
-      element.style.transition = 'none';
+      if (element.setPointerCapture) {
+        try {
+          element.setPointerCapture(e.pointerId);
+        } catch (err) {
+          // 忽略捕捉失敗
+        }
+      }
     };
 
     const onPointerMove = (e) => {
@@ -63,13 +74,18 @@ export const useTinderSwipe = ({
     const onPointerUp = (e) => {
       if (!isDragging || isFlying) return;
       setIsDragging(false);
-      element.releasePointerCapture(e.pointerId);
-      element.style.transition = 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
+      if (element.releasePointerCapture) {
+        try {
+          element.releasePointerCapture(e.pointerId);
+        } catch (err) {
+          // 忽略釋放失敗
+        }
+      }
 
       const dist = currentX.current;
 
       if (dist > threshold) {
-        // 右滑 ➔ 進入右邊箱子
+        // 右滑
         setIsFlying(true);
         setTransform(`translateX(${flyDistance}px) translateY(50px) rotate(30deg) scale(0.5)`);
         setTimeout(() => {
@@ -78,7 +94,7 @@ export const useTinderSwipe = ({
           setIsFlying(false);
         }, 300);
       } else if (dist < -threshold) {
-        // 左滑 ➔ 進入左邊箱子
+        // 左滑
         setIsFlying(true);
         setTransform(`translateX(-${flyDistance}px) translateY(50px) rotate(-30deg) scale(0.5)`);
         setTimeout(() => {
