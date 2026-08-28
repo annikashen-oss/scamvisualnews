@@ -187,27 +187,62 @@ export default function DataSection() {
 
             </div>
 
-            {/* 網路購物詐騙 */}
-            <div className="grid md:grid-cols-2 gap-8 items-start mb-16">
+{/*  網路購物詐騙 （左側翻轉圖片，右側文字說明） */}
+            <div className="grid md:grid-cols-2 gap-8 items-center mb-16">
+              
+              {/* 左側：翻轉卡片容器 */}
               <div className={styles.chartContainer}>
-                <div className="flourish-embed flourish-hierarchy" data-src="visualisation/29174577"></div>
+                <div 
+                  className="relative w-full cursor-pointer perspective-1000 group"
+                  onClick={(e) => {
+                    const inner = e.currentTarget.querySelector('.flip-card-inner');
+                    if (inner) inner.classList.toggle('rotate-y-180');
+                  }}
+                >
+                  <div className="flip-card-inner relative w-full transition-transform duration-700 transform-style-3d">
+                    
+                    {/* 卡片正面：圖片與提示 */}
+                    <div className="flip-card-front w-full backface-hidden relative">
+                      <img 
+                        src={`${import.meta.env.BASE_URL}resultone.png`} 
+                        alt="網路購物詐騙" 
+                        className="max-w-full rounded-2xl shadow-lg border border-white/10 w-full"
+                      />
+                      <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-xs text-[#FCE788] border border-white/20">
+                        🔄 點擊圖片看專家解說
+                      </div>
+                    </div>
+
+                    {/* 卡片背面：林書立老師的引言 */}
+                    <div className="flip-card-back absolute inset-0 w-full h-full bg-black/85 backdrop-blur-md p-6 rounded-2xl border border-[#FCE788]/30 flex flex-col justify-center items-center text-center rotate-y-180 backface-hidden">
+                      <span className="text-[#FCE788] text-xs font-bold px-3 py-1 rounded-full mb-3 bg-[#FCE788]/10 border border-[#FCE788]/30">專家解說</span>
+                      <p className="text-[#FCE788] text-base md:text-lg italic leading-relaxed mb-4">
+                        「社群媒體上的詐騙通常會延伸到私人聊天室。「在大海中遇到了你，他把這個水撈到小池塘來，只有點對點、你跟他」，若在平台上，政府有權管控或追責，一旦詐騙者將你拉進私密的通訊軟體，政府的手便無法介入。」
+                      </p>
+                      <p className="text-white/60 text-xs">—— 銘傳大學犯罪防治學系助理教授 林書立</p>
+                      <div className="mt-6 text-xs text-white/40">
+                        🔄 再次點擊圖片翻回正面
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                {/* 圖說文字：置於圖片正下方 */}
                 <p className="text-center text-xs text-[#BFBABF] mt-4 leading-relaxed">
                   資料來源：〈年輕世代的受詐騙經驗調查〉問卷調查、製圖／沈韋彤
                 </p>
               </div>
-              <div className="space-y-4 font-sans">
-                <h5 className="text-lg font-bold text-[#FCE788]">
-                  網路購物詐騙最常見，主要發生在社群媒體交易
+
+              {/* 右側：文字說明 */}
+              <div className="space-y-4 font-sans flex flex-col justify-center">
+                <h5 className="text-xl font-bold text-[#FCE788] leading-snug">
+                  網路購物詐騙最常見，主要發生在 <span className="text-2xl text-white">社群媒體</span>交易。
                 </h5>
-                <p className="text-white/90 text-base leading-relaxed">
-                  林書立說明：「大部分的年輕族群過去遇到購物詐欺比較多，因為政府對於陌生帳號的轉帳有限制在 10 萬元以內。」這也解釋小額詐騙和網路購物的連結，圖表中詐騙類型也多屬於網路購物，但詐騙發生的地點多聚集在社群媒體平台，並高於網路與直接購物商家的平台，透露出社群媒體上有更多的交易風險。
+                <p className="text-white/95 text-base md:text-lg leading-relaxed">
+                  社群媒體上的詐騙通常會延伸到私人聊天室。
                 </p>
-                <div className="mt-4 p-4 bg-white/5 border border-white/10 rounded-xl">
-                  <p className="text-[#FCE788]/80 text-sm italic">
-                    社群媒體上的詐騙通常會延伸到私人聊天室。「在大海中遇到了你，他把這個水撈到小池塘來，只有點對點、你跟他」，若在平台上，政府有權管控或追責，一旦詐騙者將你拉進私密的通訊軟體，政府的手便無法介入。
-                  </p>
-                  <p className="text-white/50 text-xs mt-2">—— 銘傳大學犯罪防治學系助理教授 林書立</p>
-                </div>
+              </div>
                 <div className="mt-3 p-3 bg-[#FCE788]/5 border border-[#FCE788]/20 rounded-lg">
                   <p className="text-xs text-white/70 leading-relaxed">
                     <span className="text-[#FCE788] font-bold">📘 小百科：</span>
