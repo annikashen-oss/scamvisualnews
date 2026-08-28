@@ -15,7 +15,7 @@ export default function TinderGame() {
   const total = questions.length;
   const currentQ = questions[idx] || questions[0];
 
-  // 使用自定義 Hook
+  // 使用自定義 Hook（確保左滑對應左邊箱子，右滑對應右邊箱子）
   const { ref, style, flyOut } = useTinderSwipe({
     threshold: 100,
     onSwipeLeft: () => handleChoice('left'),
@@ -23,11 +23,14 @@ export default function TinderGame() {
   });
 
   const handleChoice = (direction) => {
-    if (direction === 'right' && !firstRiskDim) {
-      setFirstRiskDim(currentQ.dimension);
+    if (direction === 'right') {
+      if (!firstRiskDim) {
+        setFirstRiskDim(currentQ.dimension);
+      }
+      setRightCount((c) => c + 1);
+    } else {
+      setLeftCount((c) => c + 1);
     }
-    if (direction === 'right') setRightCount((c) => c + 1);
-    else setLeftCount((c) => c + 1);
 
     // 判斷是否為最後一題
     if (idx + 1 >= total) {
@@ -55,7 +58,6 @@ export default function TinderGame() {
 
   // =================各種渲染分支=================
 
-  // 1. 顯示最終診斷結果
   if (showResult) {
     const res = resultsMap[resultKey] || resultsMap.perfect;
     return (
@@ -78,7 +80,6 @@ export default function TinderGame() {
     );
   }
 
-  // 2. 顯示結算過場動畫
   if (showSummary) {
     return (
       <div className="w-full max-w-xl mx-auto bg-[#fcfbfa] border border-stone-300 rounded-3xl p-6 shadow-md text-center animate-bounce-in text-stone-900">
@@ -86,11 +87,11 @@ export default function TinderGame() {
         <h3 className="text-lg font-bold text-amber-900 mb-4">你的防禦決策結算中...</h3>
         <div className="space-y-3 text-sm">
           <div className="bg-rose-50 border border-rose-200 rounded-xl p-3 flex justify-between text-rose-900">
-            <span>👉 右滑 (落入風險箱)：</span>
+            <span>👉 右邊箱子計分：</span>
             <span className="font-extrabold">{rightCount} 張</span>
           </div>
           <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 flex justify-between text-emerald-900">
-            <span>👈 左滑 (安全防禦箱)：</span>
+            <span>👈 左邊箱子計分：</span>
             <span className="font-extrabold">{leftCount} 張</span>
           </div>
         </div>
@@ -99,11 +100,10 @@ export default function TinderGame() {
     );
   }
 
-  // 3. 預設顯示：主卡片遊戲畫面
   return (
     <div className="w-full max-w-xl mx-auto relative">
       <div className="flex items-center justify-between h-[480px]">
-        {/* 左箱 */}
+        {/* 左箱 (對應左滑 / 左邊計分) */}
         <div className="w-20 md:w-24 h-64 bg-[#f0eae1] border-2 border-stone-300 rounded-2xl flex flex-col items-center justify-center p-2 text-stone-900">
           <div className="text-xs font-bold text-emerald-800 text-center">選左邊</div>
           <div className="text-lg font-extrabold text-emerald-900 mt-1">{leftCount}</div>
@@ -117,10 +117,7 @@ export default function TinderGame() {
             className="w-full bg-[#fcfbfa] border border-stone-300 rounded-3xl p-6 shadow-md absolute flex flex-col justify-between h-[420px] text-stone-900 touch-none select-none"
           >
             <div>
-              <div className="flex justify-between items-center">
-                <span className="text-xs font-bold px-3 py-1 bg-amber-100 text-amber-800 rounded-full border border-amber-300">
-                  {currentQ.dimension}
-                </span>
+              <div className="flex justify-end items-center">
                 <span className="text-xs text-stone-500 font-medium">
                   第 {idx + 1} / {total} 題
                 </span>
@@ -150,7 +147,7 @@ export default function TinderGame() {
           </div>
         </div>
 
-        {/* 右箱 */}
+        {/* 右箱 (對應右滑 / 右邊計分) */}
         <div className="w-20 md:w-24 h-64 bg-[#f0eae1] border-2 border-stone-300 rounded-2xl flex flex-col items-center justify-center p-2 text-stone-900">
           <div className="text-xs font-bold text-rose-800 text-center">選右邊</div>
           <div className="text-lg font-extrabold text-rose-900 mt-1">{rightCount}</div>
