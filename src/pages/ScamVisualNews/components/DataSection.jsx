@@ -214,8 +214,12 @@ export default function DataSection() {
         <h3 className="reveal-item text-2xl md:text-3xl font-bold font-sans text-white mb-8 border-l-4 border-[#FCE788] pl-4 leading-tight">
           詐騙變動快 被騙金額在政策打詐後持續下降
         </h3>
-        <div className={styles.chartContainer}>
-        <FlourishEmbed src="visualisation/29201179" type="parliament" />
+        <div className="reveal-item chart-container w-full my-8 flex flex-col items-center">
+          <img 
+            src={`${import.meta.env.BASE_URL}scammoney.png`} 
+            alt="全國詐騙財產損失金額" 
+            className="max-w-full rounded-2xl shadow-lg border border-white/10"
+          />
         <p className="text-center text-xs text-[#BFBABF] mt-4 leading-relaxed">
     資料來源：內政部警政署 165 打詐儀錶板，民國 113 年 8 月至 115 年 5 月全國詐騙財產損失金額（單位：億元）、製圖／孟沛蓁
         </p>
