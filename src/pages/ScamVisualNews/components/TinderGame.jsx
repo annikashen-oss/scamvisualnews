@@ -23,6 +23,7 @@ export default function TinderGame() {
 
   const handleChoice = (direction) => {
     if (direction === 'right') {
+      // 記錄「第一次」選右邊（落入風險）的題目維度
       if (!firstRiskDim) {
         setFirstRiskDim(currentQ.dimension);
       }
@@ -31,12 +32,16 @@ export default function TinderGame() {
       setLeftCount((c) => c + 1);
     }
 
+    // 判斷是否為最後一題
     if (idx + 1 >= total) {
       setShowSummary(true);
       setTimeout(() => {
         setShowSummary(false);
-        const key = firstRiskDim || 'perfect';
-        setResultKey(key);
+        
+        // 🎯 核心修正：如果有選過右邊，就以「第一個選右邊的維度」作為結果 Key；如果全程沒選右邊（全選左邊），則導向 'perfect'
+        const finalKey = (rightCount > 0 || direction === 'right') ? (firstRiskDim || currentQ.dimension) : 'perfect';
+        
+        setResultKey(finalKey);
         setShowResult(true);
       }, 2200);
     } else {
@@ -55,6 +60,7 @@ export default function TinderGame() {
   };
 
   if (showResult) {
+    // 確保一定能抓到對應的結果，若找不到則退回 perfect
     const res = resultsMap[resultKey] || resultsMap.perfect;
     return (
       <div className="w-full max-w-xl mx-auto bg-[#fcfbfa] border border-stone-300 rounded-3xl p-6 shadow-md text-stone-900">
@@ -83,11 +89,11 @@ export default function TinderGame() {
         <h3 className="text-lg font-bold text-amber-900 mb-4">你的防禦決策結算中...</h3>
         <div className="space-y-3 text-sm">
           <div className="bg-rose-50 border border-rose-200 rounded-xl p-3 flex justify-between text-rose-900">
-            <span>👉 右邊箱子計分：</span>
+            <span>👉 右邊箱子 (風險)：</span>
             <span className="font-extrabold">{rightCount} 張</span>
           </div>
           <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 flex justify-between text-emerald-900">
-            <span>👈 左邊箱子計分：</span>
+            <span>👈 左邊箱子 (安全)：</span>
             <span className="font-extrabold">{leftCount} 張</span>
           </div>
         </div>
