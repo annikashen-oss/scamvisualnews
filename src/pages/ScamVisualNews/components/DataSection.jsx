@@ -124,34 +124,60 @@ export default function DataSection() {
             檢定結果顯示，在「他者認知」與「訊息辨識與查證」兩個向度皆達統計顯著水準。這顯示出，容易在社群媒體上受騙的年輕人，具備兩種特質：第一是較高的認知僵化與沉沒成本謬誤，一旦相信某個粉專或賣家，就很難改變想法，即便有疑慮也不願放棄。第二是較差的訊息查證習慣，特別容易受到時間壓力（如：社群上的「限時搶購」、「最後名額」）影響而放棄查證。
           </p>
 
-          {/* 圖表區塊（保留 Flourish 嵌入） */}
-          <div className="reveal-item w-full mt-12">
-            <h4 className="text-xl font-bold font-sans text-[#FCE788] mb-8 text-center">年輕世代的受詐騙經驗調查</h4>
+{/* 受詐比例（已改為圖左文右 + 圖片正下方圖說 + 翻面卡片設計） */}
+            <div className="grid md:grid-cols-2 gap-8 items-center mb-16">
+              
+              {/* 左側：翻轉卡片容器 */}
+              <div className={styles.chartContainer}>
+                <div 
+                  className="relative w-full cursor-pointer perspective-1000 group"
+                  onClick={(e) => {
+                    const inner = e.currentTarget.querySelector('.flip-card-inner');
+                    if (inner) inner.classList.toggle('rotate-y-180');
+                  }}
+                >
+                  <div className="flip-card-inner relative w-full transition-transform duration-700 transform-style-3d">
+                    
+                    {/* 卡片正面：圖片與提示 */}
+                    <div className="flip-card-front w-full backface-hidden">
+                      <img 
+                        src={`${import.meta.env.BASE_URL}resultone.png`} 
+                        alt="問卷損失金額" 
+                        className="max-w-full rounded-2xl shadow-lg border border-white/10 w-full"
+                      />
+                      <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-xs text-[#FCE788] border border-white/20">
+                        🔄 點擊圖片看專家解說
+                      </div>
+                    </div>
 
-            {/* 受詐比例 */}
-            <div className="grid md:grid-cols-2 gap-8 items-start mb-16">
-          <img 
-            src={`${import.meta.env.BASE_URL}resultone.png`} 
-            alt="問卷損失金額" 
-            className="max-w-full rounded-2xl shadow-lg border border-white/10"
-          />
-            <p className="text-center text-xs text-[#BFBABF] mt-4 leading-relaxed">
-            資料來源：〈年輕世代的受詐騙經驗調查〉問卷調查、製圖／沈韋彤
-           </p> </div>
-              <div className="space-y-4 font-sans">
-                <h5 className="text-lg font-bold text-[#FCE788]">
-                  在 152 位問卷填答者中，共有 32 位受詐騙並損失金錢，比例為 <span className="text-2xl">21.1%</span>。
+                    {/* 卡片背面：林書立老師的引言（翻面說明文字） */}
+                    <div className="flip-card-back absolute inset-0 w-full h-full bg-black/80 backdrop-blur-md p-6 rounded-2xl border border-[#FCE788]/30 flex flex-col justify-center items-center text-center rotate-y-180 backface-hidden">
+                      <span className="text-[#FCE788] text-xs font-bold px-3 py-1 rounded-full mb-3 bg-[#FCE788]/10 border border-[#FCE788]/30">專家解說</span>
+                      <p className="text-[#FCE788] text-base md:text-lg italic leading-relaxed mb-4">
+                        「年輕族群本來就是被騙比較多的族群，只是年輕的族群，他們被騙的金額比較不是那麼高。」
+                      </p>
+                      <p className="text-white/60 text-xs">—— 銘傳大學犯罪防治學系助理教授 林書立</p>
+                      <div className="mt-6 text-xs text-white/40">
+                        🔄 再次點擊圖片翻回正面
+                      </div>
+                    </div>
+                    
+                {/* 圖說文字：強制移到圖片的正下方 */}
+                <p className="text-center text-xs text-[#BFBABF] mt-4 leading-relaxed">
+                  資料來源：〈年輕世代的受詐騙經驗調查〉問卷調查、製圖／沈韋彤
+                </p>
+              </div>
+
+              {/* 右側：將原本下方的文字區塊移到圖片右方 */}
+              <div className="space-y-4 font-sans flex flex-col justify-center">
+                <h5 className="text-xl md:text-2xl font-bold text-[#FCE788] leading-snug">
+                  在 152 位問卷填答者中，共有 32 位受詐騙並損失金錢，比例為 <span className="text-3xl text-white">21.1%</span>。
                 </h5>
-                <p className="text-white/90 text-base leading-relaxed">
+                <p className="text-white/95 text-base md:text-lg leading-relaxed">
                   而損失金額多小於十萬元。在警政署的網站中並未明確提及或定義「小金額詐騙」的金額區間，但從損失金額分布符合警政署對於 18 歲到 29 歲被詐受害人常遇到的「小額詐騙」型態。
                 </p>
-                <div className="mt-4 p-4 bg-white/5 border border-white/10 rounded-xl">
-                  <p className="text-[#FCE788]/80 text-sm italic">
-                    「年輕族群本來就是被騙比較多的族群，只是年輕的族群，他們被騙的金額比較不是那麼高。」
-                  </p>
-                  <p className="text-white/50 text-xs mt-2">—— 銘傳大學犯罪防治學系助理教授 林書立</p>
-                </div>
               </div>
+
             </div>
 
             {/* 網路購物詐騙 */}
