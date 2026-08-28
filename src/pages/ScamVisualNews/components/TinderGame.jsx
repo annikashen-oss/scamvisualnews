@@ -1,5 +1,5 @@
 // src/pages/ScamVisualNews/components/TinderGame.jsx
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useTinderSwipe } from '../hooks/useTinderSwipe';
 import { questions, resultsMap } from '../data/questions';
 
@@ -7,10 +7,12 @@ export default function TinderGame() {
   const [idx, setIdx] = useState(0);
   const [leftCount, setLeftCount] = useState(0);
   const [rightCount, setRightCount] = useState(0);
-  const [firstRiskDim, setFirstRiskDim] = useState(null);
   const [showSummary, setShowSummary] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [resultKey, setResultKey] = useState('perfect');
+
+  // 🎯 使用 useRef 來即時記錄「第一次選右邊」的維度，不受 React 非同步 state 影響
+  const firstRiskDimRef = useRef(null);
 
   const total = questions.length;
   const currentQ = questions[idx] || questions[0];
@@ -22,17 +24,20 @@ export default function TinderGame() {
   });
 
   const handleChoice = (direction) => {
-    let currentFirstRisk = firstRiskDim;
+    let newRightCount = rightCount;
+    let newLeftCount = leftCount;
 
     if (direction === 'right') {
-      // 如果還沒有記錄過第一個風險維度，立刻記錄當前題目的維度
-      if (!currentFirstRisk) {
-        currentFirstRisk = currentQ.dimension;
-        setFirstRiskDim(currentFirstRisk);
+      newRightCount += 1;
+      setRightCount(newRightCount);
+
+      // 如果這是第一次選右邊，立刻用 useRef 鎖定當前題目的 dimension
+      if (!firstRiskDimRef.current) {
+        firstRiskDimRef.current = currentQ.dimension;
       }
-      setRightCount((c) => c + 1);
     } else {
-      setLeftCount((c) => c + 1);
+      newLeftCount += 1;
+      setLeftCount(newLeftCount);
     }
 
     // 判斷是否為最後一題
@@ -41,12 +46,10 @@ export default function TinderGame() {
       setTimeout(() => {
         setShowSummary(false);
         
-        // 🎯 絕對精準的結果判定：
-        // 如果有選過右邊（或者這最後一題選了右邊），優先採用「第一個選右邊的維度 (currentFirstRisk)」，否則用當前題目的維度。若全程沒選右邊則為 'perfect'
-        const hasChosenRight = rightCount > 0 || direction === 'right';
-        const finalKey = hasChosenRight ? (currentFirstRisk || currentQ.dimension) : 'perfect';
+        // 🎯 完美結算：如果右邊計數大於 0，代表有選過右邊，直接取出我們鎖定的第一筆風險維度；若全程選左邊則為 'perfect'
+        const finalKey = newRightCount > 0 ? firstRiskDimRef.current : 'perfect';
         
-        setResultKey(finalKey);
+        setResultKey(finalKey || 'perfect');
         setShowResult(true);
       }, 2200);
     } else {
@@ -58,7 +61,7 @@ export default function TinderGame() {
     setIdx(0);
     setLeftCount(0);
     setRightCount(0);
-    setFirstRiskDim(null);
+    firstRiskDimRef.current = null; // 重置鎖定的維度
     setShowSummary(false);
     setShowResult(false);
     setResultKey('perfect');
