@@ -15,7 +15,6 @@ export default function TinderGame() {
   const total = questions.length;
   const currentQ = questions[idx] || questions[0];
 
-  // 使用自定義 Hook（確保左滑對應左邊箱子，右滑對應右邊箱子）
   const { ref, style, flyOut } = useTinderSwipe({
     threshold: 100,
     onSwipeLeft: () => handleChoice('left'),
@@ -32,7 +31,6 @@ export default function TinderGame() {
       setLeftCount((c) => c + 1);
     }
 
-    // 判斷是否為最後一題
     if (idx + 1 >= total) {
       setShowSummary(true);
       setTimeout(() => {
@@ -55,8 +53,6 @@ export default function TinderGame() {
     setShowResult(false);
     setResultKey('perfect');
   };
-
-  // =================各種渲染分支=================
 
   if (showResult) {
     const res = resultsMap[resultKey] || resultsMap.perfect;
@@ -103,7 +99,7 @@ export default function TinderGame() {
   return (
     <div className="w-full max-w-xl mx-auto relative">
       <div className="flex items-center justify-between h-[480px]">
-        {/* 左箱 (對應左滑 / 左邊計分) */}
+        {/* 左箱 */}
         <div className="w-20 md:w-24 h-64 bg-[#f0eae1] border-2 border-stone-300 rounded-2xl flex flex-col items-center justify-center p-2 text-stone-900">
           <div className="text-xs font-bold text-emerald-800 text-center">選左邊</div>
           <div className="text-lg font-extrabold text-emerald-900 mt-1">{leftCount}</div>
@@ -114,7 +110,7 @@ export default function TinderGame() {
           <div
             ref={ref}
             style={style}
-            className="w-full bg-[#fcfbfa] border border-stone-300 rounded-3xl p-6 shadow-md absolute flex flex-col justify-between h-[420px] text-stone-900 touch-none select-none"
+            className="w-full bg-[#fcfbfa] border border-stone-300 rounded-3xl p-6 shadow-md absolute flex flex-col justify-between h-[420px] text-stone-900 select-none"
           >
             <div>
               <div className="flex justify-end items-center">
@@ -125,20 +121,26 @@ export default function TinderGame() {
               <h2 className="text-xl font-bold mt-4 text-stone-900">{currentQ.title}</h2>
               <p className="text-stone-700 text-sm mt-3 leading-relaxed">{currentQ.content}</p>
             </div>
-            <div className="space-y-2 bg-stone-100 p-3 rounded-2xl border border-stone-200">
+            
+            {/* 底部按鈕區塊加上 relative z-20，確保點擊事件優先於拖曳 */}
+            <div className="space-y-2 bg-stone-100 p-3 rounded-2xl border border-stone-200 relative z-20">
               <div className="text-xs text-center text-stone-500 font-semibold mb-1">
                 👇 左右滑動卡片或點擊按鈕
               </div>
               <div className="flex gap-2">
                 <button
+                  type="button"
+                  onPointerDown={(e) => e.stopPropagation()} // 防止點擊按鈕時觸發卡片拖曳
                   onClick={() => flyOut('left')}
-                  className="flex-1 py-2.5 px-3 bg-emerald-100 hover:bg-emerald-200 border border-emerald-300 rounded-xl text-emerald-900 text-xs font-bold transition"
+                  className="flex-1 py-2.5 px-3 bg-emerald-100 hover:bg-emerald-200 border border-emerald-300 rounded-xl text-emerald-900 text-xs font-bold transition cursor-pointer"
                 >
                   👈 左滑
                 </button>
                 <button
+                  type="button"
+                  onPointerDown={(e) => e.stopPropagation()} // 防止點擊按鈕時觸發卡片拖曳
                   onClick={() => flyOut('right')}
-                  className="flex-1 py-2.5 px-3 bg-rose-100 hover:bg-rose-200 border border-rose-300 rounded-xl text-rose-900 text-xs font-bold transition"
+                  className="flex-1 py-2.5 px-3 bg-rose-100 hover:bg-rose-200 border border-rose-300 rounded-xl text-rose-900 text-xs font-bold transition cursor-pointer"
                 >
                   👉 右滑
                 </button>
@@ -147,7 +149,7 @@ export default function TinderGame() {
           </div>
         </div>
 
-        {/* 右箱 (對應右滑 / 右邊計分) */}
+        {/* 右箱 */}
         <div className="w-20 md:w-24 h-64 bg-[#f0eae1] border-2 border-stone-300 rounded-2xl flex flex-col items-center justify-center p-2 text-stone-900">
           <div className="text-xs font-bold text-rose-800 text-center">選右邊</div>
           <div className="text-lg font-extrabold text-rose-900 mt-1">{rightCount}</div>
