@@ -1,33 +1,10 @@
 // src/pages/ScamVisualNews/components/DataSection.jsx
-import { useEffect } from 'react';
 import styles from '../styles/scam.module.css';
 import TinderGame from './TinderGame';
 import PhoneSimulator from './PhoneSimulator';
 import MetaTablet from './MetaTablet'; 
 
 export default function DataSection() {
-  // 🎯 強化版：動態載入腳本並強制觸發 Flourish 渲染
-  useEffect(() => {
-    // 檢查是否已經載入過，避免重複插入
-    let script = document.querySelector('script[src="https://public.flourish.studio/resources/embed.js"]');
-    
-    if (!script) {
-      script = document.createElement('script');
-      script.src = 'https://public.flourish.studio/resources/embed.js';
-      script.async = true;
-      document.body.appendChild(script);
-    }
-
-    // 當腳本載入後，強制調用 Flourish 的繪製方法
-    const timer = setTimeout(() => {
-      if (window.Flourish && typeof window.Flourish.embed === 'function') {
-        window.Flourish.embed();
-      }
-    }, 500); // 給予 0.5 秒確保 DOM 已經生成
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <div className="space-y-24">
       
@@ -267,12 +244,15 @@ export default function DataSection() {
         {/* 詐騙演進圖表 */}
         <div className="reveal-item chart-container w-full my-8">
           <div className="flourish-embed flourish-gantt" data-src="visualisation/29233681"></div>
+          
           <div className="w-full flex justify-center my-8">
-         <img 
-    src={`${import.meta.env.BASE_URL}timeline.png`} 
-    alt="台灣詐騙演進時間軸" 
-    className="max-w-full rounded-2xl shadow-lg"
-  /> </div>
+            <img 
+              src={`${import.meta.env.BASE_URL}timeline.png`} 
+              alt="台灣詐騙演進時間軸" 
+              className="max-w-full rounded-2xl shadow-lg"
+            />
+          </div>
+
           <p className="text-center text-xs md:text-sm text-[#BFBABF] mt-4 leading-relaxed mb-2">
             資料來源：王伯頎提供、製圖／孟沛蓁
           </p>
