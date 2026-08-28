@@ -135,10 +135,9 @@ export default function DataSection() {
             alt="問卷損失金額" 
             className="max-w-full rounded-2xl shadow-lg border border-white/10"
           />
-                <p className="text-center text-xs text-[#BFBABF] mt-4 leading-relaxed">
-                  資料來源：〈年輕世代的受詐騙經驗調查〉問卷調查、製圖／沈韋彤
-                </p>
-              </div>
+            <p className="text-center text-xs text-[#BFBABF] mt-4 leading-relaxed">
+            資料來源：〈年輕世代的受詐騙經驗調查〉問卷調查、製圖／沈韋彤
+           </p> </div>
               <div className="space-y-4 font-sans">
                 <h5 className="text-lg font-bold text-[#FCE788]">
                   在 152 位問卷填答者中，共有 32 位受詐騙並損失金錢，比例為 <span className="text-2xl">21.1%</span>。
@@ -206,8 +205,6 @@ export default function DataSection() {
               </div>
             </div>
           </div>
-
-        </div>
       </section>
 
       {/* ============================================================
