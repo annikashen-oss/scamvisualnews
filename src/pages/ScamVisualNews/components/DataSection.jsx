@@ -267,6 +267,12 @@ export default function DataSection() {
         {/* 詐騙演進圖表 */}
         <div className="reveal-item chart-container w-full my-8">
           <div className="flourish-embed flourish-gantt" data-src="visualisation/29233681"></div>
+          <div className="w-full flex justify-center my-8">
+         <img 
+    src={`${import.meta.env.BASE_URL}timeline.png`} 
+    alt="台灣詐騙演進時間軸" 
+    className="max-w-full rounded-2xl shadow-lg"
+  /> </div>
           <p className="text-center text-xs md:text-sm text-[#BFBABF] mt-4 leading-relaxed mb-2">
             資料來源：王伯頎提供、製圖／孟沛蓁
           </p>
