@@ -92,7 +92,7 @@ export default function MetaTablet() {
                           <span className="text-xs bg-slate-100 px-2 py-1 rounded-full text-slate-500">點擊翻面</span>
                         </div>
                         <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 text-left">
-                          <div className="font-bold text-sm text-slate-700 mb-1">♾️ Meta 合作範圍 (有限) — 只能下架詐騙廣告</div>
+                          <div className="font-bold text-sm text-slate-700 mb-1"> Meta 合作範圍 (有限) — 只能下架詐騙廣告</div>
                           <div className="flex flex-wrap gap-1.5 mt-1">
                             <span className="bg-white border border-slate-200 px-2.5 py-0.5 rounded text-xs text-slate-600">違規廣告審查</span>
                             <span className="bg-white border border-slate-200 px-2.5 py-0.5 rounded text-xs text-slate-600">使用者檢舉</span>
