@@ -9,18 +9,32 @@ import { useScrollReveal } from './hooks/useScrollReveal';
 import styles from './styles/scam.module.css';
 
 export default function ScamVisualNews() {
-  // 閘門狀態：true 表示 成功解鎖進入專題
+  // 閘門狀態：true 表示成功解鎖進入專題
   const [entered, setEntered] = useState(false);
 
   // 使用自訂 Hook 處理滾動動畫（.reveal-item 元素）
   const containerRef = useScrollReveal('.reveal-item');
 
-  // 當頁面進入後，重新觸發 Flourish 圖表渲染（若尚未載入）
+  // 🎯 全域載入 Flourish 腳本
+  useEffect(() => {
+    let script = document.querySelector('script[src="https://public.flourish.studio/resources/embed.js"]');
+    if (!script) {
+      script = document.createElement('script');
+      script.src = 'https://public.flourish.studio/resources/embed.js';
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, []);
+
+  // 當頁面進入後，重新觸發 Flourish 圖表渲染
   useEffect(() => {
     if (entered) {
-      if (window.Flourish) {
-        window.Flourish.embed?.();
-      }
+      const timer = setTimeout(() => {
+        if (window.Flourish && typeof window.Flourish.embed === 'function') {
+          window.Flourish.embed();
+        }
+      }, 500);
+      return () => clearTimeout(timer);
     }
   }, [entered]);
 
@@ -32,10 +46,10 @@ export default function ScamVisualNews() {
       {/* 常駐頁首 Navbar */}
       <NavbarHeader />
       
-      {/* 2. 放在內文最上方，當作專題的震撼開場 */}
+      {/* 放在內文最上方，當作專題的震撼開場 */}
       <MainTitleBanner />
 
-      {/* 主內容容器：套用滾動動畫的 ref，並加上 pt-20 避免被固定的 Navbar 遮擋 */}
+      {/* 主內容容器 */}
       <main ref={containerRef} className="relative z-30 bg-[#62495F] min-h-screen pt-12 pb-0">
         {/* 瀏覽提示（黃燈閃爍） */}
         <div className="reveal-item w-full bg-black/40 backdrop-blur-md border-y border-[#FCE788]/20 py-4 my-12 shadow-[0_0_20px_rgba(0,0,0,0.3)]">
@@ -50,9 +64,8 @@ export default function ScamVisualNews() {
           </div>
         </div>
 
-        {/* 資料主體（三個面向 + 遊戲 + 模擬器 + 結論） */}
+        {/* 資料主體 */}
         <DataSection />
-
       </main>
 
       {/* 頁尾 Footer */}
