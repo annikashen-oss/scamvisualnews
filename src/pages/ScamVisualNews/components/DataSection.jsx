@@ -204,7 +204,7 @@ export default function DataSection() {
                     {/* 卡片正面：圖片與提示 */}
                     <div className="flip-card-front w-full backface-hidden relative">
                       <img 
-                        src={`${import.meta.env.BASE_URL}resultone.png`} 
+                        src={`${import.meta.env.BASE_URL}resulttwo.png`} 
                         alt="網路購物詐騙" 
                         className="max-w-full rounded-2xl shadow-lg border border-white/10 w-full"
                       />
@@ -264,7 +264,7 @@ export default function DataSection() {
                   不願意報警成為年輕受詐統計最大詐騙黑數
                 </h5>
                 <p className="text-white/90 text-base leading-relaxed">
-                  在 28 位受詐騙者中（此處為問卷中實際損失金錢者），有 16 位選擇報警，其中僅有 4 位完全追回損失金額。受到詐騙後的報警率僅有半數。
+                  在 32 位受詐騙者中（此處為問卷中實際損失金錢者），有 14 位選擇報警，其中僅有 4 位完全追回損失金額。受到詐騙後的報警率僅有半數。
                 </p>
                 <p className="text-white/80 text-base leading-relaxed">
                   在攸關是否追回損失的問題上，從受騙到採取報警行動的時間，出現一天內和三天內的兩種分布的情形，且大部分都導向未追回損失的結果。
