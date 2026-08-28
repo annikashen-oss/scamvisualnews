@@ -1,5 +1,6 @@
 // src/pages/ScamVisualNews/components/DataSection.jsx
 import styles from '../styles/scam.module.css';
+import FlourishEmbed from './FlourishEmbed';
 import TinderGame from './TinderGame';
 import PhoneSimulator from './PhoneSimulator';
 import MetaTablet from './MetaTablet'; 
@@ -213,12 +214,11 @@ export default function DataSection() {
         <h3 className="reveal-item text-2xl md:text-3xl font-bold font-sans text-white mb-8 border-l-4 border-[#FCE788] pl-4 leading-tight">
           詐騙變動快 被騙金額在政策打詐後持續下降
         </h3>
-
-        <div className="reveal-item chart-container w-full my-8">
-          <div className="flourish-embed flourish-chart" data-src="visualisation/29175490"></div>
-          <p className="text-center text-xs md:text-sm text-[#BFBABF] mt-4 leading-relaxed">
-            資料來源：內政部警政署 165 打詐儀錶板，民國 113 年 8 月至 115 年 5 月全國詐騙財產損失金額（單位：億元）、製圖／孟沛蓁
-          </p>
+        <div className={styles.chartContainer}>
+        <FlourishEmbed src="visualisation/29255072" type="parliament" />
+        <p className="text-center text-xs text-[#BFBABF] mt-4 leading-relaxed">
+    資料來源：內政部警政署 165 打詐儀錶板，民國 113 年 8 月至 115 年 5 月全國詐騙財產損失金額（單位：億元）、製圖／孟沛蓁
+        </p>
         </div>
 
         <p className="reveal-item text-white/95 text-lg leading-loose mb-6">
