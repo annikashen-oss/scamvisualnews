@@ -1,15 +1,6 @@
 // src/pages/ScamVisualNews/hooks/useTinderSwipe.js
 import { useRef, useState, useEffect, useCallback } from 'react';
 
-/**
- * 自定義 Hook：Tinder 風格卡片滑動
- * @param {Object} options
- * @param {number} options.threshold - 觸發滑動的閥值（像素），默認 100
- * @param {Function} options.onSwipeLeft - 左滑（通常表示“安全/拒絕”）
- * @param {Function} options.onSwipeRight - 右滑（通常表示“風险/接受”）
- * @param {number} options.flyDistance - 飛出距离，默認 250
- * @returns {Object} { ref, style, resetPosition, isDragging }
- */
 export const useTinderSwipe = ({
   threshold = 100,
   flyDistance = 250,
@@ -23,16 +14,13 @@ export const useTinderSwipe = ({
 
   const startX = useRef(0);
   const currentX = useRef(0);
-  const pointerIdRef = useRef(null);
 
-  // 重置卡片到初始位置（无动画）
   const resetPosition = useCallback(() => {
     setTransform('translateX(0px) rotate(0deg)');
     setIsFlying(false);
     currentX.current = 0;
   }, []);
 
-  // 主动触发飞出（供外部按钮调用）
   const flyOut = useCallback(
     (direction) => {
       if (isFlying) return;
@@ -40,7 +28,6 @@ export const useTinderSwipe = ({
       const dx = direction === 'right' ? flyDistance : -flyDistance;
       const rot = direction === 'right' ? 30 : -30;
       setTransform(`translateX(${dx}px) translateY(50px) rotate(${rot}deg) scale(0.5)`);
-      setTransform((prev) => prev); // 确保状态更新
 
       setTimeout(() => {
         if (direction === 'right') {
@@ -61,10 +48,9 @@ export const useTinderSwipe = ({
     const onPointerDown = (e) => {
       if (isFlying) return;
       setIsDragging(true);
-      pointerIdRef.current = e.pointerId;
       startX.current = e.clientX;
       element.setPointerCapture(e.pointerId);
-      element.style.transition = 'none'; // 拖动时取消过渡动画
+      element.style.transition = 'none';
     };
 
     const onPointerMove = (e) => {
@@ -83,7 +69,7 @@ export const useTinderSwipe = ({
       const dist = currentX.current;
 
       if (dist > threshold) {
-        // 右滑（风险）
+        // 右滑 ➔ 進入右邊箱子
         setIsFlying(true);
         setTransform(`translateX(${flyDistance}px) translateY(50px) rotate(30deg) scale(0.5)`);
         setTimeout(() => {
@@ -92,7 +78,7 @@ export const useTinderSwipe = ({
           setIsFlying(false);
         }, 300);
       } else if (dist < -threshold) {
-        // 左滑（安全）
+        // 左滑 ➔ 進入左邊箱子
         setIsFlying(true);
         setTransform(`translateX(-${flyDistance}px) translateY(50px) rotate(-30deg) scale(0.5)`);
         setTimeout(() => {
@@ -101,7 +87,6 @@ export const useTinderSwipe = ({
           setIsFlying(false);
         }, 300);
       } else {
-        // 未達閥值，修正
         setTransform('translateX(0px) rotate(0deg)');
         currentX.current = 0;
       }
@@ -123,7 +108,7 @@ export const useTinderSwipe = ({
     style: { transform, transition: isDragging ? 'none' : 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)' },
     isDragging,
     isFlying,
-    flyOut,      // 提供按鈕用：flyOut('left') 或 flyOut('right')
+    flyOut,
     resetPosition,
   };
 };
