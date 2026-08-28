@@ -68,7 +68,7 @@ export default function TinderGame() {
         </div>
         <button
           onClick={restart}
-          className="w-full mt-6 py-3 bg-amber-800 hover:bg-amber-900 rounded-xl font-bold text-white text-sm transition shadow"
+          className="w-full mt-6 py-3 bg-amber-800 hover:bg-amber-900 rounded-xl font-bold text-white text-sm transition shadow cursor-pointer"
         >
           🔄 重新挑戰測驗
         </button>
@@ -122,24 +122,28 @@ export default function TinderGame() {
               <p className="text-stone-700 text-sm mt-3 leading-relaxed">{currentQ.content}</p>
             </div>
             
-            {/* 底部按鈕區塊加上 relative z-20，確保點擊事件優先於拖曳 */}
-            <div className="space-y-2 bg-stone-100 p-3 rounded-2xl border border-stone-200 relative z-20">
+            {/* 底部按鈕區塊 */}
+            <div className="space-y-2 bg-stone-100 p-3 rounded-2xl border border-stone-200">
               <div className="text-xs text-center text-stone-500 font-semibold mb-1">
                 👇 左右滑動卡片或點擊按鈕
               </div>
               <div className="flex gap-2">
                 <button
                   type="button"
-                  onPointerDown={(e) => e.stopPropagation()} // 防止點擊按鈕時觸發卡片拖曳
-                  onClick={() => flyOut('left')}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    flyOut('left');
+                  }}
                   className="flex-1 py-2.5 px-3 bg-emerald-100 hover:bg-emerald-200 border border-emerald-300 rounded-xl text-emerald-900 text-xs font-bold transition cursor-pointer"
                 >
                   👈 左滑
                 </button>
                 <button
                   type="button"
-                  onPointerDown={(e) => e.stopPropagation()} // 防止點擊按鈕時觸發卡片拖曳
-                  onClick={() => flyOut('right')}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    flyOut('right');
+                  }}
                   className="flex-1 py-2.5 px-3 bg-rose-100 hover:bg-rose-200 border border-rose-300 rounded-xl text-rose-900 text-xs font-bold transition cursor-pointer"
                 >
                   👉 右滑
