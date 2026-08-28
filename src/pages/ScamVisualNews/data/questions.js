@@ -1,7 +1,7 @@
 // src/pages/ScamVisualNews/data/questions.js
 export const questions = [
   {
-    deminsion:'【過度自信】'
+    dimension:'【過度自信】'
     title: '第 1 關：初見讓票',
     content: '搶票失敗的你在臉書社團看到一篇「原價讓票」貼文。對方頭像空白、帳號剛創立可以看到的資訊極少。但你憑直覺認為「這就是我苦等已久的幸運機會，我判斷人一向很準」，決定立刻私訊交易？',
   },
