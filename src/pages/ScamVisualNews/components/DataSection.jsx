@@ -252,12 +252,13 @@ export default function DataSection() {
             </div>
 
             {/* 不報警成為黑數 */}
-            <div className="grid md:grid-cols-2 gap-8 items-start mb-16">
-          <img 
-            src={`${import.meta.env.BASE_URL}resultthree.png`} 
-            alt="報警和追回" 
-            className="max-w-full rounded-2xl shadow-lg border border-white/10"
-          />
+            <div className="grid md:grid-cols-2 gap-8 items-start">
+              <div className={styles.chartContainer}>
+                <img 
+                  src={`${import.meta.env.BASE_URL}resultthree.png`} 
+                  alt="報警和追回" 
+                  className="max-w-full rounded-2xl shadow-lg border border-white/10 w-full"
+                />
                 <p className="text-center text-xs text-[#BFBABF] mt-4 leading-relaxed">
                   資料來源：〈年輕世代的受詐騙經驗調查〉問卷調查、製圖／沈韋彤
                 </p>
@@ -273,10 +274,10 @@ export default function DataSection() {
                   在攸關是否追回損失的問題上，從受騙到採取報警行動的時間，出現一天內和三天內的兩種分布的情形，且大部分都導向未追回損失的結果。
                 </p>
               </div>
-           </div>
-          </div>
-        </div> 
-      </section>
+            </div>
+          </div>  {/* 關閉 reveal-item w-full mt-12 的 div */}
+        </div>  {/* 關閉 relative w-full max-w-4xl... 的 div */}
+      </section>  {/* 關閉面向一的 section */}
 
       {/* ============================================================
           面向二：詐騙變動快 被騙金額在政策打詐後持續下降
