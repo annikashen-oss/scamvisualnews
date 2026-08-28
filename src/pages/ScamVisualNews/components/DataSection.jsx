@@ -6,10 +6,8 @@ import PhoneSimulator from './PhoneSimulator';
 import MetaTablet from './MetaTablet'; 
 
 export default function DataSection() {
-  // 控制點擊放大圖片的 State（儲存圖片的網址與標題）
-  const [modalImg, setModalImg] = useState(null);
   return (
-    <div className="space-y-24 relative">
+    <div className="space-y-24">
       
       {/* ============================================================
           面向一：18歲到29歲成詐騙最大被害族群
@@ -450,30 +448,7 @@ export default function DataSection() {
           道高一尺魔高一丈，詐騙手法日新月異，政府措施與保護即使有所跟進，但也時常力有未逮。因此詐騙防治除了依賴公權力外，更多應該回歸到個人，「必須要有一些自保的能力，就是所謂的防詐意識。」王伯頎認為要提升防詐意識，不只需要繼續在教育向下扎根，培養學童對詐騙的敏感度，大眾也應該要多主動接觸新聞、學習新知，並且保持不懂就問的態度，為自己注入「防詐疫苗」。
         </p>
       </section>
-  {/* ============================================================
-          燈箱彈跳視窗（全螢幕圖片放大檢視 Modal）
-          ============================================================ */}
-      {modalImg && (
-        <div 
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex justify-center items-center p-4 cursor-zoom-out"
-          onClick={() => setModalImg(null)}
-        >
-          <div className="relative max-w-5xl max-h-[90vh] flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
-            <button 
-              className="absolute -top-12 right-0 text-white bg-white/10 hover:bg-white/20 px-4 py-1.5 rounded-full text-sm font-bold transition border border-white/20"
-              onClick={() => setModalImg(null)}
-            >
-              ✕ 關閉視窗
-            </button>
-            <img 
-              src={modalImg} 
-              alt="放大檢視" 
-              className="max-w-full max-h-[82vh] object-contain rounded-2xl shadow-2xl border border-white/20 bg-black"
-            />
-            <p className="text-white/70 text-xs mt-4">提示：點擊任意空白處或右上角關閉按鈕即可退出放大檢視</p>
-          </div>
-        </div>
-      )}
+
     </div>
   );
 }
