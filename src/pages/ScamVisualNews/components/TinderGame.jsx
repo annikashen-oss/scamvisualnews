@@ -22,10 +22,13 @@ export default function TinderGame() {
   });
 
   const handleChoice = (direction) => {
+    let currentFirstRisk = firstRiskDim;
+
     if (direction === 'right') {
-      // 記錄「第一次」選右邊（落入風險）的題目維度
-      if (!firstRiskDim) {
-        setFirstRiskDim(currentQ.dimension);
+      // 如果還沒有記錄過第一個風險維度，立刻記錄當前題目的維度
+      if (!currentFirstRisk) {
+        currentFirstRisk = currentQ.dimension;
+        setFirstRiskDim(currentFirstRisk);
       }
       setRightCount((c) => c + 1);
     } else {
@@ -38,8 +41,10 @@ export default function TinderGame() {
       setTimeout(() => {
         setShowSummary(false);
         
-        // 🎯 核心修正：如果有選過右邊，就以「第一個選右邊的維度」作為結果 Key；如果全程沒選右邊（全選左邊），則導向 'perfect'
-        const finalKey = (rightCount > 0 || direction === 'right') ? (firstRiskDim || currentQ.dimension) : 'perfect';
+        // 🎯 絕對精準的結果判定：
+        // 如果有選過右邊（或者這最後一題選了右邊），優先採用「第一個選右邊的維度 (currentFirstRisk)」，否則用當前題目的維度。若全程沒選右邊則為 'perfect'
+        const hasChosenRight = rightCount > 0 || direction === 'right';
+        const finalKey = hasChosenRight ? (currentFirstRisk || currentQ.dimension) : 'perfect';
         
         setResultKey(finalKey);
         setShowResult(true);
@@ -60,7 +65,6 @@ export default function TinderGame() {
   };
 
   if (showResult) {
-    // 確保一定能抓到對應的結果，若找不到則退回 perfect
     const res = resultsMap[resultKey] || resultsMap.perfect;
     return (
       <div className="w-full max-w-xl mx-auto bg-[#fcfbfa] border border-stone-300 rounded-3xl p-6 shadow-md text-stone-900">
