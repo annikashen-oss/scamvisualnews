@@ -130,8 +130,11 @@ export default function DataSection() {
 
             {/* 受詐比例 */}
             <div className="grid md:grid-cols-2 gap-8 items-start mb-16">
-              <div className={styles.chartContainer}>
-                <div className="flourish-embed flourish-parliament" data-src="visualisation/29255072"></div>
+          <img 
+            src={`${import.meta.env.BASE_URL}resultone.png`} 
+            alt="問卷損失金額" 
+            className="max-w-full rounded-2xl shadow-lg border border-white/10"
+          />
                 <p className="text-center text-xs text-[#BFBABF] mt-4 leading-relaxed">
                   資料來源：〈年輕世代的受詐騙經驗調查〉問卷調查、製圖／沈韋彤
                 </p>
