@@ -213,7 +213,7 @@ export default function DataSection() {
         <h3 className="reveal-item text-2xl md:text-3xl font-bold font-sans text-white mb-8 border-l-4 border-[#FCE788] pl-4 leading-tight">
           詐騙變動快 被騙金額在政策打詐後持續下降
         </h3>
-
+        <div class="flourish-embed flourish-chart" data-src="visualisation/29201179"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/29201179/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
         <div className="reveal-item chart-container w-full my-8">
           <div className="flourish-embed flourish-chart" data-src="visualisation/29175490"></div>
           <p className="text-center text-xs md:text-sm text-[#BFBABF] mt-4 leading-relaxed">
