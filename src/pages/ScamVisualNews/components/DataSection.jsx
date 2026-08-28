@@ -6,16 +6,26 @@ import PhoneSimulator from './PhoneSimulator';
 import MetaTablet from './MetaTablet'; 
 
 export default function DataSection() {
-  // 🎯 動態載入 Flourish 官方腳本，確保所有圖表能正確渲染
+  // 🎯 強化版：動態載入腳本並強制觸發 Flourish 渲染
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://public.flourish.studio/resources/embed.js';
-    script.async = true;
-    document.body.appendChild(script);
+    // 檢查是否已經載入過，避免重複插入
+    let script = document.querySelector('script[src="https://public.flourish.studio/resources/embed.js"]');
+    
+    if (!script) {
+      script = document.createElement('script');
+      script.src = 'https://public.flourish.studio/resources/embed.js';
+      script.async = true;
+      document.body.appendChild(script);
+    }
 
-    return () => {
-      script.remove();
-    };
+    // 當腳本載入後，強制調用 Flourish 的繪製方法
+    const timer = setTimeout(() => {
+      if (window.Flourish && typeof window.Flourish.embed === 'function') {
+        window.Flourish.embed();
+      }
+    }, 500); // 給予 0.5 秒確保 DOM 已經生成
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (
