@@ -252,9 +252,12 @@ export default function DataSection() {
             </div>
 
             {/* 不報警成為黑數 */}
-            <div className="grid md:grid-cols-2 gap-8 items-start">
-              <div className={styles.chartContainer}>
-                <div className="flourish-embed flourish-hierarchy" data-src="visualisation/29201265"></div>
+            <div className="grid md:grid-cols-2 gap-8 items-start mb-16">
+          <img 
+            src={`${import.meta.env.BASE_URL}resultthree.png`} 
+            alt="報警和追回" 
+            className="max-w-full rounded-2xl shadow-lg border border-white/10"
+          />
                 <p className="text-center text-xs text-[#BFBABF] mt-4 leading-relaxed">
                   資料來源：〈年輕世代的受詐騙經驗調查〉問卷調查、製圖／沈韋彤
                 </p>
