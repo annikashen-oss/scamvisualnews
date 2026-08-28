@@ -411,15 +411,7 @@ export default function DataSection() {
           <PhoneSimulator />
           <div className="mt-8 max-w-2xl text-center text-white/90 text-base leading-relaxed">
             <p className="mb-4">
-              165 反詐騙諮詢專線在打詐中扮演重要角色，並非只是協助民眾報案。林書立指出，165 專線主要能從三個面向協助民眾：
-            </p>
-            <ul className="list-disc list-inside text-left space-y-2 text-white/80">
-              <li><span className="font-bold text-[#FCE788]">即時圈存：</span>當民眾察覺自己「可能」受騙時，即可撥打專線，工作人員會協助通報並啟動圈存、凍結款項程序，避免在前往警局報案的過程錯失黃金時間。</li>
-              <li><span className="font-bold text-[#FCE788]">掌握詐騙趨勢：</span>民眾來電的自述也能協助警方掌握詐騙趨勢，得以整理出最新詐騙模式，以此警示民眾。</li>
-              <li><span className="font-bold text-[#FCE788]">後續程序指引：</span>向受害者說明後續處理程序，包括報案、製作筆錄及相關法律流程等，協助民眾了解接下來應採取的行動。</li>
-            </ul>
-            <p className="mt-4 text-sm text-white/60 italic">
-              （註：有受訪者表示對受騙者而言，打 165 只是會被轉接到派出所報案，他們自己去報警就好了。然而對政府而言，165 會有後台紀錄，也會同時通報警方或銀行，嘗試阻止款項移出，但這部分民眾較無感，因為大多是在錢已經轉出後才撥打。）
+              165反詐騙諮詢專線在打詐中扮演重要角色，並非只是協助民眾報案。林書立指出，165專線主要能從三個面向協助民眾。首先，當民眾察覺自己「可能」受騙時，即可撥打專線，工作人員會協助通報並啟動圈存、凍結款項程序，避免在前往警局報案的過程錯失黃金時間。其次，民眾來電的自述也能協助警方掌握詐騙趨勢，得以整理出最新詐騙模式 ，以此警示民眾。最後，則是會向受害者說明後續處理程序，包括報案、製作筆錄及相關法律流程等，協助民眾了解接下來應採取的行動。
             </p>
           </div>
         </div>
@@ -432,7 +424,7 @@ export default function DataSection() {
         <div className="reveal-item flex items-center mb-10">
           <div className="w-2 h-8 bg-[#FCE788] mr-4 shadow-[0_0_8px_rgba(252,231,136,0.6)]"></div>
           <h3 className="text-2xl md:text-3xl font-bold font-sans text-white leading-tight">
-            詐騙撕裂社會 秉持網路零信任面對
+            詐騙加劇社會對立　須秉持網路零信任應對
           </h3>
         </div>
 
@@ -446,7 +438,6 @@ export default function DataSection() {
 
         <p className="reveal-item text-white/95 text-lg leading-loose mb-6">
           道高一尺魔高一丈，詐騙手法日新月異，政府措施與保護即使有所跟進，但也時常力有未逮。因此詐騙防治除了依賴公權力外，更多應該回歸到個人，「必須要有一些自保的能力，就是所謂的防詐意識。」王伯頎認為要提升防詐意識，不只需要繼續在教育向下扎根，培養學童對詐騙的敏感度，大眾也應該要多主動接觸新聞、學習新知，並且保持不懂就問的態度，為自己注入「防詐疫苗」。
-        </p>
       </section>
 
     </div>
