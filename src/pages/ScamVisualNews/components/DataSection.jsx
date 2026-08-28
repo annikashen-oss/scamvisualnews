@@ -1,10 +1,23 @@
 // src/pages/ScamVisualNews/components/DataSection.jsx
+import { useEffect } from 'react';
 import styles from '../styles/scam.module.css';
 import TinderGame from './TinderGame';
 import PhoneSimulator from './PhoneSimulator';
 import MetaTablet from './MetaTablet'; 
 
 export default function DataSection() {
+  // 🎯 動態載入 Flourish 官方腳本，確保所有圖表能正確渲染
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://public.flourish.studio/resources/embed.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      script.remove();
+    };
+  }, []);
+
   return (
     <div className="space-y-24">
       
@@ -123,7 +136,7 @@ export default function DataSection() {
             檢定結果顯示，在「他者認知」與「訊息辨識與查證」兩個向度皆達統計顯著水準。這顯示出，容易在社群媒體上受騙的年輕人，具備兩種特質：第一是較高的認知僵化與沉沒成本謬誤，一旦相信某個粉專或賣家，就很難改變想法，即便有疑慮也不願放棄。第二是較差的訊息查證習慣，特別容易受到時間壓力（如：社群上的「限時搶購」、「最後名額」）影響而放棄查證。
           </p>
 
-          {/* 图表區塊（保留 Flourish 嵌入） */}
+          {/* 圖表區塊（保留 Flourish 嵌入） */}
           <div className="reveal-item w-full mt-12">
             <h4 className="text-xl font-bold font-sans text-[#FCE788] mb-8 text-center">年輕世代的受詐騙經驗調查</h4>
 
@@ -151,7 +164,7 @@ export default function DataSection() {
               </div>
             </div>
 
-            {/*網路购物诈骗 */}
+            {/* 網路購物詐騙 */}
             <div className="grid md:grid-cols-2 gap-8 items-start mb-16">
               <div className={styles.chartContainer}>
                 <div className="flourish-embed flourish-hierarchy" data-src="visualisation/29174577"></div>
@@ -181,7 +194,7 @@ export default function DataSection() {
               </div>
             </div>
 
-            {/* 不報警成为黑数 */}
+            {/* 不報警成為黑數 */}
             <div className="grid md:grid-cols-2 gap-8 items-start">
               <div className={styles.chartContainer}>
                 <div className="flourish-embed flourish-hierarchy" data-src="visualisation/29201265"></div>
@@ -209,22 +222,17 @@ export default function DataSection() {
       {/* ============================================================
           面向二：詐騙變動快 被騙金額在政策打詐後持續下降
           ============================================================ */}
-        <section className="max-w-4xl mx-auto px-6 pb-24">
+      <section className="max-w-4xl mx-auto px-6 pb-24">
         <h3 className="reveal-item text-2xl md:text-3xl font-bold font-sans text-white mb-8 border-l-4 border-[#FCE788] pl-4 leading-tight">
           詐騙變動快 被騙金額在政策打詐後持續下降
         </h3>
 
         <div className="reveal-item chart-container w-full my-8">
-          {/* 確保引入了 flourish-embed 容器與官方 script */}
           <div className="flourish-embed flourish-chart" data-src="visualisation/29175490"></div>
-          <script src="https://public.flourish.studio/resources/embed.js" async></script>
-          
           <p className="text-center text-xs md:text-sm text-[#BFBABF] mt-4 leading-relaxed">
             資料來源：內政部警政署 165 打詐儀錶板，民國 113 年 8 月至 115 年 5 月全國詐騙財產損失金額（單位：億元）、製圖／孟沛蓁
           </p>
         </div>
-        
-        {/* 如果有第二張圖表也需要確認是否有加上對應的 embed 結構 */}
 
         <p className="reveal-item text-white/95 text-lg leading-loose mb-6">
           民國 113 年 7 月立法院通過「打詐新四法」（以下簡稱新法）。根據內政部警政署「165 打詐儀錶板」數據顯示，新法上路前每月財損超過百億元，但自 114 年 1 月新法生效後，財損金額出現大幅下降。
@@ -312,10 +320,12 @@ export default function DataSection() {
             </div>
           </div>
         </div>
+
         {/* Meta 平板動畫組件*/}
         <div className="reveal-item w-full my-16">
           <MetaTablet />
         </div>
+
         {/* 165 模擬器 + 說明文字 */}
         <div className="reveal-item flex flex-col items-center justify-center w-full my-16 select-none">
           <div className="text-center mb-6 z-10">
