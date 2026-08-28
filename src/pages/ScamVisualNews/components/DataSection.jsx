@@ -187,8 +187,8 @@ export default function DataSection() {
 
             </div>
 
-{/*  網路購物詐騙 （左側翻轉圖片，右側文字說明） */}
-            <div className="grid md:grid-cols-2 gap-8 items-center mb-16">
+            {/* 網路購物詐騙 */}
+            <div className="grid md:grid-cols-2 gap-8 items-start mb-16">
               
               {/* 左側：翻轉卡片容器 */}
               <div className={styles.chartContainer}>
@@ -242,7 +242,6 @@ export default function DataSection() {
                 <p className="text-white/95 text-base md:text-lg leading-relaxed">
                   社群媒體上的詐騙通常會延伸到私人聊天室。
                 </p>
-              </div>
                 <div className="mt-3 p-3 bg-[#FCE788]/5 border border-[#FCE788]/20 rounded-lg">
                   <p className="text-xs text-white/70 leading-relaxed">
                     <span className="text-[#FCE788] font-bold">📘 小百科：</span>
