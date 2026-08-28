@@ -237,7 +237,6 @@ export default function DataSection() {
                 </p>
               </div>
             </div>
-          </div>
       </section>
 
       {/* ============================================================
