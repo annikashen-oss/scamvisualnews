@@ -20,7 +20,7 @@ export default function DataSection() {
           </h3>
 
           <p className="reveal-item text-white/95 text-lg leading-loose mb-6">
-            大專院校學生，每年每十萬名就有 <span className="text-[#FCE788] font-bold">58 人</span> 受騙。民國 114 年內政部警政署統計，18 至 29 歲的被害人佔比最多，每三名受害者中，就有一名是該年齡區間的年輕人。儘管政府持續推動打擊詐騙的政策和法律，但過去四年，各級學校通報屬於詐騙的校安事件，例如學生在網路進行二手交易時上當受騙的數量，仍逐年上升。
+            民國113年，大專院校學生平均每年每十萬名就有 <span className="text-[#FCE788] font-bold">58 人</span> 受騙。民國 114 年內政部警政署統計，18 至 29 歲的被害人佔比最多，每三名受害者中，就有一名是該年齡區間的年輕人。儘管政府持續推動打擊詐騙的政策和法律，但過去四年，各級學校通報屬於詐騙的校安事件，例如學生在網路進行二手交易時上當受騙的數量，仍逐年上升。
           </p>
 
           <p className="reveal-item text-white/95 text-lg leading-loose mb-6">
