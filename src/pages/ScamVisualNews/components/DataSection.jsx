@@ -29,7 +29,7 @@ export default function DataSection() {
 
           {/* 小標 A */}
           <h4 className="reveal-item text-xl font-bold font-sans text-[#FCE788] mt-12 mb-6 border-b border-[#FCE788]/30 pb-3">
-            學生與成年人的受騙類型有何不同
+            網購門票陷阱多，年輕社群成假拍賣首要目標 
           </h4>
 
           <p className="reveal-item text-white/95 text-lg leading-loose mb-6">
