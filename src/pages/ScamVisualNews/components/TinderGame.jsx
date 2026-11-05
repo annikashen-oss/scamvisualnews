@@ -110,20 +110,22 @@ export default function TinderGame() {
   }
 
   return (
-    <div className="w-full max-w-xl mx-auto relative">
-      <div className="flex items-center justify-between h-[480px]">
-        {/* 左箱 */}
-        <div className="w-20 md:w-24 h-64 bg-[#f0eae1] border-2 border-stone-300 rounded-2xl flex flex-col items-center justify-center p-2 text-stone-900">
-          <div className="text-xs font-bold text-emerald-800 text-center">左邊的箱子</div>
-          <div className="text-lg font-extrabold text-emerald-900 mt-1">{leftCount}</div>
+    <div className="w-full max-w-xl mx-auto relative px-2">
+      {/* 調整容器高度，在手機與電腦上皆能完美適配 */}
+      <div className="flex items-center justify-between gap-2 md:gap-4 h-[440px] md:h-[480px]">
+        
+        {/* 左箱：設定響應式寬度，避免手機過寬擠壓卡片 */}
+        <div className="w-14 sm:w-18 md:w-24 h-52 md:h-64 bg-[#f0eae1] border-2 border-stone-300 rounded-2xl flex flex-col items-center justify-center p-1 md:p-2 text-stone-900 shrink-0">
+          <div className="text-[11px] md:text-xs font-bold text-emerald-800 text-center leading-tight">左邊的箱子</div>
+          <div className="text-base md:text-lg font-extrabold text-emerald-900 mt-1">{leftCount}</div>
         </div>
 
-        {/* 卡片 */}
-        <div className="w-[300px] md:w-[340px] relative flex flex-col items-center h-[460px]">
+        {/* 卡片容器：強制使用 max-w 確保手機不會超出螢幕 */}
+        <div className="flex-1 max-w-[270px] sm:max-w-[300px] md:max-w-[340px] relative flex flex-col items-center h-[420px] md:h-[460px]">
           <div
             ref={ref}
             style={style}
-            className="w-full bg-[#fcfbfa] border border-stone-300 rounded-3xl p-6 shadow-md absolute flex flex-col justify-between h-[420px] text-stone-900 select-none"
+            className="w-full bg-[#fcfbfa] border border-stone-300 rounded-3xl p-4 md:p-6 shadow-md absolute flex flex-col justify-between h-[400px] md:h-[420px] text-stone-900 select-none"
           >
             <div>
               <div className="flex justify-end items-center">
@@ -131,13 +133,13 @@ export default function TinderGame() {
                   第 {idx + 1} / {total} 題
                 </span>
               </div>
-              <h2 className="text-xl font-bold mt-4 text-stone-900">{currentQ.title}</h2>
-              <p className="text-stone-700 text-sm mt-3 leading-relaxed">{currentQ.content}</p>
+              <h2 className="text-base md:text-xl font-bold mt-2 md:mt-4 text-stone-900">{currentQ.title}</h2>
+              <p className="text-stone-700 text-xs md:text-sm mt-2 md:mt-3 leading-relaxed">{currentQ.content}</p>
             </div>
             
             {/* 底部按鈕區塊 */}
-            <div className="space-y-2 bg-stone-100 p-3 rounded-2xl border border-stone-200">
-              <div className="text-xs text-center text-stone-500 font-semibold mb-1">
+            <div className="space-y-2 bg-stone-100 p-2.5 md:p-3 rounded-2xl border border-stone-200">
+              <div className="text-[10px] md:text-xs text-center text-stone-500 font-semibold mb-1">
                 👇 左右滑動卡片或點擊按鈕
               </div>
               <div className="flex gap-2">
@@ -147,9 +149,9 @@ export default function TinderGame() {
                     e.stopPropagation();
                     flyOut('left');
                   }}
-                  className="flex-1 py-2.5 px-3 bg-emerald-100 hover:bg-emerald-200 border border-emerald-300 rounded-xl text-emerald-900 text-xs font-bold transition cursor-pointer"
+                  className="flex-1 py-2 px-2 md:px-3 bg-emerald-100 hover:bg-emerald-200 border border-emerald-300 rounded-xl text-emerald-900 text-[11px] md:text-xs font-bold transition cursor-pointer"
                 >
-                  👈 我覺得停在這裡
+                  👈 覺得停在這
                 </button>
                 <button
                   type="button"
@@ -157,20 +159,21 @@ export default function TinderGame() {
                     e.stopPropagation();
                     flyOut('right');
                   }}
-                  className="flex-1 py-2.5 px-3 bg-rose-100 hover:bg-rose-200 border border-rose-300 rounded-xl text-rose-900 text-xs font-bold transition cursor-pointer"
+                  className="flex-1 py-2 px-2 md:px-3 bg-rose-100 hover:bg-rose-200 border border-rose-300 rounded-xl text-rose-900 text-[11px] md:text-xs font-bold transition cursor-pointer"
                 >
-                  👉 我還是要繼續購買
+                  👉 繼續購買
                 </button>
               </div>
             </div>
           </div>
         </div>
 
-        {/* 右箱 */}
-        <div className="w-20 md:w-24 h-64 bg-[#f0eae1] border-2 border-stone-300 rounded-2xl flex flex-col items-center justify-center p-2 text-stone-900">
-          <div className="text-xs font-bold text-rose-800 text-center">右邊的箱子</div>
-          <div className="text-lg font-extrabold text-rose-900 mt-1">{rightCount}</div>
+        {/* 右箱：設定響應式寬度 */}
+        <div className="w-14 sm:w-18 md:w-24 h-52 md:h-64 bg-[#f0eae1] border-2 border-stone-300 rounded-2xl flex flex-col items-center justify-center p-1 md:p-2 text-stone-900 shrink-0">
+          <div className="text-[11px] md:text-xs font-bold text-rose-800 text-center leading-tight">右邊的箱子</div>
+          <div className="text-base md:text-lg font-extrabold text-rose-900 mt-1">{rightCount}</div>
         </div>
+
       </div>
     </div>
   );
