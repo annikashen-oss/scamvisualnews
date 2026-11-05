@@ -33,15 +33,17 @@ export default function DataSection() {
           </h4>
 
           <p className="reveal-item text-white/95 text-lg leading-loose mb-6">
-            Alice（化名）是一名曾在網路上受騙於演唱會門票的大學生，為了能在演唱會上以更好的視野欣賞偶像的舞台，Alice 回覆社群媒體中原價讓票的貼文，並且與對方相約面交門票，並先匯款一半的訂金，最後對方並未如期赴約，Alice 驚覺受騙後才至派出所報案。像這樣的案例，如今在年輕社群裡屢見不鮮。根據刑事局 114 年最新統計，全台詐騙版圖已悄悄洗牌，「<span className="text-[#FCE788] font-bold">假網路拍賣</span>」的案件數已正式超越過去居冠的「投資詐欺」。
+            「搶票時間一到，畫面轉個不停，最後只換來『售罄』兩個字……」大學生 Alice（化名）為了能在演唱會近距離欣賞偶像舞台，抱著一絲希望在社群媒體上搜尋轉讓資訊。當她看到一則「原價讓票」的貼文時，彷彿抓到了救命稻草。雙方相約面交，Alice 依指示先匯出了一半訂金，不料對方收到錢後便人間蒸發，消失在網路世界中，留下錯愕的 Alice 獨自前往派出所報案。
           </p>
 
           <p className="reveal-item text-white/95 text-lg leading-loose mb-6">
-            這波網購詐騙潮，首當其衝的正是 23 歲以下的年輕族群，相較於 24 歲以上成年人擁有一定積蓄，最常落入「投資詐欺」陷阱。儘管網購詐騙的單筆財損金額較低，但受害人數眾多，仍對整體社會造成不容忽視的危害。
+            像 Alice 這樣急於搶票或購買熱門商品而受騙的案例，如今在年輕社群裡屢見不鮮。根據刑事局 114 年最新統計，全台詐騙版圖已悄悄洗牌，「假網路拍賣」案件數已正式超越過去居冠的「投資詐欺」。
           </p>
-
           <p className="reveal-item text-white/95 text-lg leading-loose mb-6">
-            根據財團法人台灣網路資訊中心調查，114 年 18-29 歲為社群媒體使用率最高的族群，多達 <span className="text-[#FCE788] font-bold">98.02%</span>。從犯罪學理論出發，詐騙案件通常具備「具動機的犯罪者」、「合適的被害目標」以及「缺乏監護的環境」三個條件。銘傳大學犯罪防治學系副教授王伯頎強調，年輕族群身為「數位原住民」，相較於過往實體面對面或聲音的傳統詐騙，這群人對網路信任度更高、黏著時間更長，因此更容易落入數位詐騙陷阱，加上法規對個人隱私的保護，網路世界的私人聊天室缺乏監管，使其遇上詐騙的風險提高。
+            年輕人究竟為何特別容易在網路社交與購物中落入陷阱？從犯罪學的「生活暴露理論」可以得到解答。該理論指出，個體的日常行為模式與生活型態，決定了其暴露在犯罪風險中的頻率。
+          </p>
+          <p className="reveal-item text-white/95 text-lg leading-loose mb-6">
+            財團法人台灣網路資訊中心（TWNIC）的調查顯示，114 年18至29歲族群的社群媒體使用率高達 98.02%，高居全台各年齡層之冠。這項數據佐證了年輕人極高的「網路暴露度」。銘傳大學犯罪防治學系副教授王伯頎強調，年輕族群身為「數位原住民」，相較於中老年人接觸到的電話或面對面等傳統實體詐騙，年輕人對網路資訊的信任度更高、黏著時間更長，因而大幅增加了置身危險網路環境的機率。
           </p>
 
           {/* 小百科：生活暴露理論 + 日常活動理論 */}
@@ -68,17 +70,25 @@ export default function DataSection() {
           </h4>
 
           <p className="reveal-item text-white/95 text-lg leading-loose mb-6">
-            王伯頎受訪時提到，詐騙集團尤其看準年輕人受騙後，因金額小而不選擇報警的心態，將狩獵目標轉向年輕人。記者透過問卷資料，結合心理學的「自我控制理論」深入探討，究竟有哪些原因，讓年輕人成為詐騙集團眼中的潛在肥羊。
+            王伯頎受訪時提到，詐騙集團尤其看準年輕人受騙後，因金額小而不選擇報警的心態，將狩獵目標轉向年輕人。為了理解受害者為何落入陷阱，記者借鏡心理學分析詐騙時常用的「自我控制理論」，並透過問卷資料進行對照剖析。
           </p>
 
           <p className="reveal-item text-white/95 text-lg leading-loose mb-6">
-            根據記者收到的 152 份問卷中，實際曾受騙的人數為 32 人，其中有 16 人實際報警；未曾受騙人數為 120 人，其中有 101 人預期自己受騙後將會報警。以卡方獨立性檢定 (Chi-square test of independence) 來討論「尚未被騙的人預期自己會報警的比例」與「真正被騙的人實際去報警的比例」是否存在顯著差異，結果顯示 <span className="text-[#FCE788] font-bold">p-value = 0.00012</span>，遠小於 0.05 的顯著水準，代表「預期行為」與「實際行為」有顯著的統計差異。高達八成的年輕人認為自己被騙後會去報警，但真正在現實中受騙的群體，實際報警的比例卻只有五成。
+            為了驗證「年輕人受騙後普遍不報警」的情況是否真實存在，記者透過 152 份問卷資料進行卡方獨立性檢定（Chi-square test of independence）分析。這項分析指出，大眾普遍認為自己被騙一定會報警，但現實中真正會去報警的只有半數。
           </p>
 
           <p className="reveal-item text-white/95 text-lg leading-loose mb-6">
-            根據自我控制理論，年輕人受騙後因低自我控制特質，傾向逃避當下面對丟臉與報警程序的短期痛苦，當初因衝動冒險而受騙，事後寧可選擇隱瞞以獲得即時的心理解脫。而鏡中自我理論與印象整飾理論也提到，受騙後的恥辱以及可能被貼上「愚蠢」、「社會經驗不足」等負面標籤，使得年輕人不願報警。從理論與統計分析中「實際報警行為」和「預期報警行為」的比例差異可以推測，實際受騙後產生的心理狀態，比起金額大小，更加影響年輕人是否報警。
+            在未曾受騙的 120 人中，有高達 84.1%（101人）預期自己受騙後會選擇報警，然而在實際曾受騙的 32 人中，真正前往報警的卻只有 50%（16人），這個結果證實「預期行為」與「實際行動」存在斷層，年輕人「受騙後不報警」的現象確實普遍存在。
           </p>
 
+          <p className="reveal-item text-white/95 text-lg leading-loose mb-6">
+            何種心理機制阻礙了年輕人採取報警行動，可以透過心理學的「自我控制理論」來解釋。低自我控制特質的個體，通常傾向於追求即時滿足，並「逃避當下的痛苦與麻煩」。年輕人當初可能因一時衝動或冒險心理而落入詐騙陷阱。受騙之後，面對繁瑣的報警程序以及可能被警方或家人質問的窘境，他們為了逃避當下的短期痛苦與尷尬，寧可選擇隱瞞、吞下損失，以獲得即時的心理解脫。可以推測，實際受騙後產生的心理狀態，比起金額大小，更加影響年輕人是否報警。
+          </p>
+          
+          <p className="reveal-item text-white/95 text-lg leading-loose mb-6">
+            此外，「鏡中自我理論」與「印象整飾理論」也指出，受騙後的恥辱感，以及害怕被貼上「愚蠢」、「好騙」、「社會經驗不足」等負面標籤的焦慮，更讓年輕人選擇噤聲。呼應了學者所指出的青年心理，比起損失的金額大小，受騙後產生的複雜心理狀態與標籤恐懼，才是決定年輕人是否報警的關鍵主因。
+          </p>
+          
           {/* 小百科：自我控制理論、印象整飾理論、鏡中自我理論 */}
           <div className={`reveal-item ${styles.encyclopediaBlock} p-6 my-8 shadow-lg relative overflow-hidden font-sans`}>
             <span className="inline-block bg-[#FCE788] text-black text-sm font-bold px-3 py-1 rounded-full mb-3">🔍 小百科</span>
@@ -284,7 +294,7 @@ export default function DataSection() {
           ============================================================ */}
       <section className="max-w-4xl mx-auto px-6 pb-24">
         <h3 className="reveal-item text-2xl md:text-3xl font-bold font-sans text-white mb-8 border-l-4 border-[#FCE788] pl-4 leading-tight">
-          詐騙變動快 被騙金額在政策打詐後持續下降
+          打詐新法降低詐騙總額　受騙青年卻不減反增
         </h3>
         <div className="reveal-item chart-container w-full my-8 flex flex-col items-center">
           <img 
@@ -350,7 +360,7 @@ export default function DataSection() {
         <div className="reveal-item flex items-center mb-10">
           <div className="w-2 h-8 bg-[#FCE788] mr-4 shadow-[0_0_8px_rgba(252,231,136,0.6)]"></div>
           <h3 className="text-2xl md:text-3xl font-bold font-sans text-white leading-tight">
-            社群媒體詐騙難防 新型手法政府應對仍受限
+            社群平台詐騙興盛　現行法規難以防範新手法
           </h3>
         </div>
 
