@@ -11,7 +11,7 @@ export default function TinderGame() {
   const [showResult, setShowResult] = useState(false);
   const [resultKey, setResultKey] = useState('perfect');
 
-  // 🎯 使用 useRef 來即時記錄「第一次選右邊」，不受 React 非同步 state 影響
+  // 🎯 使用 useRef 即時記錄第一次選右邊，不受 React 非同步 state 影響
   const firstRiskDimRef = useRef(null);
 
   const total = questions.length;
