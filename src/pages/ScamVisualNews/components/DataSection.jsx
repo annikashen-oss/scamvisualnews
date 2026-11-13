@@ -448,8 +448,7 @@ export default function DataSection() {
 
         <p className="reveal-item text-white/95 text-lg leading-loose mb-6">
           道高一尺魔高一丈，詐騙手法日新月異，政府措施與保護即使有所跟進，但也時常力有未逮。因此詐騙防治除了依賴公權力外，更多應該回歸到個人，「必須要有一些自保的能力，就是所謂的防詐意識。」王伯頎認為要提升防詐意識，不只需要繼續在教育向下扎根，培養學童對詐騙的敏感度，大眾也應該要多主動接觸新聞、學習新知，並且保持不懂就問的態度，為自己注入「防詐疫苗」。
-      </section>
-
-    </div>
+        </div>
+        </section>
   );
 }
